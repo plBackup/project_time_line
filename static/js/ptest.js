@@ -2,23 +2,22 @@
  * Created by whobird on 17/4/6.
  */
 requirejs.config({
-    //By default load any module IDs from js/lib
     baseUrl: 'static/dist',
-    //except, if the module ID starts with "app",
-    //load it from the js/app directory. paths
-    //config is relative to the baseUrl, and
-    //never includes a ".js" extension since
-    //the paths config could be for a directory.
     paths: {
         jquery:"js/jquery",
+        "jquery.bootstrap": "js/bootstrap.min",
         zrender: 'zrender-master/src',
-
+    },
+    shim: {
+        "jquery.bootstrap": {
+            deps: ["jquery"]
+        }
     }
 });
 
 // Start the main app logic.
-requirejs(['jquery', 'zrender/zrender','zrender/graphic/shape/Line','zrender/graphic/shape/Circle','zrender/container/Group','zrender/core/util'],
-    function   ($, zrender,Line,Circle,Group,util) {
+requirejs(['jquery',"jquery.bootstrap",'zrender/zrender','zrender/graphic/shape/Line','zrender/graphic/shape/Circle','zrender/container/Group','zrender/core/util', ],
+    function   ($,bs,zrender,Line,Circle,Group,util) {
         console.log("=====");
         console.log($);
         console.log(zrender);
@@ -71,7 +70,8 @@ requirejs(['jquery', 'zrender/zrender','zrender/graphic/shape/Line','zrender/gra
                 line.shape.y1+=y_diff;
                 line.dirty();
                 //zr.refresh();
-                console.log("=================");
+
+
                 this._position=util.clone(this.position);
             }
         });
@@ -140,10 +140,10 @@ requirejs(['jquery', 'zrender/zrender','zrender/graphic/shape/Line','zrender/gra
 
         var group=new Group({
             id:"group_1",
-           /* onclick:function(e){
-                console.log(e);
-                alert("click");
-            }*/
+            onclick:function(e){
+                console.log("=================");
+                $("#info-modal").modal("show");
+            }
         });
         group.add(c);
         group.add(c2);
