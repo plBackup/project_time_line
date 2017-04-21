@@ -8,7 +8,7 @@ define(
          */
         return function() {
             if (config.debugMode === 0) {
-                return;
+                
             }
             else if (config.debugMode == 1) {
                 for (var k in arguments) {

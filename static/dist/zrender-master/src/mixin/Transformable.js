@@ -155,7 +155,7 @@ define(function (require) {
         var m = this.transform;
         var dpr = ctx.dpr || 1;
         ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    }
+    };
 
     var tmpTransform = [];
 

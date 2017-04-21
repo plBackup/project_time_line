@@ -264,7 +264,7 @@ define(function(require) {
         }
 
         setRgba(rgbaArr, 0, 0, 0, 1);
-        return;
+        
     }
 
     /**

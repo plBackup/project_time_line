@@ -36,7 +36,7 @@ define(function (require) {
                 roundRectHelper.buildPath(ctx, shape);
             }
             ctx.closePath();
-            return;
+            
         }
     });
 });

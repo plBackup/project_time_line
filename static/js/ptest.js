@@ -41,9 +41,9 @@ requirejs(['jquery',"jquery.bootstrap",'zrender/zrender','zrender/graphic/shape/
             hoverable: false,
             clickable: false,
             ondrag:function(e){
-                console.log("=================")
+                console.log("=================");
                 console.log(this.id);
-                console.log(this._position)
+                console.log(this._position);
 
 
                 console.log(this.position);

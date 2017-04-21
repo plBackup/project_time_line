@@ -32,4 +32,4 @@
         'zrender/vml/vml'
     ],
     out: 'zrender.js'
-})
+});

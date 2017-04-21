@@ -237,7 +237,7 @@ define(function (require) {
             this._viewport =
             this.storage = null;
         }
-    }
+    };
 
     // Not supported methods
     function createMethodNotSupport(method) {

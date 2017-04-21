@@ -185,7 +185,7 @@ define(function (require) {
     /***************************************************
      * IMAGE
      **************************************************/
-    var svgImage = {}
+    var svgImage = {};
 
     svgImage.brush = function (el) {
         var style = el.style;

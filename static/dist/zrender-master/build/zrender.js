@@ -1966,7 +1966,7 @@ define('zrender/mixin/Transformable',['require','../core/matrix','../core/vector
         var m = this.transform;
         var dpr = ctx.dpr || 1;
         ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    }
+    };
 
     var tmpTransform = [];
 
@@ -2994,7 +2994,7 @@ define('zrender/tool/color',['require','../core/LRU'],function(require) {
         }
 
         setRgba(rgbaArr, 0, 0, 0, 1);
-        return;
+
     }
 
     /**
@@ -3947,7 +3947,7 @@ define(
          */
         return function() {
             if (config.debugMode === 0) {
-                return;
+
             }
             else if (config.debugMode == 1) {
                 for (var k in arguments) {
@@ -12961,7 +12961,7 @@ define('zrender/graphic/shape/Rect',['require','../helper/roundRect','../Path'],
                 roundRectHelper.buildPath(ctx, shape);
             }
             ctx.closePath();
-            return;
+
         }
     });
 });
@@ -13215,7 +13215,7 @@ define('zrender/graphic/shape/Isogon',['require','../Path'],function (require) {
 
             ctx.closePath();
 
-            return;
+
         }
     });
 });
