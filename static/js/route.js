@@ -1,7 +1,7 @@
 /**
  * Created by whobird on 17/4/21.
  */
-define(["app"],
+define(["js/app"],
     function(app) {
         return app.run([
             '$rootScope',
@@ -15,14 +15,14 @@ define(["app"],
                 //用于改变state时跳至顶部
                 $uiViewScrollProvider.useAnchorScroll();
                 // 默认进入先重定向
-                $urlRouterProvider.otherwise('/home');
+                $urlRouterProvider.otherwise('/main');
                 $stateProvider
-                    .state('home', {
+                    .state('main', {
                         //abstract: true,
-                        url: '/home',
+                        url: '/main',
                         views: {
                             'main@': {
-                                templateUrl: '../view/home.html'
+                                templateUrl: 'main.html'
                             }
                         }
                     })

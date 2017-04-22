@@ -3,14 +3,14 @@
  */
 console.log("require==========");
 requirejs.config({
-    //baseUrl: 'static/dist',
+    baseUrl: 'static',
     paths: {
-        jquery:"../dist/js/jquery",
-        "jquery.bootstrap": "../dist/js/bootstrap.min",
-        "angular":"../dist/js/angular.min",
-        "angular-route":"../dist/js/angular-ui-router",
-        zrender: '../dist/zrender-master/src',
-
+        jquery:"dist/js/jquery",
+        "jquery.bootstrap": "dist/js/bootstrap.min",
+        "angular":"dist/js/angular.min",
+        "uiRouter":"dist/js/angular-ui-router",
+        zrender: 'dist/zrender-master/src',
+        domReady:"dist/js/domReady",
     },
     shim: {
         "jquery.bootstrap": {
@@ -19,25 +19,25 @@ requirejs.config({
         'angular':{
             exports:'angular'
         },
-        'angular-route':{
+        'uiRouter':{
             deps:['angular'],
-            exports: 'angular-route'
+            exports: 'uiRouter'
         }
     },
     urlArgs: "bust=" + (new Date()).getTime() //防止读取缓存，调试用
 });
+
 define(['require',
     'angular',
-    'angular-route',
+    'uiRouter',
     'jquery',
-    'app',
-    //'router'
+    'js/app',
+    'js/route'
 ],function(require,angular){
     'use strict';
-   /* require(['domReady!'],function(document){
-        angular.bootstrap(document,['webapp']);
-    });*/
-    console.log("......");
+    require(['domReady!'],function(document){
 
+       angular.bootstrap(document,["app"]);
+    });
 
 });
