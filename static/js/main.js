@@ -38,7 +38,7 @@ define(['require',
 ],function(require,angular){
     'use strict';
     require(['domReady!'],function(document){
-        console.log(angular.module("app.controllers"))
+
        angular.bootstrap(document,["app"]);
     });
 
