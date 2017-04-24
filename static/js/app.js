@@ -1,11 +1,8 @@
 /**
  * Created by whobird on 17/4/21.
  */
-define(["angular","uiRouter"],function(angular){
-    var app=angular.module("app",["ui.router"]).controller("mainCtrl",["$rootScope","$scope",function($rootScope,$scope){
-        var self=this;
-
-        self.name="test"
-    }]);
+define(["angular","./controllers/app.controllers","./controllers/mainController",],function(angular){
+    console.log("app===============");
+    var app=angular.module("app",["app.controllers"]);
     return app;
 });

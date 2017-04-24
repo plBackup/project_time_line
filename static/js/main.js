@@ -29,14 +29,16 @@ requirejs.config({
 
 define(['require',
     'angular',
-    'uiRouter',
+    //'uiRouter',
     'jquery',
     'js/app',
-    'js/route'
+    //'js/route',
+    //"js/controllers/app.controllers",
+
 ],function(require,angular){
     'use strict';
     require(['domReady!'],function(document){
-
+        console.log(angular.module("app.controllers"))
        angular.bootstrap(document,["app"]);
     });
 
