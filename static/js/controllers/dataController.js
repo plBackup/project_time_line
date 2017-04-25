@@ -3,12 +3,11 @@
  */
 define(["angular","./app.controllers"],function(angular,controllers){
 
-    controllers.controller("dataCtrl",["$rootScope","$scope","menuData",function($rootScope,$scope,menuData){
+    controllers.controller("dataCtrl",["$rootScope","$scope",function($rootScope,$scope){
 
         var self=this;
-        self.name="data"
+        self.name="data";
 
-        console.log(menuData);
     }]);
     //return controllers;
 });

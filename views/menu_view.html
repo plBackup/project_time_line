@@ -2,13 +2,11 @@
     <div class="collapse navbar-collapse" id="navbar">
         <ul class="nav navbar-nav">
             <li class="dropdown" name="searchProjectId">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> <span class="topName">上海吴泾</span> <span class="caret"></span></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> <span class="topName">{{mCtrl.menuFilter.project|default:"项目"}}</span> <span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu" id="project-filter">
-                    <li><a href="#" id="test">上海七宝</a></li>
-                    <li><a href="#">上海吴泾</a></li>
+                    <li ng-repeat="project in mCtrl.projects"><a data-id={{project.id}}>{{project.name}}</a></li>
                 </ul>
             </li>
-
             <li class="dropdown" name="searchBisFormat">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="topName">03地块MALL</span> <span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu" id="bis-filter">
