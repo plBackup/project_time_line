@@ -9,35 +9,15 @@
     <!--
         <meta name="viewport" content="width=1680, initial-scale=1, maximum-scale=1, user-scalable=no">-->
     <meta name="viewport" content="width=1680">
-    <title>悦商AMP</title>
+    <title>计划系统</title>
     <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
 
     <!-- 导入CSS -->
 
-    <link href="static/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../static/dist/css/bootstrap.min.css" rel="stylesheet">
     <!--<link href="static/dist/css/swiper.min.css" rel="stylesheet">-->
-    <link href="static/dist/css/animate.css" rel="stylesheet">
+    <link href="../static/dist/css/animate.css" rel="stylesheet">
 
-    <!--<script src="static/dist/js/jquery-3.2.0.min.js"></script>
-    <script src="static/dist/js/angular.js"></script>
-    <script src="static/dist/js/angular-animate.min.js"></script>
-    <script src="static/dist/js/bootstrap.min.js"></script>-->
-    <script src="static/dist/js/jquery-3.2.0.min.js"></script>
-    <script src="./static/dist/js/angular.js"></script>
-
-    <script>
-        angular.module("app",[]).controller("mainCtrl",["$rootScope","$scope",function($rootScope,$scope){
-            var self=this;
-
-            self.name="test"
-        }]);
-
-        $(document).ready(function(){
-            console.log(angular.module("app"))
-        });
-
-
-    </script>
 </head>
 <body  >
 
@@ -50,16 +30,37 @@
     <div id="status"><i class="fa fa-spinner fa-spin"></i></div>
 </div>
 <main class="page page-main ys-amp animated" id="page-main" role="main" ng-controller="mainCtrl as ctrl">
-        <h3>{{ctrl.name}}</h3>
+
+    <div class="container">
+       <div ui-view="menu" class="animated">
+
+       </div>
+        <div ui-view="content" class="animated">
+
+        </div>
+
+    </div>
+
+    <!-- rightpanel -->
+    <div class="rightpanel">
+        <ui-view name="right"></ui-view>
+    </div>
+    <!--modal parts-->
+
+    <!--end modal parts-->
+    <!--backdrop loading-->
+    <div class="backdrop"></div>
+    <!--end backdrop loading-->
+    <div class="ys-loading">
+        <div class="loading-wrapper">
+            <div class="loading-ani">
+                <img src="../static/images/main/loading.gif">
+            </div>
+            <span>处理中...</span>
+        </div>
+    </div>
 
 </main>
 
-<!--<script data-main="static/js/main.js" src="static/dist/js/require.js"></script>-->
-<script>
-    $(document).ready(function(){
-        angular.bootstrap("#page-main",["app"]);
-    })
-
-</script>
-
+<script data-main="../static/js/main.js" src="../static/dist/js/require.js"></script>
 </body>

@@ -3,7 +3,7 @@
  */
 console.log("require==========");
 requirejs.config({
-    baseUrl: 'static',
+    baseUrl: '../static',
     paths: {
         jquery:"dist/js/jquery",
         "jquery.bootstrap": "dist/js/bootstrap.min",

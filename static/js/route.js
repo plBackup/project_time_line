@@ -24,19 +24,25 @@ define(["js/app"],
                         //abstract: true,
                         url: '/main',
                         views:{
+                            'menu':{
+                                templateUrl: '../views/menu_view.html',
+                                controller:"menuCtrl",
+                                controllerAs:"mCtrl"
+                            },
                             'content': {
-                                templateUrl: './views/data_view.html',
+                                templateUrl: '../views/data_view.html',
                                 controller:"dataCtrl",
                                 controllerAs:"dCtrl"
                             },
                             "right":{
-                                templateUrl: './views/blank_right.html',
+                                templateUrl: '../views/blank_right.html',
                             }
                         },
                         resolve: {
-                           /* manageFeeData: function(manageFeeService) {
-                                return manageFeeService.getSetData();
+                            menuData: function(dataMenuService) {
+                                return dataMenuService.getData();
                             },
+                           /*
                             data: ['$q','$timeout', function($q,$timeout){
                                 var defer = $q.defer();
                                 $timeout(function(){
