@@ -11,9 +11,17 @@ define(["angular","./app.controllers"],function(angular,controllers){
         console.log(menuData);
         self.data=angular.copy(menuData.data);
         self.menuFilter={
-            project:undefined
+            project:undefined,
+            level:undefined,
+            status:undefined,
+            plan:undefined,
+            node:undefined
         };
         self.projects=angular.copy(self.data.projects);
+        self.levels=angular.copy(self.data.levels);
+        self.status=angular.copy(self.data.status);
+        self.plans=angular.copy(self.data.plans);
+
 
         /*func*/
         self.setModel=function(type,menu){
@@ -23,6 +31,15 @@ define(["angular","./app.controllers"],function(angular,controllers){
         self.isActive=function(menu,model){
             return menu==model;
         };
+
+        self.triggerFilter=function($event){
+            $event.preventDefault();
+            $rootScope.$broadcast("menu_filter",self.menuFilter);
+        };
+
+        $scope.$on("menu_filter",function(event,data){
+          console.log(data);
+        })
 
     }]);
     //return controllers;

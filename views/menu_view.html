@@ -1,52 +1,48 @@
 <nav class="navbar navbar-default">
     <div class="collapse navbar-collapse" id="navbar">
         <ul class="nav navbar-nav">
-            <li class="dropdown" name="searchProjectId">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> <span class="topName">{{mCtrl.menuFilter.project.name| default:"请选择"}}</span> <span class="caret"></span></a>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <span>{{mCtrl.menuFilter.project.name| default:"项目"}}</span> <span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu" id="project-filter">
                     <li ng-repeat="project in mCtrl.projects" ng-class="{'active':mCtrl.isActive(project.id,mCtrl.menuFilter.project.id)}">
                         <a data-id={{project.id}} ng-click='mCtrl.setModel("project",project)'>{{project.name}}</a>
                     </li>
                 </ul>
             </li>
-            <li class="dropdown" name="searchBisFormat">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="topName">03地块MALL</span> <span class="caret"></span></a>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span >{{mCtrl.menuFilter.plan.name| default:"计划"}}</span> <span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu" id="bis-filter">
-                    <li><a href="#">03地块MALL</a></li>
-                    <li><a href="#">03地块酒店公寓</a></li>
-                    <li><a href="#">05地块酒店公寓毛胚</a></li>
+                    <li ng-repeat="plan in mCtrl.plans" ng-class="{'active':mCtrl.isActive(plan.id,mCtrl.menuFilter.plan.id)}">
+                        <a data-id={{plan.id}} ng-click='mCtrl.setModel("plan",plan)'>{{plan.name}}</a>
+                    </li>
                 </ul>
             </li>
 
-            <li class="dropdown" name="searchLevel">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="topName">三级计划</span> <span class="caret"></span></a>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span >{{mCtrl.levels[mCtrl.menuFilter.level] | default:"级别"}}</span> <span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu" id="level-filter">
-                    <li><a href="#" id='level-filter-0'>全部&nbsp;&nbsp;</a></li>
-                    <li><a href="#" id="level-filter-1">一级计划</a></li>
-                    <li><a href="#" id="level-filter-2">二级计划</a></li>
-                    <li><a href="#" id="level-filter-3">三级计划</a></li>
+                    <li ng-repeat="(lid,level) in mCtrl.levels" ng-class="{'active':mCtrl.isActive(lid,mCtrl.menuFilter.level)}">
+                        <a data-id={{lid}} ng-click='mCtrl.setModel("level",lid)'>{{level}}</a>
+                    </li>
                 </ul>
             </li>
 
-            <li class="dropdown" name="searchStatus">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="topName">状态</span> <span class="caret"></span></a>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span >{{mCtrl.status[mCtrl.menuFilter.status] | default:"状态"}}</span> <span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu" id="status-filter">
-                    <li><a href="#">全部</a></li>
-                    <li><a href="#">进行中</a></li>
-                    <li><a href="#">网批中</a></li>
-                    <li><a href="#">确认中</a></li>
-                    <li><a href="#">已完成</a></li>
-                    <li><a href="#">未启动</a></li>
+                    <li ng-repeat="(sid,status) in mCtrl.status" ng-class="{'active':mCtrl.isActive(sid,mCtrl.menuFilter.status)}">
+                        <a data-id={{sid}} ng-click='mCtrl.setModel("status",sid)'>{{status}}</a>
+                    </li>
                 </ul>
             </li>
         </ul>
 
         <div class="navbar-form navbar-right" id="project-search">
             <div class="form-group">
-                <input type="text" name="searchSearch" value="" class="form-control" placeholder="请输入要查询的节点">
+                <input type="text" name="searchSearch" value="" class="form-control" placeholder="请输入要查询的节点" ng-model="mCtrl.menuFilter.node">
             </div>
 
-            <button type="submit" class="btn btn-default">查询</button>
+            <button type="submit" class="btn btn-default" ng-click="mCtrl.triggerFilter($event)">查询</button>
         </div>
     </div><!-- /.navbar-collapse -->
 </nav>
