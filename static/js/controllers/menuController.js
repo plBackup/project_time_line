@@ -37,9 +37,7 @@ define(["angular","./app.controllers"],function(angular,controllers){
             $rootScope.$broadcast("menu_filter",self.menuFilter);
         };
 
-        $scope.$on("menu_filter",function(event,data){
-          console.log(data);
-        })
+
 
     }]);
     //return controllers;
