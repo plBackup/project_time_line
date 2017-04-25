@@ -9,7 +9,7 @@
     <!--
         <meta name="viewport" content="width=1680, initial-scale=1, maximum-scale=1, user-scalable=no">-->
     <meta name="viewport" content="width=1680">
-    <title>悦商AMP</title>
+    <title>计划系统</title>
     <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
 
     <!-- 导入CSS -->
@@ -30,7 +30,85 @@
     <div id="status"><i class="fa fa-spinner fa-spin"></i></div>
 </div>
 <main class="page page-main ys-amp animated" id="page-main" role="main" ng-controller="mainCtrl as ctrl">
-        <h3 class="ng-cloak">{{ctrl.name}}</h3>
+
+    <div class="container">
+        <nav class="navbar navbar-default">
+            <div class="collapse navbar-collapse" id="navbar">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown" name="searchProjectId">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> <span class="topName">上海吴泾</span> <span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu" id="project-filter">
+                            <li><a href="#" id="test">上海七宝</a></li>
+                            <li><a href="#">上海吴泾</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown" name="searchBisFormat">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="topName">03地块MALL</span> <span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu" id="bis-filter">
+                            <li><a href="#">03地块MALL</a></li>
+                            <li><a href="#">03地块酒店公寓</a></li>
+                            <li><a href="#">05地块酒店公寓毛胚</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown" name="searchLevel">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="topName">三级计划</span> <span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu" id="level-filter">
+                            <li><a href="#" id='level-filter-0'>全部&nbsp;&nbsp;</a></li>
+                            <li><a href="#" id="level-filter-1">一级计划</a></li>
+                            <li><a href="#" id="level-filter-2">二级计划</a></li>
+                            <li><a href="#" id="level-filter-3">三级计划</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown" name="searchStatus">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="topName">状态</span> <span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu" id="status-filter">
+                            <li><a href="#">全部</a></li>
+                            <li><a href="#">进行中</a></li>
+                            <li><a href="#">网批中</a></li>
+                            <li><a href="#">确认中</a></li>
+                            <li><a href="#">已完成</a></li>
+                            <li><a href="#">未启动</a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <div class="navbar-form navbar-right" id="project-search">
+                    <div class="form-group">
+                        <input type="text" name="searchSearch" value="" class="form-control" placeholder="请输入要查询的节点">
+                    </div>
+
+                    <button type="submit" class="btn btn-default">查询</button>
+                </div>
+            </div><!-- /.navbar-collapse -->
+        </nav>
+        <div ui-view="content" class="animated">
+
+        </div>
+
+    </div>
+
+    <!-- rightpanel -->
+    <div class="rightpanel">
+        <ui-view name="right"></ui-view>
+    </div>
+    <!--modal parts-->
+
+    <!--end modal parts-->
+    <!--backdrop loading-->
+    <div class="backdrop"></div>
+    <!--end backdrop loading-->
+    <div class="ys-loading">
+        <div class="loading-wrapper">
+            <div class="loading-ani">
+                <img src="../static/images/main/loading.gif">
+            </div>
+            <span>处理中...</span>
+        </div>
+    </div>
+
 </main>
 
 <script data-main="static/js/main.js" src="static/dist/js/require.js"></script>

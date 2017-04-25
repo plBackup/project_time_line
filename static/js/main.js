@@ -8,6 +8,7 @@ requirejs.config({
         jquery:"dist/js/jquery",
         "jquery.bootstrap": "dist/js/bootstrap.min",
         "angular":"dist/js/angular.min",
+
         "uiRouter":"dist/js/angular-ui-router",
         zrender: 'dist/zrender-master/src',
         domReady:"dist/js/domReady",
@@ -19,6 +20,10 @@ requirejs.config({
         'angular':{
             exports:'angular'
         },
+        "angular-animate":{
+            deps:['angular'],
+            exports:"angular-animate",
+        },
         'uiRouter':{
             deps:['angular'],
             exports: 'uiRouter'
@@ -28,14 +33,16 @@ requirejs.config({
 });
 
 define(['require',
-    'angular',
-    //'uiRouter',
     'jquery',
+    'angular',
+    'uiRouter',
+    //'angular-animate',
     'js/app',
-    //'js/route',
+
+    'js/route',
     //"js/controllers/app.controllers",
 
-],function(require,angular){
+],function(require,$,angular){
     'use strict';
     require(['domReady!'],function(document){
 
