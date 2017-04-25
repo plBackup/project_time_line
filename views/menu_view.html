@@ -2,9 +2,11 @@
     <div class="collapse navbar-collapse" id="navbar">
         <ul class="nav navbar-nav">
             <li class="dropdown" name="searchProjectId">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> <span class="topName">{{mCtrl.menuFilter.project|default:"项目"}}</span> <span class="caret"></span></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> <span class="topName">{{mCtrl.menuFilter.project.name| default:"请选择"}}</span> <span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu" id="project-filter">
-                    <li ng-repeat="project in mCtrl.projects"><a data-id={{project.id}}>{{project.name}}</a></li>
+                    <li ng-repeat="project in mCtrl.projects" ng-class="{'active':mCtrl.isActive(project.id,mCtrl.menuFilter.project.id)}">
+                        <a data-id={{project.id}} ng-click='mCtrl.setModel("project",project)'>{{project.name}}</a>
+                    </li>
                 </ul>
             </li>
             <li class="dropdown" name="searchBisFormat">

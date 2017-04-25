@@ -34,8 +34,10 @@ requirejs.config({
 
 define(['require',
     'jquery',
+
     'angular',
     'uiRouter',
+    "jquery.bootstrap",
     //'angular-animate',
     'js/app',
 

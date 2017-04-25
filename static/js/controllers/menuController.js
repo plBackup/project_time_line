@@ -10,8 +10,19 @@ define(["angular","./app.controllers"],function(angular,controllers){
         console.log("menudata")
         console.log(menuData);
         self.data=angular.copy(menuData.data);
-        self.menuFilter={};
+        self.menuFilter={
+            project:undefined
+        };
         self.projects=angular.copy(self.data.projects);
+
+        /*func*/
+        self.setModel=function(type,menu){
+            self.menuFilter[type]=menu;
+        };
+
+        self.isActive=function(menu,model){
+            return menu==model;
+        };
 
     }]);
     //return controllers;
