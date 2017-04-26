@@ -10,7 +10,7 @@ requirejs.config({
         "angular":"dist/js/angular.min",
 
         "uiRouter":"dist/js/angular-ui-router",
-        zrender: 'dist/zrender-master/src',
+        zrender: 'dist/js/zrender',
         domReady:"dist/js/domReady",
     },
     shim: {

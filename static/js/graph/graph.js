@@ -5,10 +5,12 @@ define([],function(){
    var graph=(function(gh){
        var graph=gh;
 
+       function gd(year,month,day){
+           return (new Date(year,month,day)).getTime();
+       };
 
-        graph._gd=function(year,month,day){
-            return (new Date(year,month,day)).getTime();
-        };
+        graph.gd=gd;
+
         graph.dateAdd=function(interval,number,dateStr){
                 /*
                  *   功能:实现VBScript的DateAdd功能.
@@ -65,7 +67,36 @@ define([],function(){
 
         };
 
-        graph.startOffset=0;
+       //getDate('2015-3-12',5);
+        graph.getDate=function(dateString,dateOffset){
+           //2017-04-28
+            var date=dateString.split("-");
+            var curDate=gd(parseInt(date[0]),parseInt(date[1])-1,parseInt(date[2]));
+            var dateOffset=parseInt(dateOffset);//日期有0天
+            var newDate_millSecond=curDate+dateOffset*24*60*60*1000;
+
+            var newDate=new Date();
+            newDate.setTime(newDate_millSecond);
+
+            var newDateString=newDate.getFullYear()+'-'+(newDate.getMonth()+1)+'-'+newDate.getDate();
+
+            return newDateString;
+       };
+
+       graph.getDateOffset=function(start_date,cur_date){
+           if(typeof cur_date!=="undefined"){
+               var sDate=start_date.split('-');
+               var startDate=gd(parseInt(sDate[0]),parseInt(sDate[1])-1,parseInt(sDate[2]));
+               var date=cur_date.split("-");
+               var curDate=gd(parseInt(date[0]),parseInt(date[1])-1,parseInt(date[2]));
+               var offset=parseInt((curDate-startDate)/(24*60*60*1000));
+               return offset;
+           }else{
+               return 0;
+           }
+       };
+
+       graph.startOffset=0;
        graph.defaultPix=4;
        graph.dayOffset=100;
 
