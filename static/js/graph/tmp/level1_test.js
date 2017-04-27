@@ -1,9 +1,6 @@
 var cur_day=0;//当前时间节点 蓝线绘制代表当前状态
 var start_date1="2015-01-01";
-cur_day=
-function gd(year, month, day) {
-    return new Date(year, month, day).getTime();
-}
+
 var init_data_level1={};
 var data = {
 	lines : [
@@ -37,7 +34,7 @@ var data = {
         }
 
 ],
-nodes: NodesDate
+nodes: NodesData
 };
 
 //var relations=[["SJ01","YX01"],["YX01","SJ07"],["SJ07","SJ02"],["SJ02","SJ06"],["SJ06","SJ08"]];

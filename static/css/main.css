@@ -1,0 +1,67 @@
+.canvas-wrapper {
+    position: relative;
+    width: 100%;
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+#date-index {
+    position: absolute;
+    height: 30px;
+    background-color: #9a9a9a;
+    border: 0;
+    border-radius: 15px;
+    z-index: 999;
+}
+.date-row #date-index {
+    background-color: #dbeef3;
+    border-radius: 0;
+}
+.date-day {
+    position:relative;
+    display: inline-block;
+    height: 30px;
+    line-height: 30px;
+    font-size: 12px;
+    color: #fff;
+}
+.date-row .date-day {
+    color: #333;
+}
+#main {
+    position: relative;
+}
+
+#project-index {
+    position: absolute;
+    width: 30px;
+    top: 0;
+    left: 0;
+    z-index: 999;
+}
+
+.project-name {
+    position: absolute;
+    left: -136px;
+    margin-bottom: -2px;
+    padding-left: 8px;
+    padding-right: 8px;
+    height: 24px;
+    width: 80px;
+    background-color: #dbeef3;
+    border:0;
+    border-left:solid .5px #333;
+    text-align: center;
+    line-height: 30px;
+    transform: rotate(30deg);
+    -ms-transform: rotate(270deg);
+    -webkit-transform: rotate(270deg);
+    -o-transform: rotate(270deg);
+    -moz-transform: rotate(270deg);
+}
+
+.project-name +.project-name{border-right:solid .5px #333;}
+.project-name:hover, .project-active {
+    background-color: #92cddc;
+    color: #000;
+    cursor: pointer;
+}

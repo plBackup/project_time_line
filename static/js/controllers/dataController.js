@@ -26,18 +26,18 @@ define(["angular","./app.controllers","../graph/render_project"],function(angula
         };
 
         $scope.$on("menu_filter",function(event,data){
-            console.log("menu data--------")
+            console.log("menu data--------");
             self.nodesFilter=data;
             _getNodes(data);
         });
 
-        function _render(){
+        function _render(nodes){
             console.log("self pid========"+self.pid);
-            console.log(self.nodes);
-            projectRender.init();
+            console.log(nodes);
+            projectRender.init(nodes);
         };
         $scope.$on("render_nodes",function(event,data){
-            _render();
+            _render(self.nodes);
         });
     }]);
     //return controllers;

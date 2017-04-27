@@ -97,7 +97,7 @@ define([],function(){
        };
 
        graph.startOffset=0;
-       graph.defaultPix=4;
+       graph.defaultPix=4;//每天占据像素
        graph.dayOffset=100;
 
        graph.init_status={
