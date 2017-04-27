@@ -160,7 +160,8 @@ define(["jquery","zrender/zrender","./graph","./data_init","zrender/tool/color",
 
         projectRender.render=function(){
             //根据日期设置 初始化画布和时间轴宽度
-            var w=(graph.init_status.status4.x_end-graph.init_status.status0.x_start)*(graph.defaultPix)+graph.startOffset*2;
+            //x轴计算宽度加30是把左侧栏的宽度计算上
+            var w=(graph.init_status.status4.x_end-graph.init_status.status0.x_start)*(graph.defaultPix)+graph.startOffset*2+30;
             console.log("w=========="+w);
             var canvas_w =parseInt( $(".navbar").css("width"));
             var mainTop=88;
@@ -176,7 +177,7 @@ define(["jquery","zrender/zrender","./graph","./data_init","zrender/tool/color",
 
             $("#date-index").css({
                 "width": w + 'px',
-                "padding-left": graph.startOffset+ 'px',
+                "padding-left": (graph.startOffset+30)+ 'px',
                 "padding-right": graph.startOffset + 'px'
             });
 
@@ -190,7 +191,7 @@ define(["jquery","zrender/zrender","./graph","./data_init","zrender/tool/color",
 
             //横向阶段绘制
             $.each(init_bg, function (k, v) {
-                var x_start = (v.x_start + day_offset) * default_pix + start_offset;
+                var x_start = (v.x_start + day_offset) * default_pix + start_offset+30;
                 var rect_width = (v.x_end - v.x_start) * default_pix;
 
 
@@ -281,7 +282,7 @@ define(["jquery","zrender/zrender","./graph","./data_init","zrender/tool/color",
                     zr.addShape(new IsogonShape({
                         style : {
                             x : getDateOffset(project_start,curDate_point)*default_pix+start_offset,
-                            y : 45,
+                            y : 43,
                             r : 10,
                             n : 3,
                             brushType : 'fill',
