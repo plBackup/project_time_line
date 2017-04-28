@@ -85,7 +85,7 @@ define([jQuery],function($){
     }
 
     function _init_data(nodes){
-        var nodes=data.nodes;
+        var nodes=nodes;
         var project1={},project2={},project3={},project4={},project5={},project6={},project7={},project8={};
         var node1=new Array(),node2=new Array(),node3=new Array(),node4=new Array(),node5=new Array(),node6=new Array(),node7=new Array(),node8=new Array();
         $.each(nodes,function(n,value){

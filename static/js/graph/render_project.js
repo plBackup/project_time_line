@@ -200,7 +200,7 @@ define(["jquery","zrender/zrender","./graph","./data_init","zrender/tool/color",
                 var d_count = parseInt(rect_width / d_width);
                 for (i = 0; i < d_count; i++) {
                     var d = v.x_start + d_plus * i;
-                    $('<span class="date-day" id="' + v.id + '-' + i + '">' + d + '</span>').appendTo("#date-index").css("width", d_width + "px");
+                    $('<span class="date-day" id="' + v.id + '-' + i + '">'+"<i>" + d+"</i>" + '</span>').appendTo("#date-index").css("width", d_width + "px");
                 }
 
                 zr.addShape(new RectangleShape({
@@ -281,7 +281,7 @@ define(["jquery","zrender/zrender","./graph","./data_init","zrender/tool/color",
                     var color_draw=(curDate_timing>today)?'#0072bb':"#ddd";
                     zr.addShape(new IsogonShape({
                         style : {
-                            x : getDateOffset(project_start,curDate_point)*default_pix+start_offset,
+                            x : getDateOffset(project_start,curDate_point)*default_pix+start_offset+30,
                             y : 43,
                             r : 10,
                             n : 3,
@@ -297,7 +297,7 @@ define(["jquery","zrender/zrender","./graph","./data_init","zrender/tool/color",
                     //绘制日期
                     zr.addShape(new RectangleShape({
                         style : {
-                            x :getDateOffset(project_start,curDate_point)*default_pix+start_offset-41,
+                            x :getDateOffset(project_start,curDate_point)*default_pix+start_offset-41+30,
                             y : 38,
                             width :82,
                             height: 22,
@@ -325,7 +325,7 @@ define(["jquery","zrender/zrender","./graph","./data_init","zrender/tool/color",
 
                 zr.addShape(new TextShape({
                     style : {
-                        x : x_start+rect_width / 2,
+                        x : x_start+rect_width / 2 ,
                         y : 78,
                         brushType : 'fill',
                         color : '#9a9a9a',
