@@ -1,7 +1,7 @@
 /**
  * Created by whobird on 17/4/24.
  */
-define(["angular","./app.controllers","../graph/render_project"],function(angular,controllers,projectRender){
+define(["angular","./app.controllers","../graph/render_project","../graph/render_nodes"],function(angular,controllers,projectRender,nodesRender){
 
     controllers.controller("dataCtrl",["$rootScope","$scope","$http",function($rootScope,$scope,$http){
 
@@ -35,6 +35,8 @@ define(["angular","./app.controllers","../graph/render_project"],function(angula
             console.log("self pid========"+self.pid);
             console.log(nodes);
             projectRender.init(nodes);
+            nodesRender.init(nodes);
+
         };
         $scope.$on("render_nodes",function(event,data){
             _render(self.nodes);
