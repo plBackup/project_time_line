@@ -49,6 +49,11 @@ function init_nodes(projectObject) {
         var y_plus = 0;
         var ix = 0;
 
+
+        //todo:e.y_offset原设定为node自身属性，用于根据节点级别上下偏移。 目前版本未加入这个计算,设置为0；
+
+        e.y_offset=0;
+
         //当节点位置产生重叠时，要产生纵向偏移来防止遮挡
         $.each(zrNodes, function (i, node) {
             var zrNode_group = zr.storage.get(node);
