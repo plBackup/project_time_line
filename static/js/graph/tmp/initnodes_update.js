@@ -167,7 +167,6 @@ function init_nodes(projectObject) {
                     text: e['id'],
 
                     textPosition: 'inside',
-                    textAlign: "center",
                     textFont: 'bold 12px verdana',
                     textAlign: 'center',
                     textBaseline: 'middle',
@@ -209,7 +208,6 @@ function init_nodes(projectObject) {
                     // text:e['name'].length>6?(e['name'].substr(0,6)+'\n'+e['name'].substr(6,12)):e['name'],
                     text: e['name'].length > 6 ? (e['name'].substr(0, 6) + '\n' + e['name'].substr(6, 6)) : e['name'],
                     textPosition: 'inside',
-                    textAlign: "center",
                     textFont: 'bold 12px verdana',
                     textAlign: 'center',
                     textBaseline: 'middle',
