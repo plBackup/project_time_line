@@ -3,6 +3,7 @@
  */
 //初始化 nodes方法，应用于初始化project内部
 function init_nodes(projectObject) {
+
     var project = projectObject; //project 绘图中确认了project 项目的startNode_Y的位置，可以为节点复用 ---一级只绘制主节点 draggable:false, hoverable:true, clickable:true
     var nodes = project["nodes"];
 
@@ -15,13 +16,13 @@ function init_nodes(projectObject) {
 
     $.each(nodes, function (i, e) {
 
-
-
         if(e['start_date']=='' ||e['start_date']==null||e['start_date']==undefined){
 
             if(i==0){
+
                 e['start_date']=getDate(project_start,20);
                 e['end_date']=getDate(e['start_date'],80);
+
             }
             else{
 
@@ -29,6 +30,7 @@ function init_nodes(projectObject) {
                 pre_nodes_start_date=getDate(pre_item.start_date,38);
                 e['start_date']=pre_nodes_start_date;
                 e['end_date']=getDate(e['start_date'],30);
+
             }
         }
 
@@ -40,8 +42,6 @@ function init_nodes(projectObject) {
         style_x = getDateOffset(project_start, e['start_date']) * defalut_pix;
 
         //如果没有数据，根据之前关联点的位置+ 100来绘制style_x;
-
-
         //id
         var y_plus = 0;
         var ix = 0;
@@ -56,19 +56,16 @@ function init_nodes(projectObject) {
             //这里根据真实数据会出现后面节点再时间轴前面显示的问题，所以做双倍距离来判断
             var inside = zrArea.isInside(zrNode, {x: (zrNode_group.position[0] + zrNode.style.x - 88), y: (zrNode_group.position[1] + zrNode.style.y - 5), width: zrNode.style.width * 2, height: zrNode.style.height}, style_x, project.node_y + e.y_offset + y_plus + 120);
 
-
             if (inside) {
                 //这里加入对c._level的判断，如果circleArea._level=1，把之前不等于1的点设为不可见
                 y_plus += 25;
             }
-
 
         });
 
         //遍历后加入新的节点id,目前两个数据有重合，重构需注意重新整合
         zrNodes.push(e['id'] + '_group');
         zrGroup.push(e['id'] + '_group');
-
 
         //对每个节点集合建立group，方便同时改变。
         /*
@@ -80,7 +77,6 @@ function init_nodes(projectObject) {
          g.onclick(function(){
          });
          */
-
 
         var g = new Group({
                 id: e['id'] + '_group',
@@ -215,7 +211,6 @@ function init_nodes(projectObject) {
 
                     //  var curDate=startDate+cur_day*24*60*60*1000;
                     //var d=new Date(curDate);
-
                     // var curDate_String= d.getFullYear()+'-'+ (parseInt(d.getMonth())+1)+'-'+ d.getDate();
                     var curDate_String = this._start_date;
                     var date_left = this._x + this.childAt(0).position[0];
@@ -365,7 +360,8 @@ function init_nodes(projectObject) {
             }
         );
 
-        //   var radius, color,style_x;
+        //var radius, color, style_x;
+
         var radius, color,text_color;
         if (e['level'] == 1.0) {
             radius = level1_radius;

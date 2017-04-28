@@ -2342,8 +2342,6 @@ function level_init() {
             ].join('')).appendTo('#info-modal tbody');
             $('#info-modal').modal('show');
 
-
-
             /*
              $.ajax({
              url:url,
@@ -2420,9 +2418,8 @@ function level_init() {
 
              }
              });
-
              */
-//end ajax
+            //end ajax
             //清空clone数据
             $.each(tempNodes,function(i,e){
                 zr.delShape (e);
@@ -2442,9 +2439,7 @@ function level_init() {
             $('.node-info').remove();
             //清空目前元素
         }//end updateData;
-//事件
-
-
+        //事件
     });  //end require zrender;
 
 //ajax 发送数据，
@@ -2455,32 +2450,26 @@ function level_init() {
      'isStartNode':true
      });
 
-
-
-
     $(".canvas-wrapper").on("click",".project-name",function(e){
         $(this).closest(".canvas-wrapper").fadeOut();
         window.location.href='level2.html';
     });
 
-
     $('.time-arrow-right').on('click',function(e){
         var tLeft=$('.canvas-wrapper').scrollLeft()+100;
         $('.canvas-wrapper').scrollLeft(tLeft);
         var scrollX=parseInt($(".canvas-wrapper").scrollLeft());
-
     });
+
     $('.time-arrow-left').on('click',function(e){
         var tLeft=$('.canvas-wrapper').scrollLeft()-100;
         $('.canvas-wrapper').scrollLeft(tLeft);
         var scrollX=parseInt($(".canvas-wrapper").scrollLeft());
-
     });
      */
 }
 //end level_init
 $(document).ready(function(){
-
-     init_data();
+    init_data();
     level_init();
 });
