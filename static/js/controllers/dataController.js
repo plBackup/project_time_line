@@ -6,6 +6,7 @@ define(["angular","zrender/zrender","./app.controllers","../graph/render_project
     controllers.controller("dataCtrl",["$rootScope","$scope","$http",function($rootScope,$scope,$http){
 
         var self=this;
+        var zr;
         self.name="data";
         self.pid=null;
         self.nodes=null;
@@ -41,11 +42,27 @@ define(["angular","zrender/zrender","./app.controllers","../graph/render_project
             projectRender.init(nodes);
             //todo:因为后面实例均需要zr实例，但在projectRender里需要做很多前期计算才能渲染，所以把zr实例放到projectRender里，
             //通过localStorage传递zr id,来传递zr；
-            var zr = zrender.getInstance(localStorage.zr);
+            zr = zrender.getInstance(localStorage.zr);
             nodesRender.init(zr,nodes);
            eagleRender.init(zr);
 
         };
+
+        /*var defer=undefined;
+        $(window).on("resize",function(){
+            clearTimeout(defer);
+            console.log("resize====================")
+            defer=undefined;
+            if(!defer){
+                defer=setTimeout(function(){
+                    console.log("rerender====================")
+                    zr.dispose();
+                    _render(nodes);
+
+                },200);
+            }
+        });*/
+
         $scope.$on("render_nodes",function(event,data){
             _render(self.nodes);
         });
