@@ -157,7 +157,8 @@ define(["jquery","zrender/zrender","./graph","zrender/tool/color","zrender/tool/
                         _end_date: e['scheduleEndDate'],
                         _y_plus: y_plus,
                         onclick: function (params) {
-
+                            console.log("-------------params---------------");
+                            console.log(params)
                         },//end on click function
 
                     }

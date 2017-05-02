@@ -32,7 +32,7 @@ define(["jquery","zrender/zrender","./graph","./data_init","zrender/tool/color",
 
             var eagle_width,eagle_height,eagle_eye_width,eagle_eye_height,eagle_positionX,eagle_positionY;
 
-            eagle_width=300;
+            eagle_width=200;
             eagle_height=eagle_width*(height/width);
 
             eagle_eye_width=(canvas_w/width)*eagle_width;
