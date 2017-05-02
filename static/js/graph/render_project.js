@@ -77,7 +77,7 @@ define(["jquery","zrender/zrender","./graph","./data_init","zrender/tool/color",
                 project.node_y = startNode_y - project['height'];//为顶部的高度30px;
 
                 //绘制nodes方法；
-                //init_nodes(project);
+                init_nodes(zr,project);
 
                 project_count += 1;
             });
@@ -400,10 +400,9 @@ define(["jquery","zrender/zrender","./graph","./data_init","zrender/tool/color",
             zr.render();
     };
 
-        projectRender.init=function(nodes){
+        projectRender.init=function(){
            console.log("project render -----init===========================");
             //数据过滤
-            console.log(nodes);
            //渲染
            projectRender.render();
 

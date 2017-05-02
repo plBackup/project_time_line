@@ -44,8 +44,8 @@ define(["angular","zrender/zrender","./app.controllers","../graph/render_project
             //todo:因为后面实例均需要zr实例，但在projectRender里需要做很多前期计算才能渲染，所以把zr实例放到projectRender里，
             //通过localStorage传递zr id,来传递zr；
             zr = zrender.getInstance(localStorage.zr);
-            nodesRender.init(zr,nodes);
-
+            //nodesRender 用到ProjectRender数据，现在改到projectRender里处理
+            //nodesRender.init(zr,nodes);
             eagleRender.init(zr);
         };
 
