@@ -102,10 +102,11 @@ define(["jquery","zrender/zrender","./graph","./data_init","zrender/tool/color",
 
                 }
             }));
-            eagle_group.addChild(new RectangleShape({
+            eagle_group.addChild(new ImageShape({
                 id:'eagle',
                 style: {
                     brushType:'both',
+                    image:"../static/images/opt.png",
                     x: 0,
                     y: 0,
                     width: eagle_eye_width,
