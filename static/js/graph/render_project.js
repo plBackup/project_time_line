@@ -82,7 +82,7 @@ define(["jquery","zrender/zrender","./graph","./data_init","./render_nodes","zre
                 //绘制nodes方法；
                 //init_nodes(zr,project);
                 //todo:nodesRender
-                console.log("project nodes=====================================");
+                console.log("project nodes====================================="+i);
                 console.log(project.nodes);
                 nodesRender.init(zr,project);
 
