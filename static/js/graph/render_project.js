@@ -41,6 +41,9 @@ define(["jquery","zrender/zrender","./graph","./data_init","./render_nodes","zre
             $.each(data.rows, function (i, e) {
                 //e:project
                 var project = e;
+                //todo:这里的start_date在node绘图中会用到，为了避免冗余传值,每个project遍历是附加上一个属性start_date
+                project.start_date=data.start_date;
+
                 var id = project.id;
 
                 var startNode_x = startOffset;//偏移量
