@@ -1,7 +1,7 @@
 /**
  * Created by whobird on 17/4/24.
  */
-define(["angular","./app.controllers","../graph/render_project","../graph/render_nodes"],function(angular,controllers,projectRender,nodesRender){
+define(["angular","zrender/zrender","./app.controllers","../graph/render_project","../graph/render_nodes","../graph/render_eagle"],function(angular,zrender,controllers,projectRender,nodesRender,eagleRender){
 
     controllers.controller("dataCtrl",["$rootScope","$scope","$http",function($rootScope,$scope,$http){
 
@@ -34,8 +34,10 @@ define(["angular","./app.controllers","../graph/render_project","../graph/render
         function _render(nodes){
             console.log("self pid========"+self.pid);
             console.log(nodes);
-            projectRender.init(nodes);
-            nodesRender.init(nodes);
+            var zr = zrender.init(document.getElementById("main"));
+            projectRender.init(zr,nodes);
+            nodesRender.init(zr,nodes);
+            eagleRender.init(zr);
 
         };
         $scope.$on("render_nodes",function(event,data){

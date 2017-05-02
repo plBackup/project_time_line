@@ -156,7 +156,7 @@ define(["jquery","zrender/zrender","./graph","./data_init","zrender/tool/color",
             zr.render();
         }//end 绘制当前的时间点
 
-        projectRender.render=function(){
+        projectRender.render=function(zr){
             //根据日期设置 初始化画布和时间轴宽度
             //todo: x轴计算宽度加30是把左侧栏的宽度计算上,统一用graph.startOffset来设定
             //var w=(graph.init_status.status4.x_end-graph.init_status.status0.x_start)*(graph.defaultPix)+graph.startOffset*2+30;
@@ -186,7 +186,7 @@ define(["jquery","zrender/zrender","./graph","./data_init","zrender/tool/color",
             var default_pix = graph.defaultPix;//每天代表的像素单位，默认为4，根据调节变大（根据点的大小，如果日期点精确表示天的话，默认像素大小需要为20-30px
             var day_offset = graph.dayOffset;//日期偏移量，在绘图时辅助绘图起始位置计算
 
-            var zr = zrender.init(document.getElementById("main"));
+
 
             //横向阶段绘制
             $.each(init_bg, function (k, v) {
@@ -388,8 +388,6 @@ define(["jquery","zrender/zrender","./graph","./data_init","zrender/tool/color",
                     clickable:false
                 }));
 
-
-
             });
 
             //绘制项目分割；
@@ -399,15 +397,15 @@ define(["jquery","zrender/zrender","./graph","./data_init","zrender/tool/color",
 
             //绘画
             console.log(zr);
-            zr.render();
+            zr.render(zr);
     };
 
-        projectRender.init=function(nodes){
+        projectRender.init=function(zr,nodes){
            console.log("project render -----init===========================");
             //数据过滤
             console.log(nodes);
            //渲染
-           projectRender.render();
+           projectRender.render(zr);
 
     };
 

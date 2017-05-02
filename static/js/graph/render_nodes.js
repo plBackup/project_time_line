@@ -8,17 +8,17 @@ define(["jquery","zrender/zrender","./graph","./data_init","zrender/tool/color",
     function($,zrender,graph,data){
         var nodesRender={};
         var nodes=[];
-        nodesRender.render=function(){
+        nodesRender.render=function(zr,nodes){
             //end nodesRender
 
         };
 
-        nodesRender.init=function(nodes){
+        nodesRender.init=function(zr,nodes){
             console.log("nodes render -----init===========================");
             //数据过滤
             console.log(nodes);
             //渲染
-            nodesRender.render(nodes);
+            nodesRender.render(zr,nodes);
 
         };
 
