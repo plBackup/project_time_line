@@ -19,9 +19,9 @@ define(["jquery","zrender/zrender","./graph","./data_init","zrender/tool/color",
 
         eagleRender.render=function(zr){
 
-            var canvas_w =parseInt( $(".navbar").css("width"));
+            var canvas_w =parseInt( $(".canvas-wrapper").css("width"));
             var mainTop=88;
-            var canvas_h = document.documentElement.clientHeight- mainTop;
+            var canvas_h = parseInt($(".canvas-wrapper").css("height"));
             var h=30;
 
             //end nodesRender
