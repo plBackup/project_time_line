@@ -2,7 +2,7 @@
  * Created by whobird on 17/4/26.
  */
 
-define([jQuery],function($){
+define(["jquery"],function($){
    var data={};
     data.rows=[
         {

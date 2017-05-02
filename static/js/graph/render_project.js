@@ -1,8 +1,8 @@
 /**
  * Created by whobird on 17/4/26.
  */
-define(["jquery","zrender/zrender","./graph","./data_init","zrender/tool/color","zrender/tool/area","zrender/shape/Circle","zrender/shape/Rectangle",'zrender/shape/Isogon',"zrender/shape/Text","zrender/shape/Line","zrender/Group"],
-    function($,zrender,graph,data){
+define(["jquery","zrender/zrender","./graph","./data_init","./render_nodes","zrender/tool/color","zrender/tool/area","zrender/shape/Circle","zrender/shape/Rectangle",'zrender/shape/Isogon',"zrender/shape/Text","zrender/shape/Line","zrender/Group"],
+    function($,zrender,graph,data,nodesRender){
 
         var project_start=data.start_date;//起始日期，视数据接口情况改成动态值
         console.log("zrender---------");
@@ -25,7 +25,7 @@ define(["jquery","zrender/zrender","./graph","./data_init","zrender/tool/color",
         var getDate=graph.getDate;
         var gd=graph.gd;
         //初始化project
-        function _init_project(zrObject,w) {
+        function _init_project(zrObject,w,nodes) {
             var zr = zrObject;
             var project_count = 0;
             var zrWidth = zr.getWidth();
@@ -34,6 +34,9 @@ define(["jquery","zrender/zrender","./graph","./data_init","zrender/tool/color",
             var project_y = 30;//绘制y高度的起始位置，随着遍历project累加project 高度
 
             var startOffset=graph.startOffset;
+
+            //todo: data init
+            data.init(nodes);
 
             $.each(data.rows, function (i, e) {
                 //e:project
@@ -77,7 +80,11 @@ define(["jquery","zrender/zrender","./graph","./data_init","zrender/tool/color",
                 project.node_y = startNode_y - project['height'];//为顶部的高度30px;
 
                 //绘制nodes方法；
-                init_nodes(zr,project);
+                //init_nodes(zr,project);
+                //todo:nodesRender
+                console.log("project nodes=====================================");
+                console.log(project.nodes);
+                nodesRender.init(zr,project);
 
                 project_count += 1;
             });
@@ -156,7 +163,7 @@ define(["jquery","zrender/zrender","./graph","./data_init","zrender/tool/color",
             zr.render();
         }//end 绘制当前的时间点
 
-        projectRender.render=function(){
+        projectRender.render=function(nodes){
             //根据日期设置 初始化画布和时间轴宽度
             //todo: x轴计算宽度加30是把左侧栏的宽度计算上,统一用graph.startOffset来设定
             //var w=(graph.init_status.status4.x_end-graph.init_status.status0.x_start)*(graph.defaultPix)+graph.startOffset*2+30;
@@ -391,7 +398,7 @@ define(["jquery","zrender/zrender","./graph","./data_init","zrender/tool/color",
             });
 
             //绘制项目分割；
-            _init_project(zr,w);
+            _init_project(zr,w,nodes);
             //绘制当前的时间点
             _render_curDate(zr);
 
@@ -400,11 +407,11 @@ define(["jquery","zrender/zrender","./graph","./data_init","zrender/tool/color",
             zr.render();
     };
 
-        projectRender.init=function(){
+        projectRender.init=function(nodes){
            console.log("project render -----init===========================");
             //数据过滤
            //渲染
-           projectRender.render();
+           projectRender.render(nodes);
 
     };
 
