@@ -96,7 +96,8 @@ define([],function(){
            }
        };
 
-       graph.startOffset=0;
+       //todo: x轴计算宽度加30是把左侧栏的宽度计算上,统一用graph.startOffset来设定
+       graph.startOffset=30;
        graph.defaultPix=4;//每天占据像素
        graph.dayOffset=100;
 

@@ -7,7 +7,7 @@ function init_nodes(projectObject) {
     var zrNodes = []; //为group_id ---因为计算方便，后改成gorup_id的方式
     var zrGroup = [];//为group_id
 
-    var project = projectObject; //project 绘图中确认了project 项目的startNode_Y的位置，可以为节点复用 ---一级只绘制主节点 draggable:false, hoverable:true, clickable:true
+    var project = projectObject; //project 绘图中确认了project 项目的startNode_Y的位置，可以为节点复用 ---目前只绘制主节点 draggable:false, hoverable:true, clickable:true
     var nodes = project["nodes"];
 
     var level1_radius = 6;
@@ -18,7 +18,15 @@ function init_nodes(projectObject) {
     var delay_color = "#ad2726";
 
     $.each(nodes, function (i, e) {
-
+        /*
+        * todo:目前节点提供了四个日期值，
+        * ScheduleStartDate, ScheduleEndDate, completeDate, delayCompleteDate
+        * 其中completeDate, delayCompleteDate为单一值，
+        * 这里应该考虑仅提供一个completeDate和一个delayStatus的状态布尔值
+        *
+        * 目前渲染时根据ScheduleStartDate来处理
+        *
+        * */
         if(e['scheduleStartDate']=='' || e['scheduleStartDate']==null || e['scheduleStartDate']==undefined){
             //如果节点未提供开始日期数据，则根据前一个节点推算
             if(i==0){
@@ -28,21 +36,24 @@ function init_nodes(projectObject) {
 
             }
             else{
-
+                /*
+                 这里做一个简单的容错处理，如果当前节点没有起始结束日期值，根据前一个节点推算一个日期值
+                 绘图宽度为88像素，根据目前的4px/day计算，一个节点占日期宽度为22天,
+                 pre_nodes_start_date 设为前一节点的20天，在图形上表现应该会减少重叠状态。
+                 */
                 pre_item=nodes[i-1];
-                pre_nodes_start_date=getDate(pre_item.start_date,38);
+
+                pre_nodes_start_date=getDate(pre_item.start_date,20);
                 e['start_date']=pre_nodes_start_date;
                 e['end_date']=getDate(e['start_date'],30);
-
             }
+        }else{
+            //根据startdate 确认x位置 数据提供的是scheduleStartDate
+            e['start_date']=e['scheduleStartDate'];
+            e['end_date']=e['scheduleEndDate'];
         }
 
-        // if(e['start_date']!=undefined){
-        //计算node 的x位置；
-        //style_x=(e['x']+day_offset)*defalut_pix+start_offset;
-        //根据startdate 确认x位置 数据提供的是scheduleStartDate
-        e['start_date']=e['scheduleStartDate'];
-        style_x = getDateOffset(project_start, e['start_date']) * defalut_pix;
+        style_x = getDateOffset(project_start, e['start_date']) * graph.defaultPix+30;
 
         //如果没有数据，根据之前关联点的位置+ 100来绘制style_x;
         //id

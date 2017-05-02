@@ -160,8 +160,9 @@ define(["jquery","zrender/zrender","./graph","./data_init","zrender/tool/color",
 
         projectRender.render=function(){
             //根据日期设置 初始化画布和时间轴宽度
-            //x轴计算宽度加30是把左侧栏的宽度计算上
-            var w=(graph.init_status.status4.x_end-graph.init_status.status0.x_start)*(graph.defaultPix)+graph.startOffset*2+30;
+            //todo: x轴计算宽度加30是把左侧栏的宽度计算上,统一用graph.startOffset来设定
+            //var w=(graph.init_status.status4.x_end-graph.init_status.status0.x_start)*(graph.defaultPix)+graph.startOffset*2+30;
+            var w=(graph.init_status.status4.x_end-graph.init_status.status0.x_start)*(graph.defaultPix)+graph.startOffset;
             console.log("w=========="+w);
             var canvas_w =parseInt( $(".navbar").css("width"));
             var mainTop=88;
@@ -177,8 +178,8 @@ define(["jquery","zrender/zrender","./graph","./data_init","zrender/tool/color",
 
             $("#date-index").css({
                 "width": w + 'px',
-                "padding-left": (graph.startOffset+30)+ 'px',
-                "padding-right": graph.startOffset + 'px'
+                "padding-left": (graph.startOffset)+ 'px',
+                //"padding-right": graph.startOffset + 'px'
             });
 
             //设置绘制基本变量
@@ -191,7 +192,7 @@ define(["jquery","zrender/zrender","./graph","./data_init","zrender/tool/color",
 
             //横向阶段绘制
             $.each(init_bg, function (k, v) {
-                var x_start = (v.x_start + day_offset) * default_pix + start_offset+30;
+                var x_start = (v.x_start + day_offset) * default_pix + start_offset;
                 var rect_width = (v.x_end - v.x_start) * default_pix;
 
 
@@ -281,7 +282,7 @@ define(["jquery","zrender/zrender","./graph","./data_init","zrender/tool/color",
                     var color_draw=(curDate_timing>today)?'#0072bb':"#ddd";
                     zr.addShape(new IsogonShape({
                         style : {
-                            x : getDateOffset(project_start,curDate_point)*default_pix+start_offset+30,
+                            x : getDateOffset(project_start,curDate_point)*default_pix+start_offset,
                             y : 43,
                             r : 10,
                             n : 3,
@@ -297,7 +298,7 @@ define(["jquery","zrender/zrender","./graph","./data_init","zrender/tool/color",
                     //绘制日期
                     zr.addShape(new RectangleShape({
                         style : {
-                            x :getDateOffset(project_start,curDate_point)*default_pix+start_offset-41+30,
+                            x :getDateOffset(project_start,curDate_point)*default_pix+start_offset-41,
                             y : 38,
                             width :82,
                             height: 22,
