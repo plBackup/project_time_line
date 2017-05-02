@@ -4,7 +4,7 @@
 //初始化 nodes方法，应用于初始化project内部
 function init_nodes(projectObject) {
 
-    var zrNodes = []; //为group_id ---因为计算方便，后改成gorup_id的方式
+    //var zrNodes = []; //为group_id ---因为计算方便，后改成gorup_id的方式
     var zrGroup = [];//为group_id
 
     var project = projectObject; //project 绘图中确认了project 项目的startNode_Y的位置，可以为节点复用 ---目前只绘制主节点 draggable:false, hoverable:true, clickable:true
@@ -55,24 +55,22 @@ function init_nodes(projectObject) {
 
         style_x = getDateOffset(project_start, e['start_date']) * graph.defaultPix+30;
 
-        //如果没有数据，根据之前关联点的位置+ 100来绘制style_x;
-        //id
-        var y_plus = 0;
-        var ix = 0;
+
 
 
         //todo:e.y_offset原设定为node自身属性，用于根据节点级别上下偏移。 目前版本未加入这个计算,设置为0；
-
         e.y_offset=0;
 
         //当节点位置产生重叠时，要产生纵向偏移来防止遮挡
-        $.each(zrNodes, function (i, node) {
+        //y_plus为计算出的y轴偏移量，设为25, 目的是错开标题的显示
+        //当产生点击动作时，把当前操作节点的zLevel设到最前面显示。
+
+        var y_plus = 0;
+
+        $.each(zrGroup, function (i, node) {
             var zrNode_group = zr.storage.get(node);
             // var zrNode=zr.storage.get(node.split("_")[0]+'_id');
             var zrNode = zrNode_group.childAt(0);
-
-            ix += 1;
-
             //这里根据真实数据会出现后面节点再时间轴前面显示的问题，所以做双倍距离来判断
             var inside = zrArea.isInside(zrNode,
                 {x: (zrNode_group.position[0] + zrNode.style.x - 88), y: (zrNode_group.position[1] + zrNode.style.y - 5), width: zrNode.style.width * 2, height: zrNode.style.height},
@@ -86,7 +84,7 @@ function init_nodes(projectObject) {
         });
 
         //遍历后加入新的节点id,目前两个数据有重合，重构需注意重新整合
-        zrNodes.push(e['id'] + '_group');
+        //zrNodes.push(e['id'] + '_group');
         zrGroup.push(e['id'] + '_group');
 
         //对每个节点集合建立group，方便同时改变。
