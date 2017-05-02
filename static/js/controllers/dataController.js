@@ -22,6 +22,7 @@ define(["angular","zrender/zrender","./app.controllers","../graph/render_project
                 self.nodes= data.nodes;
 
                 $rootScope.$broadcast("render_nodes",{});
+
             });
 
         };
@@ -44,8 +45,8 @@ define(["angular","zrender/zrender","./app.controllers","../graph/render_project
             //通过localStorage传递zr id,来传递zr；
             zr = zrender.getInstance(localStorage.zr);
             nodesRender.init(zr,nodes);
-           eagleRender.init(zr);
 
+            eagleRender.init(zr);
         };
 
         /*var defer=undefined;
@@ -68,8 +69,8 @@ define(["angular","zrender/zrender","./app.controllers","../graph/render_project
                 zr.dispose();
                 zr=undefined;
             }
-            $("#date-index").empty();
-            $("#project-index").empty();
+            $("#date-index").empty().css("left",0);
+            $("#project-index").empty().css("top",0);
         };
 
         $scope.$on("render_nodes",function(event,data){
