@@ -7,9 +7,16 @@
 /**
  * Created by whobird on 17/4/26.
  */
-define(["jquery","zrender/zrender","./graph","./data_init","zrender/tool/color","zrender/tool/area","zrender/shape/Circle","zrender/shape/Rectangle",'zrender/shape/Isogon',"zrender/shape/Text","zrender/shape/Line","zrender/Group"],
-    function($,zrender,graph,data){
+define(["jquery","zrender/zrender","./graph","./data_init","zrender/tool/color","zrender/tool/area","zrender/shape/Circle","zrender/shape/Rectangle",'zrender/shape/Isogon',"zrender/shape/Text","zrender/shape/Line","zrender/shape/Image","zrender/Group"],
+    function($,zrender,graph){
         var eagleRender={};
+
+        var color = require('zrender/tool/color');
+        var RectangleShape = require('zrender/shape/Rectangle');
+        var Group = require('zrender/Group');
+        var ImageShape = require('zrender/shape/Image');
+        var Layer=require('zrender/Layer');
+
         eagleRender.render=function(zr){
 
             var canvas_w =parseInt( $(".navbar").css("width"));
@@ -120,13 +127,13 @@ define(["jquery","zrender/zrender","./graph","./data_init","zrender/tool/color",
                     movePix=graph.defaultPix;
                     if(this.position[0]<0){
                         this.position[0]=0;
-                    }else if(this.position[0]> (eagle_width)){
-                        this.position[0]=eagle_width;
+                    }else if(this.position[0]> (eagle_x_boundary)){
+                        this.position[0]=eagle_x_boundary;
                     }
                     if(this.position[1]<0){
                         this.position[1]=0;
-                    }else if(this.position[1]> (eagle_height)){
-                        this.position[1]=eagle_height;
+                    }else if(this.position[1]> (eagle_y_boundary)){
+                        this.position[1]=eagle_y_boundary;
                     }
                     //同步到图形的移动
                     layer_move_x=(-coef_x)*this.position[0];

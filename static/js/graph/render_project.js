@@ -93,8 +93,6 @@ define(["jquery","zrender/zrender","./graph","./data_init","zrender/tool/color",
             var d=new Date(curDate);
             var curDate_String= d.getFullYear()+'-'+ (parseInt(d.getMonth())+1)+'-'+ d.getDate();
 
-
-            
             //正三角形 绘制指针
             zr.addShape(new IsogonShape({
                 style : {
