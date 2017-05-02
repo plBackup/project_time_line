@@ -80,6 +80,7 @@ define([jQuery],function($){
     data.start_date="2015-01-01";
     data.cur_day=0;//当前时间节点 蓝线绘制代表当前状态
     data.nodes=[];
+
     data.init=function(nodes){
         _init_data(nodes);
     }
