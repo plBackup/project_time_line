@@ -8,6 +8,8 @@ function init_nodes(projectObject) {
     var zrGroup = [];//为group_id
 
     var project = projectObject; //project 绘图中确认了project 项目的startNode_Y的位置，可以为节点复用 ---目前只绘制主节点 draggable:false, hoverable:true, clickable:true
+
+    //todo：这里数据是放到project[nodes]中，所以要在data.init中做一层过滤处理
     var nodes = project["nodes"];
 
     var level1_radius = 6;
@@ -53,11 +55,8 @@ function init_nodes(projectObject) {
             e['end_date']=e['scheduleEndDate'];
         }
 
+
         style_x = getDateOffset(project_start, e['start_date']) * graph.defaultPix+30;
-
-
-
-
         //todo:e.y_offset原设定为node自身属性，用于根据节点级别上下偏移。 目前版本未加入这个计算,设置为0；
         e.y_offset=0;
 
@@ -83,30 +82,44 @@ function init_nodes(projectObject) {
 
         });
 
-        //遍历后加入新的节点id,目前两个数据有重合，重构需注意重新整合
-        //zrNodes.push(e['id'] + '_group');
-        zrGroup.push(e['id'] + '_group');
+        //遍历后加入新的节点id
+        //todo:目前数据提供的id有问题，暂时用'node_'+i替代
+        zrGroup.push("node_"+i+"_group");
+        //zrGroup.push(e['id'] + '_group');
 
         //对每个节点集合建立group，方便同时改变。
+        /*
+         *todo:处理的思路如下：
+         * Group作为一个容器，插入绘制node的子节点，因为Group 的变换会应用到自节点上。
+         * 所以用Group的position［0］产生时间轴（x轴）偏移,y轴始终为node类型（y轴）的起点。
+         * 绘制node子节点时，x为0，y值产生实际偏移（相对与group的position[1]y轴。
+         *
+         * 这样的设计也为之后操作节点偏移计算提供方便；
+         *
+         * 节点width=88,height:45;
+         *
+         */
+
+
         var g = new Group({
-                id: e['id'] + '_group',
-                position: [style_x, project.node_y],
+                //todo:目前数据提供的id有问题，暂时用'node_'+i替代
+                //id: e['id'] + '_group',
+                id:'node_'+i+'_group',
+                position: [style_x, project.node_y],//project.node_y为node分类(y轴）的起始位置
+                //todo:这里_x,_y的值是记录绘制关系节点时的起始位置，目前没有提供相关数据，为以后扩展，保持数据记录
                 _x: style_x,
                 _y: project.node_y + e.y_offset + 25 + 120,
-                _level: e['level'],
+                _level: e['level'],//节点级别
                 _width: 88,
                 _height: 45,
                 _nodeId: e['id'],
                 _name: e['name'],
-                _status: e['cur_status'],
-                _data: e['description'],
-                _main_duty_company: e['main_duty_company'],
-                _type_name: e['type_name'],
-                _start_date: e['start_date'],
-                _end_date: e['end_date'],
-                _offset: e['offset'],
-                _last: e['last'],
-                _comments: e['comments'],
+                _status: e['status'],//节点状态
+                _chargeOrgName: e['chargeOrgName'],//主责单位
+                _chargeOrgCd:e['chargeOrgCd'],
+                _type_name: e['type_name'],//这个数据目前没有提供
+                _start_date: e['scheduleStartDate'],
+                _end_date: e['scheduleEndDate'],
                 _y_plus: y_plus,
                 onclick: function (params) {
 
@@ -118,11 +131,11 @@ function init_nodes(projectObject) {
         //var radius, color, style_x;
         var radius, color, text_color;
 
-        if (e['level'] == 1.0) {
+        if (e['level'] == 1) {
             radius = level1_radius;
             color = "#0069a0";
             text_color="#3f9ad6"
-        } else if (e['level'] == 2.0) {
+        } else if (e['level'] == 2) {
             radius = level1_radius;
             color = "#92cddc";
             text_color="#333"
@@ -136,9 +149,12 @@ function init_nodes(projectObject) {
             color = "#ddd";
         }
 
-        g._y += y_plus;
+        //g._y += y_plus;
+
         var stroke_color= '';
-        switch( e['cur_status']){
+        //todo:根据e['status']判断节点的颜色
+        //节点状态有4种：'complete', 'delay', 'on', 'unstart'
+        switch( e['status']){
             case 'complete':
                 stroke_color="#78b7db";
                 text_color="#333";
@@ -163,7 +179,7 @@ function init_nodes(projectObject) {
 
         g.addChild(new RectangleShape(
             {
-                id: e['id'] + '_id',
+                id:'node_'+i+'_id',
                 style: {
                     //  x: style_x,
                     x: 0,
@@ -192,18 +208,13 @@ function init_nodes(projectObject) {
                 clickable: true,   // default false
 
                 _name: e['name'],
-                _group: e['id'] + '_group',
-                _data: e['datadescription'],
-                _main_duty_company: e['main_duty_company'],
-                _type_name: e['type_name'],
-                _start_date: e['start_date'],
-                _end_date: e['end_date'],
+                _group: 'node_'+i+'_group',
             }
         ));//add cricle
 
         g.addChild(new RectangleShape(
             {
-                id: e['id'],
+                id: 'node_'+i,
                 style: {
                     // x: style_x,
                     // y: project.node_y+e.y_offset+25+120,
@@ -239,17 +250,8 @@ function init_nodes(projectObject) {
                 clickable: true, // default false
 
                 _name: e['name'],
-                _group: e['id'] + '_group',
-                _data: e['description'],
-                _main_duty_company: e['main_duty_company'],
-                _type_name: e['type_name'],
-                _start_date: e['start_date'],
-                _end_date: e['end_date'],
-                _offset: e['offset'],
-                _last: e['last'],
-                _comments: e['comments'],
-                _pre_rel_nodes: e['pre_rel_node'],
-                _rel_nodes: e['rel_nodes'],
+                _group: 'node_'+i+'_group',
+
             }
         ));//add cricle
 
