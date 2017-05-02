@@ -63,7 +63,17 @@ define(["angular","zrender/zrender","./app.controllers","../graph/render_project
             }
         });*/
 
+        function _clearDom(){
+            if(typeof zr !=="undefined"){
+                zr.dispose();
+                zr=undefined;
+            }
+            $("#date-index").empty();
+            $("#project-index").empty();
+        };
+
         $scope.$on("render_nodes",function(event,data){
+            _clearDom();
             _render(self.nodes);
         });
     }]);
