@@ -23,6 +23,15 @@ define(["jquery","zrender/zrender","./graph","zrender/tool/color","zrender/tool/
         var Layer=require('zrender/Layer');
         var zrArea = require('zrender/tool/area');
 
+        /*
+        * todo:对节点操作补充：
+        * 1.点击节点，其它节点透明化处理，当前节点突出显示，
+        * 2.点击节点，toggle显示节点信息。（toggle)
+        * 3.也 main其它位置点击，隐藏节点信息，删除节点日期显示
+        * */
+        /*curdateNodes用于处理点击节点时突出显示的当前时间线*/
+        var curdateNodes=[];
+
         nodesRender.render=function(zr,project){
             //end nodesRender
             _render_nodes(zr,project)

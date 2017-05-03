@@ -36,7 +36,6 @@ function getDateOffset(project_start,cur_date){
     }else{
         return 0;
     }
-
 }
 //a=getDate('2015-3-12',5);
 
@@ -107,7 +106,7 @@ function level_init() {
     main.style.width = w+ 'px'
     //main.style.height = canvas_h + 'px';
     main.style.height = h + 'px';
-//设置日期index css/
+ //设置日期index css/
 
     $("#date-index").css({
         "width": date_w + 'px',
@@ -232,7 +231,7 @@ function level_init() {
              hoverable:false,
              clickable:false
              }));
-             //
+
              //文本背景
              zr.addShape(new RectangleShape({
              style : {

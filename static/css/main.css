@@ -71,3 +71,53 @@
 
 
 .ys-loading{display: none;}
+
+/*node info*/
+.node-info {
+    display: none;
+    position: absolute;
+    z-index:1999;
+    margin-left: 30px;
+    margin-top: 18px;
+    min-width: 230px;
+    padding: 16px;
+    top:0;
+    left:0;
+    color: #dfdfdf;
+    background-color: rgba(35, 47, 62, 0.8);
+}
+.node-info h3 {
+    margin-top: 8px;
+    margin-bottom: 8px;
+    font-size: 18px;
+}
+.node-info:after {
+    display: block;
+    content:" ";
+    position: absolute;
+    top: -10px;
+    left: -16px;
+    width: 38px;
+    height: 24px;
+    background-image: url(../images/arrow.png);
+    background-repeat: no-repeat;
+    background-position: top left;
+}
+.node-info .edit a {
+    display: inline-block;
+    margin-left: 8px;
+    marign-right: 8px;
+    padding: 8px;
+    padding-left: 16px;
+    padding-right: 16px;
+    min-width: 88px;
+    height: 32px;
+    line-height: 16px;
+    background-color: #ff8113;
+    color: #fff;
+    text-align: center;
+    text-decoration: none;
+}
+.node-info .edit #confirm-cancel a {
+    background-color: #0072bb;
+}

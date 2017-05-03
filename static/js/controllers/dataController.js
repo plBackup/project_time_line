@@ -84,6 +84,7 @@ define(["angular","zrender/zrender","./app.controllers","../graph/render_project
         $('body').on("nodeclick",function(e,params){
             console.log("node click---------------================");
             console.log(params);
+            $(".node-info").fadeIn();
         })
 
         function _init(){
