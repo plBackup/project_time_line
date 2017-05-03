@@ -37,7 +37,7 @@ define(["jquery","zrender/zrender","./graph","./data_init","./render_nodes","zre
 
             //todo: data init
             data.init(nodes);
-
+            nodesRender.init();
             $.each(data.rows, function (i, e) {
                 //e:project
                 var project = e;
@@ -87,7 +87,7 @@ define(["jquery","zrender/zrender","./graph","./data_init","./render_nodes","zre
                 //todo:nodesRender
                 console.log("project nodes====================================="+i);
                 console.log(project.nodes);
-                nodesRender.init(zr,project);
+                nodesRender.render(zr,project);
 
                 project_count += 1;
             });

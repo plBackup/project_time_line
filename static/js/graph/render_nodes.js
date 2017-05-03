@@ -38,20 +38,25 @@ define(["jquery","zrender/zrender","./graph","zrender/tool/color","zrender/tool/
 
         nodesRender.render=function(zr,project){
             //end nodesRender
+            //数据过滤
+            //渲染
             _render_nodes(zr,project);
             _zrEvent_init(zr);
         };
 
-        nodesRender.init=function(zr,project){
+        nodesRender.init=function(){
             console.log("nodes render -----init===========================");
-            //数据过滤
+            //todo:因为angular单页刷新的缘故，需要init重置数据，render 单独做渲染操作
+            //数据重置
             //渲染
             zrGroup = []
-            nodesRender.render(zr,project);
+            //nodesRender.render(zr,project);
 
         };
 
         function _zrEvent_init(zr){
+
+
             zr.on('click', function (params) {
 
 
@@ -202,7 +207,7 @@ define(["jquery","zrender/zrender","./graph","zrender/tool/color","zrender/tool/
                             var curNodeGroup=zr.storage.get(params.target._group);
 
                             _focusNode(zr,curNodeGroup);
-
+                            zr.refresh();
                             //zr.update();
                         },//end on click function
 
@@ -341,6 +346,9 @@ define(["jquery","zrender/zrender","./graph","zrender/tool/color","zrender/tool/
                 //zr.update();
             });//end each nodes
 
+
+            console.log("zrGroup====================")
+            console.log(zrGroup)
         };
 
         function _render_curDate(zr,node){
@@ -421,6 +429,8 @@ define(["jquery","zrender/zrender","./graph","zrender/tool/color","zrender/tool/
 
         function _focusNode(zr,nodeGroup){
             //透明所有节点，突出显示当前节点
+            console.log("focus------------");
+            console.log(zrGroup);
             $.each(zrGroup, function (i, e) {
                 //node.style.opacity=0.3;
                 var node = zr.storage.get(e);
