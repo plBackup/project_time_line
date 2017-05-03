@@ -72,6 +72,12 @@ define(["js/app"],
                                  $rootScope.pid=pid;
                                  return dataMenuService.getData(search);
                              },
+                            nodeData: function(dataNodeService,$stateParams,$rootScope) {
+                                var pid=$stateParams.pid;
+                                var search="?projectCd="+pid;
+                                $rootScope.pid=pid;
+                                return dataNodeService.getData(search);
+                            },
                         }
             });
             });

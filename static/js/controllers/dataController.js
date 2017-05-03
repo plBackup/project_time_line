@@ -3,22 +3,23 @@
  */
 define(["angular","zrender/zrender","./app.controllers","../graph/render_project","../graph/render_nodes","../graph/render_eagle"],function(angular,zrender,controllers,projectRender,nodesRender,eagleRender){
 
-    controllers.controller("dataCtrl",["$rootScope","$scope","$http",function($rootScope,$scope,$http){
+    controllers.controller("dataCtrl",["$rootScope","$scope","$http","dataNodeService","nodeData",function($rootScope,$scope,$http,dataMenuService,nodeData){
 
         var self=this;
         var zr;
         self.name="data";
-        self.pid=null;
+        self.planId=null;
         self.nodes=null;
         self.project=null;
         self.nodesFilter=null;
 
         function _getNodes(nodesFilter){
 
+
             $http.get("../data/sdk!node.json",{cache:false}).then(function (res) {
                 //todo：根据status做判断
                 var data=res.data.data;
-                self.pid=data.planId;
+                self.planId=data.planId;
                 self.nodes= data.nodes;
 
                 $rootScope.$broadcast("render_nodes",{});
@@ -77,6 +78,16 @@ define(["angular","zrender/zrender","./app.controllers","../graph/render_project
             _clearDom();
             _render(self.nodes);
         });
+
+        function _init(){
+            if(typeof nodeData !=="undefined"){
+                self.nodes=nodeData.data["nodes"];
+                _clearDom();
+                _render(self.nodes);
+            }
+        }
+
+        _init();
     }]);
     //return controllers;
 });
