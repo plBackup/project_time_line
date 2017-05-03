@@ -80,6 +80,12 @@ define(["angular","zrender/zrender","./app.controllers","../graph/render_project
             _render(self.nodes);
         });
 
+
+        $('body').on("nodeclick",function(e,params){
+            console.log("node click---------------================");
+            console.log(params);
+        })
+
         function _init(){
             if(typeof nodeData !=="undefined"){
                 self.nodes=nodeData.data["nodes"];

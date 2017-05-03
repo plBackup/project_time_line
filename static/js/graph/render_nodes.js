@@ -6,8 +6,14 @@
  */
 define(["jquery","zrender/zrender","./graph","zrender/tool/color","zrender/tool/area","zrender/shape/Circle","zrender/shape/Rectangle",'zrender/shape/Isogon',"zrender/shape/Text","zrender/shape/Line","zrender/Group",'zrender/tool/area'],
     function($,zrender,graph){
-        var nodesRender={};
 
+        /*
+        * todo:这里有一个思路是写成controller或者directive形式，
+        * 目前的操作比较简单，直接用事件代理的方式处理更简洁
+        *
+        * */
+
+        var nodesRender={};
         var color = require('zrender/tool/color');
         var RectangleShape = require('zrender/shape/Rectangle');
         var LineShape = require('zrender/shape/Line');
@@ -134,8 +140,6 @@ define(["jquery","zrender/zrender","./graph","zrender/tool/color","zrender/tool/
                  * 节点width=88,height:45;
                  *
                  */
-
-
                 var g = new Group({
                         //todo:目前数据提供的id有问题，暂时用'node_'+i替代
                         //id: e['id'] + '_group',
@@ -159,6 +163,7 @@ define(["jquery","zrender/zrender","./graph","zrender/tool/color","zrender/tool/
                         onclick: function (params) {
                             console.log("-------------params---------------");
                             console.log(params)
+                            $('body').trigger("nodeclick",params);
                         },//end on click function
 
                     }

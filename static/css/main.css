@@ -1,3 +1,5 @@
+/*patch*/
+.navbar-nav>li>.dropdown-menu{max-height:300px;overflow:auto;}
 .canvas-wrapper {
     position: relative;
     width: 100%;
