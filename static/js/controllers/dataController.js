@@ -31,6 +31,7 @@ define(["angular","zrender/zrender","./app.controllers","../graph/render_project
         $scope.$on("menu_filter",function(event,data){
             console.log("menu data--------");
             self.nodesFilter=data;
+            console.log(data);
             _getNodes(data);
         });
 
