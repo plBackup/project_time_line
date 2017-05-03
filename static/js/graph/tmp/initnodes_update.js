@@ -122,7 +122,21 @@ function init_nodes(projectObject) {
                 _end_date: e['scheduleEndDate'],
                 _y_plus: y_plus,
                 onclick: function (params) {
+                    //透明所有节点，突出显示当前节点
+                    $.each(zrGroup, function (i, e) {
+                        //node.style.opacity=0.3;
+                        var node = zr.storage.get(e);
+                        node.eachChild(function (e) {
+                            e.style.opacity = 0.3
+                        });
 
+                    });
+
+                    var curNodeGroup=zr.storage.get(parmas._group);
+                    curNodeGroup.eachChild(function (e) {
+                        e.style.opacity = 1
+                    });
+                    zr.update();
                 },//end on click function
 
             }

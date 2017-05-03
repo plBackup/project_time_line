@@ -88,3 +88,87 @@ if ($('.canvas-wrapper .node-info').get(0) == undefined) {
         }).attr("data-target", params.target.id.split('_')[0]).fadeIn();
     }
 }
+
+
+//绘制当前的时间点
+// var startDate=new Date();
+
+//  var curDate=startDate+cur_day*24*60*60*1000;
+//var d=new Date(curDate);
+
+// var curDate_String= d.getFullYear()+'-'+ (parseInt(d.getMonth())+1)+'-'+ d.getDate();
+var curDate_String = this._start_date;
+var date_left = this._x + this.childAt(0).position[0];
+//正三角形 绘制指针
+zr.addShape(new IsogonShape({
+    id: e['id'] + '_date_tri',
+    style: {
+        x: date_left,
+        // y : project.node_y+e.y_offset+86+22,
+        y: project.node_y + e.y_offset + 86 + 22 + yPlus,
+        r: 10,
+        n: 3,
+        brushType: 'fill',
+        color: '#f01f42'          // rgba supported
+
+        // strokeColor : color.getColor(colorIdx++),   // getColor from default palette
+        // lineWidth : 9,
+        // text :'正n边形',
+        //  textPosition :'inside'
+    },
+
+    rotation: [Math.PI, date_left, project.node_y + e.y_offset + 86 + 22 + yPlus],
+    draggable: false,
+    hoverable: false,
+    clickable: false
+}));
+date_nodes.push(e['id'] + '_date_tri');
+//绘制日期
+//矩形
+zr.addShape(new RectangleShape({
+    id: e['id'] + '_date',
+    style: {
+        x: date_left - 15,
+        y: project.node_y + e.y_offset + 86 + yPlus,
+        width: 103,
+        height: 22,
+
+        brushType: 'fill',
+        color: '#f01f42',
+        radius: 5,
+        //strokeColor : color.getColor(colorIdx++),
+        //lineWidth : 0
+        // lineJoin : 'round',
+        text: curDate_String == undefined ? '信息暂不完整' : curDate_String,
+        textFont: "10px verdana",
+        textColor: "#fff",
+        textPosition: "inside",
+        textAlign: "center",
+        textBaseline: "middle"
+    },
+    draggable: false,
+    hoverable: false,
+    clickable: false
+}));
+date_nodes.push(e['id'] + '_date');
+//垂直纵贯线
+
+zr.addShape(new LineShape({
+    id: e['id'] + '_date_line',
+    style: {
+        xStart: date_left,
+        yStart: 0,
+        xEnd: date_left,
+        yEnd: height,
+        strokeColor: "#f01f42",
+        lineWidth: 1,
+        lineType: 'solid'    // default solid
+        //text : 'line'
+    },
+    draggable: false,
+    hoverable: false,
+    clickable: false
+}));
+date_nodes.push(e['id'] + '_date_line');
+
+}, //end on click function

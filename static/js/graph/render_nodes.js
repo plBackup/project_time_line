@@ -23,18 +23,23 @@ define(["jquery","zrender/zrender","./graph","zrender/tool/color","zrender/tool/
         var Layer=require('zrender/Layer');
         var zrArea = require('zrender/tool/area');
 
+        var zrGroup = [];//为group_id
         /*
         * todo:对节点操作补充：
         * 1.点击节点，其它节点透明化处理，当前节点突出显示，
         * 2.点击节点，toggle显示节点信息。（toggle)
         * 3.也 main其它位置点击，隐藏节点信息，删除节点日期显示
+        *
+        * _focus_node, _reset_node,
+        * _render_curDate
         * */
         /*curdateNodes用于处理点击节点时突出显示的当前时间线*/
         var curdateNodes=[];
 
         nodesRender.render=function(zr,project){
             //end nodesRender
-            _render_nodes(zr,project)
+            _render_nodes(zr,project);
+            _zrEvent_init(zr);
         };
 
         nodesRender.init=function(zr,project){
@@ -45,10 +50,28 @@ define(["jquery","zrender/zrender","./graph","zrender/tool/color","zrender/tool/
 
         };
 
+        function _zrEvent_init(zr){
+            zr.on('click', function (params) {
+
+
+                if (params.target) {
+                    //如果有目标说明点击到节点，不处理，由节点事件处理
+                    //var node_id = params.target._group;
+                }
+                else {
+                    //恢复节点显示
+                    _resetNode(zr);
+                    date_nodes = [];
+                    /*对node-info的处理统一放到dataController中以angular方式处理*/
+                   $("body").trigger("zrEvent");
+                }
+            });
+        }
+
         function _render_nodes(zr,projectObject) {
 
             //var zrNodes = []; //为group_id ---因为计算方便，后改成gorup_id的方式
-            var zrGroup = [];//为group_id
+            // var zrGroup = [];//为group_id
             var getDate=graph.getDate;
             var getDateOffset=graph.getDateOffset;
 
@@ -173,6 +196,13 @@ define(["jquery","zrender/zrender","./graph","zrender/tool/color","zrender/tool/
                             console.log("-------------params---------------");
                             console.log(params)
                             $('body').trigger("nodeclick",params);
+                            _render_curDate(zr,this);
+
+                            var curNodeGroup=zr.storage.get(params.target._group);
+
+                            _focusNode(zr,curNodeGroup);
+
+                            //zr.update();
                         },//end on click function
 
                     }
@@ -310,6 +340,116 @@ define(["jquery","zrender/zrender","./graph","zrender/tool/color","zrender/tool/
                 //zr.update();
             });//end each nodes
 
+        };
+
+        function _render_curDate(zr,node){
+            //curDate 显示为单例显示，需要清除之前渲染
+            $.each(curdateNodes, function (i, e) {
+                zr.delShape(e);
+            });
+            //绘制当前的时间点
+            var curDate_String = node._start_date;
+            //todo:这里暂时不考虑节点会进行X轴偏移
+            var date_left=node._x;
+            var height = Math.ceil(zr.getHeight());
+            //var date_left = node._x + node.childAt(0).position[0];
+
+            //正三角形 绘制指针
+            zr.addShape(new IsogonShape({
+                id: node['id'] + '_date_tri',
+                style: {
+                    x: date_left,
+                    y: node._y+node._y_plus-25-10,
+                    r: 10,
+                    n: 3,
+                    brushType: 'fill',
+                    color: '#f01f42'          // rgba supported
+                },
+
+                rotation: [Math.PI, date_left, node._y+node._y_plus-25-10],
+                draggable: false,
+                hoverable: false,
+                clickable: false
+            }));
+            curdateNodes.push(node['id'] + '_date_tri');
+            //绘制日期
+            //矩形
+            zr.addShape(new RectangleShape({
+                id: node['id'] + '_date',
+                style: {
+                    x: date_left - 15,
+                    y: node._y+node._y_plus-25-10-22,
+                    width: 103,
+                    height: 22,
+
+                    brushType: 'fill',
+                    color: '#f01f42',
+                    radius: 5,
+                    text: curDate_String == undefined ? '信息暂不完整' : curDate_String,
+                    textFont: "10px verdana",
+                    textColor: "#fff",
+                    textPosition: "inside",
+                    textAlign: "center",
+                    textBaseline: "middle"
+                },
+                draggable: false,
+                hoverable: false,
+                clickable: false
+            }));
+            curdateNodes.push(node['id'] + '_date');
+
+            //垂直纵贯线
+            zr.addShape(new LineShape({
+                id: node['id'] + '_date_line',
+                style: {
+                    xStart: date_left,
+                    yStart: 0,
+                    xEnd: date_left,
+                    yEnd: height,
+                    strokeColor: "#f01f42",
+                    lineWidth: 1,
+                    lineType: 'solid'    // default solid
+                    //text : 'line'
+                },
+                draggable: false,
+                hoverable: false,
+                clickable: false
+            }));
+            curdateNodes.push(node['id'] + '_date_line');
+        }; //end _render_curDate function
+
+        function _focusNode(zr,nodeGroup){
+            //透明所有节点，突出显示当前节点
+            $.each(zrGroup, function (i, e) {
+                //node.style.opacity=0.3;
+                var node = zr.storage.get(e);
+                node.eachChild(function (e) {
+                    e.style.opacity = 0.3;
+                });
+            });
+
+            nodeGroup.eachChild(function (e) {
+                e.style.opacity = 1;
+            });
+
+        };
+
+        function _resetNode(zr){
+            //恢复节点显示
+            $.each(zrGroup, function (i, e) {
+                //node.style.opacity=0.3;
+                var node = zr.storage.get(e);
+                node.eachChild(function (e) {
+                    e.style.opacity = 1
+                });
+            });
+
+            $.each(curdateNodes, function (i, e) {
+                zr.delShape(e);
+            });
+            //zr.update();
+
+            date_nodes = [];
         }
         return nodesRender;
     });
