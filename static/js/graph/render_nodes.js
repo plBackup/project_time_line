@@ -46,6 +46,7 @@ define(["jquery","zrender/zrender","./graph","zrender/tool/color","zrender/tool/
             console.log("nodes render -----init===========================");
             //数据过滤
             //渲染
+            zrGroup = []
             nodesRender.render(zr,project);
 
         };
