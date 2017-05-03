@@ -18,7 +18,7 @@ define(["js/app"],
                 // 默认进入先重定向
 
                 //$urlRouterProvider.otherwise('/main');
-                //$urlRouterProvider.when('', '/main');
+                $urlRouterProvider.when('', '/main');
                 $stateProvider
                     .state('main', {
                         //abstract: true,

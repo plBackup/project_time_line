@@ -6,7 +6,11 @@ define(["angular","./app.services"],function(angular,services){
     services.service('dataMenuService', ["$rootScope","$http",function($rootScope,$http) {
         var service = {
             getData: function (search,cb) {
-                return $http.get('../data/sdk!init.json', {cache: false}).then(function (res) {
+                if(typeof search==="undefined"){
+                    search="";
+                }
+
+                return $http.get('../data/sdk!init.json'+search, {cache: false}).then(function (res) {
                     if(typeof cb!=="undefined"){
                         cb(res.data);
                     }else{
