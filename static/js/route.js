@@ -18,7 +18,7 @@ define(["js/app"],
                 // 默认进入先重定向
 
                 //$urlRouterProvider.otherwise('/main');
-                $urlRouterProvider.when('', '/main');
+                //$urlRouterProvider.when('', '/main');
                 $stateProvider
                     .state('main', {
                         //abstract: true,
@@ -39,19 +39,40 @@ define(["js/app"],
                             }
                         },
                         resolve: {
+
                             menuData: function(dataMenuService) {
+                                //$rootScope.pid=undefined;
                                 return dataMenuService.getData();
                             },
-                           /*
-                            data: ['$q','$timeout', function($q,$timeout){
-                                var defer = $q.defer();
-                                $timeout(function(){
-                                    defer.resolve();
-                                    amp_main.loading_hide();
-                                }, 300);
-                                return defer.promise;
-                            }]*/
+
                         }
-                    });
+                    })
+                    .state('project', {
+                        //abstract: true,
+                        url: '/main/{pid}',
+                        views:{
+                            'menu':{
+                                templateUrl: '../views/menu_view.html',
+                                controller:"menuCtrl",
+                                controllerAs:"mCtrl"
+                            },
+                            'content': {
+                                templateUrl: '../views/data_view.html',
+                                controller:"dataCtrl",
+                                controllerAs:"dCtrl"
+                            },
+                            "right":{
+                                templateUrl: '../views/blank_right.html',
+                            }
+                        },
+                        resolve: {
+                             menuData: function(dataMenuService,$stateParams,$rootScope) {
+                                 var pid=$stateParams.pid;
+                                 var search="?projectCd="+pid;
+                                 $rootScope.pid=pid;
+                                 return dataMenuService.getData(search);
+                             },
+                        }
+            });
             });
     });

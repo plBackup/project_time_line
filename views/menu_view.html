@@ -5,7 +5,7 @@
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <span>{{mCtrl.menuFilter.project.name| default:"项目"}}</span> <span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu" id="project-filter">
                     <li ng-repeat="project in mCtrl.projects" ng-class="{'active':mCtrl.isActive(project.id,mCtrl.menuFilter.project.id)}">
-                        <a data-id={{project.id}} ng-click='mCtrl.setModel("project",project)'>{{project.name}}</a>
+                        <a data-id={{project.id}} ng-click='mCtrl.setProject(project)'>{{project.name}}</a>
                     </li>
                 </ul>
             </li>

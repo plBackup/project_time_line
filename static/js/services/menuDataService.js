@@ -4,16 +4,19 @@
 define(["angular","./app.services"],function(angular,services){
 
     services.service('dataMenuService', ["$rootScope","$http",function($rootScope,$http) {
-
         var service = {
-            getData: function () {
-                return $http.get('../data/sdk!init.json', {cache: true}).then(function (res) {
-                    return res.data;
+            getData: function (search,cb) {
+                return $http.get('../data/sdk!init.json', {cache: false}).then(function (res) {
+                    if(typeof cb!=="undefined"){
+                        cb(res.data);
+                    }else{
+                        return res.data;
+                    }
+
                 });
             },
         };
         return service;
-
     }]);
     //return controllers;
 });

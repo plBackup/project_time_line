@@ -1,5 +1,5 @@
-// ============================= 获取开发计划过滤条件
-// ============================= /plan6/sdk!init.action?projectCd=1135
+// ============================= 获取开发计划过滤条件http://192.168.121.24:7900/PowerDesk/plan6/sdk!init.action
+// ============================= http://192.168.121.24:7900/PowerDesk/plan6/sdk!init.action?projectCd=1135
 var response = {
     "success": true, // 操作是否成功
     "code": 200,

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]> <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]> <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="" lang="zh-cn"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <!--
+        <meta name="viewport" content="width=1680, initial-scale=1, maximum-scale=1, user-scalable=no">-->
+    <meta name="viewport" content="width=1680">
+    <title>计划系统</title>
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+
+    <!-- 导入CSS -->
+
+    <link href="../static/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!--<link href="static/dist/css/swiper.min.css" rel="stylesheet">-->
+    <link href="../static/dist/css/animate.css" rel="stylesheet">
+
+    <link href="../static/css/main.css" rel="stylesheet">
+
+</head>
+<body  >
+
+<!--[if lt IE 9]>
+<p class="updateBrowser">您的浏览器太旧了，请更新最新浏览器，以获得最佳效果.</p>
+<![endif]-->
+
+<!-- Preloader -->
+<div id="preloader">
+    <div id="status"><i class="fa fa-spinner fa-spin"></i></div>
+</div>
+<main class="page page-main ys-amp animated" id="page-main" role="main" ng-controller="mainCtrl as ctrl">
+
+    <div class="container">
+       <div ui-view="menu" class="animated">
+       </div>
+       <div ui-view="content" class="animated">
+       </div>
+    </div>
+
+    <!-- rightpanel -->
+    <div class="rightpanel">
+        <ui-view name="right"></ui-view>
+    </div>
+    <!--modal parts-->
+
+    <!--end modal parts-->
+    <!--backdrop loading-->
+    <div class="backdrop"></div>
+    <!--end backdrop loading-->
+    <div class="ys-loading">
+        <div class="loading-wrapper">
+            <div class="loading-ani">
+                <img src="../static/images/main/loading.gif">
+            </div>
+            <span>处理中...</span>
+        </div>
+    </div>
+
+</main>
+
+<script data-main="../static/js/main.js" src="../static/dist/js/require.js"></script>
+</body>
