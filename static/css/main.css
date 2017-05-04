@@ -1,8 +1,8 @@
 /*patch*/
 .ys-navbar{margin-bottom:0;
     border-radius: 0;background-color:#4b5368; border:0;}
-#navbar{padding-top:18px;padding-bottom:16px;padding-left:60px;padding-right:15px;height:60px;overflow: hidden;max-height: 60px;}
-.navbar-nav>li>a{position:relative;padding:0;height: 26px;  line-height: 26px;background-color:#3a4153;font-size:12px;padding-left:10px;padding-right:10px;color: #fff;}
+#navbar{padding-top:18px;padding-bottom:16px;padding-left:30px;padding-right:15px;height:60px;overflow: hidden;max-height: 60px;}
+.navbar-nav>li>a{position:relative;padding:0;height: 26px;  line-height: 26px;background-color:#3a4153;font-size:12px;padding-left:10px;padding-right:30px;color: #fff;}
 .navbar-default .navbar-nav>li>a { color: #fff; }
 .navbar-default .navbar-nav>li>a:focus, .navbar-default .navbar-nav>li>a:hover {
     color: #fff;
@@ -40,6 +40,23 @@
     -o-transform: rotate(180deg);
     transform: rotate(180deg);}
 
+.navbar-form{margin-top:0;margin-bottom:0;}
+#project-search input,#project-search .btn{height:26px;line-height: 26px;
+    padding-top: 0;
+    padding-bottom: 0;
+    border: 0;
+    border-radius: 0;
+    background-color: #3a4153;
+    font-size: 12px;
+}
+#project-search input{min-width: 175px;}
+#project-search .btn{margin-left:6px;width:110px;background-color:#00aaff;color:#fff;font-size:14px;text-align: center;border-radius:3px;
+    -webkit-transition: background-color .2s;
+    -moz-transition: background-color .2s;
+    -ms-transition: background-color .2s;
+    -o-transition: background-color .2s;
+    transition: background-color .2s;}
+#project-search .btn:hover{background-color: #0099ea;}
 .canvas-wrapper {
     position: relative;
     width: 100%;

@@ -3,7 +3,7 @@
         <ul class="nav navbar-nav">
             <li class="dropdown">
                 <label>项目</label>
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <span>{{mCtrl.menuFilter.project.name| default:"项目"}}</span> <span class="glyphicon glyphicon-menu-down"></span></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <span>{{mCtrl.menuFilter.project.name| default:"请选择"}}</span> <span class="glyphicon glyphicon-menu-down"></span></a>
                 <ul class="dropdown-menu" role="menu" id="project-filter">
                     <li ng-repeat="project in mCtrl.projects" ng-class="{'active':mCtrl.isActive(project.id,mCtrl.menuFilter.project.id)}">
                         <a data-id={{project.id}} ng-click='mCtrl.setProject(project)'>{{project.name}}</a>
@@ -12,7 +12,7 @@
             </li>
             <li class="dropdown">
                 <label>计划</label>
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span >{{mCtrl.menuFilter.plan.name| default:"计划"}}</span> <span class="glyphicon glyphicon-menu-down"></span></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span >{{mCtrl.menuFilter.plan.name| default:"请选择"}}</span> <span class="glyphicon glyphicon-menu-down"></span></a>
                 <ul class="dropdown-menu" role="menu" id="bis-filter">
                     <li ng-repeat="plan in mCtrl.plans" ng-class="{'active':mCtrl.isActive(plan.id,mCtrl.menuFilter.plan.id)}">
                         <a data-id={{plan.id}} ng-click='mCtrl.setModel("plan",plan)'>{{plan.name}}</a>
@@ -22,7 +22,7 @@
 
             <li class="dropdown">
                 <label>级别</label>
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span >{{mCtrl.levels[mCtrl.menuFilter.level] | default:"级别"}}</span> <span class="glyphicon glyphicon-menu-down"></span></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span >{{mCtrl.levels[mCtrl.menuFilter.level] | default:"请选择"}}</span> <span class="glyphicon glyphicon-menu-down"></span></a>
                 <ul class="dropdown-menu" role="menu" id="level-filter">
                     <li ng-repeat="(lid,level) in mCtrl.levels" ng-class="{'active':mCtrl.isActive(lid,mCtrl.menuFilter.level)}">
                         <a data-id={{lid}} ng-click='mCtrl.setModel("level",lid)'>{{level}}</a>
@@ -32,7 +32,7 @@
 
             <li class="dropdown">
                 <label>状态</label>
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span >{{mCtrl.status[mCtrl.menuFilter.status] | default:"状态"}}</span> <span class="glyphicon glyphicon-menu-down"></span></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span >{{mCtrl.status[mCtrl.menuFilter.status] | default:"请选择"}}</span> <span class="glyphicon glyphicon-menu-down"></span></a>
                 <ul class="dropdown-menu" role="menu" id="status-filter">
                     <li ng-repeat="(sid,status) in mCtrl.status" ng-class="{'active':mCtrl.isActive(sid,mCtrl.menuFilter.status)}">
                         <a data-id={{sid}} ng-click='mCtrl.setModel("status",sid)'>{{status}}</a>
