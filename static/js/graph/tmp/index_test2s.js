@@ -39,7 +39,6 @@ function getDateOffset(project_start,cur_date){
 }
 //a=getDate('2015-3-12',5);
 
-
 function level_init() {
     //var mainTop=parseInt($("#main").offset().top);
     var mainTop = 88;

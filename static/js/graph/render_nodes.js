@@ -49,7 +49,7 @@ define(["jquery","zrender/zrender","./graph","zrender/tool/color","zrender/tool/
             //todo:因为angular单页刷新的缘故，需要init重置数据，render 单独做渲染操作
             //数据重置
             //渲染
-            zrGroup = []
+            zrGroup = [];
             //nodesRender.render(zr,project);
 
         };
