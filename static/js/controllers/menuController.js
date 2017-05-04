@@ -29,6 +29,7 @@ define(["angular","./app.controllers"],function(angular,controllers){
         };
         self.setProject=function(project){
             /**/
+            self.setModel("project",project);
             var projectCd=project.id;
             console.log("projectCd===="+projectCd)
             $location.path("/main/"+projectCd);

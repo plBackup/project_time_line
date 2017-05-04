@@ -49,6 +49,29 @@ define(["angular","zrender/zrender","./app.controllers","../graph/render_project
             //nodesRender 用到ProjectRender数据，现在改到projectRender里处理
             //nodesRender.init(zr,nodes);
             eagleRender.init(zr);
+
+
+            /*事件处理要先清除，再重新绑定*/
+            $('body').off().on("nodeclick",function(e,params){
+                console.log("node click---------------================");
+                console.log(params);
+                var $nodeInfo=$(".node-info");
+                /*todo:判断 nodeinfo 当前对应的 node id,
+                * 如果nodeid不等，
+                *
+                * */
+               /* if($nodeInfo.data("node")===params.){
+                    if($nodeInfo.hasClass("active")){
+                        $nodeInfo.removeClass("active").fadeOut();
+                    }else{
+                        $nodeInfo.addClass("active").fadeIn();
+                    }
+                }else{
+                    $nodeInfo.removeClass("a")
+                }*/
+
+
+            });
         };
 
         /*var defer=undefined;
@@ -81,11 +104,7 @@ define(["angular","zrender/zrender","./app.controllers","../graph/render_project
         });
 
 
-        $('body').on("nodeclick",function(e,params){
-            console.log("node click---------------================");
-            console.log(params);
-            $(".node-info").fadeIn();
-        });
+
 
         function _init(){
             if(typeof nodeData !=="undefined"){

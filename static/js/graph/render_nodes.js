@@ -263,6 +263,8 @@ define(["jquery","zrender/zrender","./graph","zrender/tool/color","zrender/tool/
                         break;
                 }
 
+
+                var nodeTitle=e['level']+" "+e['sequence'];
                 g.addChild(new RectangleShape(
                     {
                         id:'node_'+i+'_id',
@@ -280,7 +282,7 @@ define(["jquery","zrender/zrender","./graph","zrender/tool/color","zrender/tool/
                             strokeColor: stroke_color,
                             lineWidth: 2,
                             lineJoin: 'round',
-                            text: e['id'],
+                            text: nodeTitle,
 
                             textPosition: 'inside',
                             textFont: 'bold 12px verdana',
