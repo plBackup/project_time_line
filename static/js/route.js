@@ -30,9 +30,9 @@ define(["js/app"],
                                 controllerAs:"mCtrl"
                             },
                             'content': {
-                                templateUrl: '../views/data_view.html',
-                                controller:"dataCtrl",
-                                controllerAs:"dCtrl"
+                                templateUrl: '../views/blank.html',
+                               /* controller:"dataCtrl",
+                                controllerAs:"dCtrl"*/
                             },
                             "right":{
                                 templateUrl: '../views/blank_right.html',

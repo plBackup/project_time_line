@@ -56,7 +56,11 @@ define(["angular","./app.controllers"],function(angular,controllers){
             self.setModel("project",curProject);
 
         }
-        _init();
+
+        if($rootScope.pid){
+            _init();
+        }
+
     }]);
     //return controllers;
 });
