@@ -1,5 +1,45 @@
 /*patch*/
+.ys-navbar{margin-bottom:0;
+    border-radius: 0;background-color:#4b5368; border:0;}
+#navbar{padding-top:18px;padding-bottom:16px;padding-left:60px;padding-right:15px;height:60px;overflow: hidden;max-height: 60px;}
+.navbar-nav>li>a{position:relative;padding:0;height: 26px;  line-height: 26px;background-color:#3a4153;font-size:12px;padding-left:10px;padding-right:10px;color: #fff;}
+.navbar-default .navbar-nav>li>a { color: #fff; }
+.navbar-default .navbar-nav>li>a:focus, .navbar-default .navbar-nav>li>a:hover {
+    color: #fff;
+    background-color: #3a4153;
+}
+.navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:focus, .navbar-default .navbar-nav>.open>a:hover {
+    color: #fff;
+    background-color: #3a4153;
+}
+.navbar-nav>li>.dropdown-menu {
+    max-height: 300px;
+    overflow: auto;
+    left: 50px;
+}
+.dropdown-menu>.active>a, .dropdown-menu>.active>a:focus, .dropdown-menu>.active>a:hover {
+    color: #fff;
+    text-decoration: none;
+    background-color: #3a4153;
+    outline: 0;
+}
+.ys-navbar .dropdown{min-width:180px;padding-left:50px;position: relative;}
+.ys-navbar .dropdown>label{position: absolute;left:15px;top:50%;margin-top:-13px;height:26px;line-height: 26px;font-size:12px;color:#8592a3;}
 .navbar-nav>li>.dropdown-menu{max-height:300px;overflow:auto;}
+.navbar-default .navbar-nav>li>a>span.glyphicon{position: absolute;width:14px;height:14px;right:10px;top:50%;margin-top:-7px;text-align: center;color:#8592a3;
+    -webkit-transition: transform .3s;
+    -moz-transition: transform .3s;
+    -ms-transition: transform .3s;
+    -o-transition: transform .3s;
+    transition: transform .3s;}
+
+.navbar-default .navbar-nav>li.open>a>span.glyphicon{
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    transform: rotate(180deg);}
+
 .canvas-wrapper {
     position: relative;
     width: 100%;
@@ -15,7 +55,7 @@
     z-index: 999;
 }
 .date-row #date-index {
-    background-color: #dbeef3;
+    background-color: #dae1e7;
     border-radius: 0;
 }
 .date-day {
@@ -50,9 +90,9 @@
     padding-right: 8px;
     height: 24px;
     width: 80px;
-    background-color: #dbeef3;
+    background-color: #dae1e7;
     border:0;
-    border-left:solid .5px #333;
+    border-left:solid .5px #cacaca;
     text-align: center;
     line-height: 30px;
     transform: rotate(30deg);
@@ -62,9 +102,9 @@
     -moz-transform: rotate(270deg);
 }
 
-.project-name +.project-name{border-right:solid .5px #333;}
+.project-name +.project-name{border-right:solid .5px #cacaca;}
 .project-name:hover, .project-active {
-    background-color: #92cddc;
+    background-color: #c8d1d8;
     color: #000;
     cursor: pointer;
 }
