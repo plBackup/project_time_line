@@ -16,6 +16,7 @@ define(["jquery","zrender/zrender","./graph","zrender/tool/color","zrender/tool/
         var nodesRender={};
         var color = require('zrender/tool/color');
         var RectangleShape = require('zrender/shape/Rectangle');
+        var CircleShape=require('zrender/shape/Circle');
         var LineShape = require('zrender/shape/Line');
         var IsogonShape = require('zrender/shape/Isogon');
         var Group = require('zrender/Group');
@@ -261,7 +262,7 @@ define(["jquery","zrender/zrender","./graph","zrender/tool/color","zrender/tool/
                 }
 
 
-                var nodeTitle=e['level']+" "+e['sequence'];
+                var nodeTitle="  "+e['sequence'];
                 g.addChild(new RectangleShape(
                     {
                         id:'node_'+i+'_id',
@@ -296,7 +297,36 @@ define(["jquery","zrender/zrender","./graph","zrender/tool/color","zrender/tool/
                         _group: 'node_'+i+'_group',
                     }
                 ));//add cricle
+                g.addChild(new CircleShape(
+                    {
+                        id:'node_'+i+"_level",
+                        style:{
+                            x: 18,
+                            //y: project.node_y+ e.y_offset+120,
+                            y: e.y_offset + 120 + y_plus+12,
 
+                            r: 6,
+                            brushType: 'stroke',
+                            color: text_color,          // rgba supported
+                            strokeColor: text_color,
+                            lineWidth: 2,
+
+                            text: e['level'],
+                            textPosition: 'inside',
+                            textFont: 'bold 8px verdana',
+                            textAlign: 'center',
+                            textBaseline: 'middle',
+                            textColor: text_color
+                        },
+                        //  z: 9,
+                        hoverable: false,   // default true
+                        draggable: false,   // default false
+                        clickable: false,   // default false
+
+                        _name: e['name'],
+                        _group: 'node_'+i+'_group',
+                    }
+                ));
                 g.addChild(new RectangleShape(
                     {
                         id: 'node_'+i,

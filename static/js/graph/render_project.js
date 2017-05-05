@@ -254,7 +254,7 @@ define(["jquery","zrender/zrender","./graph","./data_init","./render_nodes","zre
                         width :rect_width+2,
                         height: 30,
                         //  radius: [20, 50],
-                        brushType : 'both',
+                        //brushType : "",
                         color : '#dbeef3',
                         strokeColor : '#333',
                         lineWidth : 0,
