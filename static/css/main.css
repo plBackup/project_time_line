@@ -281,12 +281,14 @@
     -o-transition: opactiy 0.3s;
     transition: opactiy 0.3s;
 }
-.open .backdrop, .open-tool .backdrop, .open-panel .backdrop {
+.open .backdrop,
+.open-tool .backdrop,
+.open-panel .backdrop {
     display: block;
     opacity: 0.56;
 }
 /*loading*/
-.ys-amp .amp-loading {
+.ys-loading {
     display: none;
     position: fixed;
     top: 0;
@@ -296,7 +298,7 @@
     background-color: transparent;
     z-index: 3999;
 }
-.amp-loading>.loading-wrapper {
+.ys-loading>.loading-wrapper {
     width: 180px;
     height: 120px;
     padding-top: 80px;
@@ -308,7 +310,7 @@
     border-radius: 12px;
     background-color: rgba(62,70,88,0.62);
 }
-.ys-amp .amp-loading>.loading-wrapper>.loading-ani {
+.ys-loading>.loading-wrapper>.loading-ani {
     width: 60px;
     height: 60px;
     position: absolute;
