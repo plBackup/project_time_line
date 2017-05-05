@@ -15,15 +15,12 @@ define(["angular","zrender/zrender","./app.controllers","../graph/render_project
 
         function _getNodes(nodesFilter){
 
-
             $http.get("../data/sdk!node.json",{cache:false}).then(function (res) {
                 //todo：根据status做判断
                 var data=res.data.data;
                 self.planId=data.planId;
                 self.nodes= data.nodes;
-
                 $rootScope.$broadcast("render_nodes",{});
-
             });
 
         };
