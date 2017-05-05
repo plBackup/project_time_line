@@ -1,13 +1,14 @@
 /**
  * Created by whobird on 17/5/5.
  */
-define(["angular","zrender/zrender","./app.controllers",],function(angular,zrender,controllers){
+define(["jquery","angular","zrender/zrender","./app.controllers",],function($,angular,zrender,controllers){
 
     controllers.controller("rightCtrl",["$rootScope","$scope","$http",function($rootScope,$scope,$http){
 
             var self=this;
 
             self.close=function(){
+                console.log("close---------------")
                 _panel_hide();
             };
 
