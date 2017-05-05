@@ -35,7 +35,7 @@ define(["jquery","zrender/zrender","./graph","./data_init","./render_nodes","zre
 
             //todo: data init
             data.init(nodes);
-            nodesRender.init();
+            nodesRender.init(zr);
             $.each(data.rows, function (i, e) {
                 //e:project
                 var project = e;

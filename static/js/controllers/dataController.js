@@ -36,8 +36,7 @@ define(["angular","zrender/zrender","./app.controllers","../graph/render_project
         });
 
         function _render(nodes){
-            console.log("self pid========"+self.pid);
-            console.log(nodes);
+
             var main_top=88;
             var main_bottom=50;
             var wrapperHeight=document.documentElement.clientHeight- main_top-main_bottom;
