@@ -216,3 +216,49 @@
 .node-info .edit #confirm-cancel a {
     background-color: #0072bb;
 }
+
+/*right panel*/
+.rightpanel {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    top: 0;
+    right: 0;
+    background-color: #fff;
+    overflow-x: hidden;
+    padding-top: 0;
+    z-index: 1999;
+    overflow: hidden;
+    -webkit-transition: width 0.3s;
+    -moz-transition: width 0.3s;
+    -ms-transition: width 0.3s;
+    -o-transition: width 0.3s;
+    transition: width 0.3s;
+}
+.open-panel .rightpanel {
+    width: 60%;
+    overflow-y: auto;
+}
+.rightpanel .right-content-wrapper {
+    position: relative;
+    padding-top: 44px;
+}
+.rightpanel .right-content-wrapper>.right-panel-header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 44px;
+    width: 100%;
+    background-color: #dae1e7;
+    text-align: center;
+}
+.rightpanel .right-content-wrapper>.right-panel-header h3 {
+    line-height: 44px;
+    font-size: 15px;
+    color: #373c42;
+}
+.rightpanel .right-content {
+    padding: 20px;
+    padding-top: 0;
+    padding-right: 0;
+}
