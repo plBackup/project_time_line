@@ -262,3 +262,57 @@
     padding-top: 0;
     padding-right: 0;
 }
+
+
+/*backdrop*/
+.backdrop {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #373c42;
+    opacity: 0;
+    z-index: 999;
+    -webkit-transition: opactiy 0.3s;
+    -moz-transition: opactiy 0.3s;
+    -ms-transition: opactiy 0.3s;
+    -o-transition: opactiy 0.3s;
+    transition: opactiy 0.3s;
+}
+.open .backdrop, .open-tool .backdrop, .open-panel .backdrop {
+    display: block;
+    opacity: 0.56;
+}
+/*loading*/
+.ys-amp .amp-loading {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: transparent;
+    z-index: 3999;
+}
+.amp-loading>.loading-wrapper {
+    width: 180px;
+    height: 120px;
+    padding-top: 80px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: 10px;
+    margin-top: -100px;
+    border-radius: 12px;
+    background-color: rgba(62,70,88,0.62);
+}
+.ys-amp .amp-loading>.loading-wrapper>.loading-ani {
+    width: 60px;
+    height: 60px;
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    margin-left: -30px;
+}
