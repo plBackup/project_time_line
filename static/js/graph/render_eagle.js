@@ -58,6 +58,7 @@ define(["jquery","zrender/zrender","./graph","./data_init","zrender/tool/color",
             );
 
             eagle_group.addChild(new ImageShape({
+                id:"eagle_bg",
                 style: {
                     brushType:'both',
                     image: imageData,
@@ -68,8 +69,9 @@ define(["jquery","zrender/zrender","./graph","./data_init","zrender/tool/color",
                     color:'rgba(255,255,255,0.9)',
                     strokeColor:'#29ABE4',
                     lineWidth:3,
-                    radius: 0
+                    radius: 0,
                 },
+                z:199,
                 //  zlevel:12,
                 clickable:false,
                 draggable:false,
@@ -82,6 +84,7 @@ define(["jquery","zrender/zrender","./graph","./data_init","zrender/tool/color",
             }));
 
             eagle_group.addChild(new RectangleShape({
+                id:"eagle_rect",
                 style: {
                     brushType:'both',
                     x: 0,
@@ -91,9 +94,11 @@ define(["jquery","zrender/zrender","./graph","./data_init","zrender/tool/color",
                     color:'rgba(255,255,255,0.6)',
                     strokeColor:'#29ABE4',
                     lineWidth:3,
-                    radius: 0
+                    radius: 0,
+
                 },
                 //  zlevel:12,
+                z:299,
                 clickable:false,
                 draggable:false,
                 hoverable:false,
@@ -114,8 +119,9 @@ define(["jquery","zrender/zrender","./graph","./data_init","zrender/tool/color",
                     color:'rgba(255,0,0,0.9)',
                     // strokeColor:'#29ABE4',
                     //lineWidth:3,
-                    radius: 0
+                    radius: 0,
                 },
+                z:399,
                 // zlevel:12,
                 clickable:false,
                 draggable:true,
@@ -155,15 +161,22 @@ define(["jquery","zrender/zrender","./graph","./data_init","zrender/tool/color",
             }));
             zr.addGroup(eagle_group);
 
-
+            /*todo:update: 当页面数据刷新时，同时更新鹰眼视图*/
+            /*setTimeout(function(){
+                zr.modShape("eagle_bg",{
+                    style:{
+                        image:"../static/images/opt.png"
+                    }
+                })
+            },3000);*/
         };
 
         eagleRender.init=function(zr){
-            console.log("eagle render -----init===========================");
             //渲染
             eagleRender.render(zr);
 
         };
+
 
 
         return eagleRender;

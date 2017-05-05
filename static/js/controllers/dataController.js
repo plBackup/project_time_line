@@ -57,8 +57,11 @@ define(["angular","zrender/zrender","./app.controllers","../graph/render_project
                 console.log(params);
                 var $nodeInfo=$(".node-info");
                 /*todo:判断 nodeinfo 当前对应的 node id,
-                * 如果nodeid不等，
+                * 如果nodeid不等，则销毁当前node-info数据，在新位置重新显示
+                * 如果nodeid相等，则toggle显示node-info(考虑到鹰眼拖动时要隐藏node-info)
                 *
+                * 还有一种情况，当非node点击，需要清除当前focus数据， render_nodes.js触发一个zrEvent事件
+                * 在zrEvent事件中，清空当前nodeinfo数据，并隐藏；
                 * */
                /* if($nodeInfo.data("node")===params.){
                     if($nodeInfo.hasClass("active")){
@@ -71,7 +74,11 @@ define(["angular","zrender/zrender","./app.controllers","../graph/render_project
                 }*/
 
 
+            }).on("zrEvent",function(e){
+                console.log("******===========zr event=======================********");
             });
+
+
         };
 
         /*var defer=undefined;

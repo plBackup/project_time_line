@@ -45,7 +45,6 @@ define(["jquery","zrender/zrender","./graph","zrender/tool/color","zrender/tool/
         };
 
         nodesRender.init=function(){
-            console.log("nodes render -----init===========================");
             //todo:因为angular单页刷新的缘故，需要init重置数据，render 单独做渲染操作
             //数据重置
             //渲染
@@ -55,7 +54,6 @@ define(["jquery","zrender/zrender","./graph","zrender/tool/color","zrender/tool/
         };
 
         function _zrEvent_init(zr){
-
 
             zr.on('click', function (params) {
 
@@ -199,9 +197,8 @@ define(["jquery","zrender/zrender","./graph","zrender/tool/color","zrender/tool/
                         _end_date: e['scheduleEndDate'],
                         _y_plus: y_plus,
                         onclick: function (params) {
-                            console.log("-------------params---------------");
-                            console.log(params)
-                            $('body').trigger("nodeclick",params);
+                            var nodeObj=params.target.parent;
+                            $('body').trigger("nodeclick",nodeObj);
                             _render_curDate(zr,this);
 
                             var curNodeGroup=zr.storage.get(params.target._group);
@@ -348,9 +345,6 @@ define(["jquery","zrender/zrender","./graph","zrender/tool/color","zrender/tool/
                 //zr.update();
             });//end each nodes
 
-
-            console.log("zrGroup====================")
-            console.log(zrGroup)
         };
 
         function _render_curDate(zr,node){
@@ -431,18 +425,18 @@ define(["jquery","zrender/zrender","./graph","zrender/tool/color","zrender/tool/
 
         function _focusNode(zr,nodeGroup){
             //透明所有节点，突出显示当前节点
-            console.log("focus------------");
-            console.log(zrGroup);
             $.each(zrGroup, function (i, e) {
                 //node.style.opacity=0.3;
                 var node = zr.storage.get(e);
                 node.eachChild(function (e) {
                     e.style.opacity = 0.3;
+                    e.z=0;
                 });
             });
 
             nodeGroup.eachChild(function (e) {
                 e.style.opacity = 1;
+                e.z=9;
             });
 
         };
@@ -454,6 +448,7 @@ define(["jquery","zrender/zrender","./graph","zrender/tool/color","zrender/tool/
                 var node = zr.storage.get(e);
                 node.eachChild(function (e) {
                     e.style.opacity = 1
+                    e.z=0;
                 });
             });
 

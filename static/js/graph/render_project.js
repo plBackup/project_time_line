@@ -5,7 +5,6 @@ define(["jquery","zrender/zrender","./graph","./data_init","./render_nodes","zre
     function($,zrender,graph,data,nodesRender){
 
         var project_start=data.start_date;//起始日期，视数据接口情况改成动态值
-        console.log("zrender---------");
         var projectRender={};
 
         var color = require('zrender/tool/color');
@@ -29,8 +28,7 @@ define(["jquery","zrender/zrender","./graph","./data_init","./render_nodes","zre
             var zr = zrObject;
             var project_count = 0;
             var zrWidth = zr.getWidth();
-            console.log("zrWidth------------------------------------------------");
-            console.log(zrWidth);
+
             var project_y = 30;//绘制y高度的起始位置，随着遍历project累加project 高度
 
             var startOffset=graph.startOffset;
@@ -49,7 +47,7 @@ define(["jquery","zrender/zrender","./graph","./data_init","./render_nodes","zre
                 var startNode_x = startOffset;//偏移量
                 var endNode_x = w - startOffset;
                 var startNode_y = project["height"] + project_y;
-                console.log("startNode_y========================="+  startNode_y+"---"+endNode_x);
+
                 //标记project_y为新的位置，作为下级的起点
                 project_y = startNode_y;
                 var endNode_y = startNode_y;
@@ -85,8 +83,6 @@ define(["jquery","zrender/zrender","./graph","./data_init","./render_nodes","zre
                 //绘制nodes方法；
                 //init_nodes(zr,project);
                 //todo:nodesRender
-                console.log("project nodes====================================="+i);
-                console.log(project.nodes);
                 nodesRender.render(zr,project);
 
                 project_count += 1;
@@ -171,7 +167,7 @@ define(["jquery","zrender/zrender","./graph","./data_init","./render_nodes","zre
             //todo: x轴计算宽度加30是把左侧栏的宽度计算上,统一用graph.startOffset来设定
             //var w=(graph.init_status.status4.x_end-graph.init_status.status0.x_start)*(graph.defaultPix)+graph.startOffset*2+30;
             var w=(graph.init_status.status4.x_end-graph.init_status.status0.x_start)*(graph.defaultPix)+graph.startOffset;
-            console.log("w=========="+w);
+
             var canvas_w =parseInt( $(".navbar").css("width"));
             var mainTop=88;
             var canvas_h = parseInt($(".canvas-wrapper").css("height"));
@@ -406,12 +402,10 @@ define(["jquery","zrender/zrender","./graph","./data_init","./render_nodes","zre
             _render_curDate(zr);
 
             //绘画
-            console.log(zr);
             zr.render();
     };
 
         projectRender.init=function(nodes){
-           console.log("project render -----init===========================");
             //数据过滤
            //渲染
            projectRender.render(nodes);
