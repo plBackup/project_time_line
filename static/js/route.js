@@ -62,7 +62,9 @@ define(["js/app"],
                                 controllerAs:"dCtrl"
                             },
                             "right":{
-                                templateUrl: '../views/blank_right.html',
+                                templateUrl: '../views/right_view.html',
+                                controller:"rightCtrl",
+                                controllerAs:"rCtrl"
                             }
                         },
                         resolve: {

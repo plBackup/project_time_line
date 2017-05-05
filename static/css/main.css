@@ -227,7 +227,7 @@
     background-color: #fff;
     overflow-x: hidden;
     padding-top: 0;
-    z-index: 1999;
+    z-index: 2999;
     overflow: hidden;
     -webkit-transition: width 0.3s;
     -moz-transition: width 0.3s;
@@ -236,7 +236,7 @@
     transition: width 0.3s;
 }
 .open-panel .rightpanel {
-    width: 60%;
+    width: 35%;
     overflow-y: auto;
 }
 .rightpanel .right-content-wrapper {
@@ -262,7 +262,19 @@
     padding-top: 0;
     padding-right: 0;
 }
-
+.rightpanel .closebtn {
+    position: absolute;
+    top: 4px;
+    left: 10px;
+    width: 36px;
+    height: 36px;
+    font-size: 36px !important;
+    font-weight:normal;
+    color: #373c42;
+    cursor: pointer;
+    text-decoration: none;
+    line-height: 30px;
+}
 
 /*backdrop*/
 .backdrop {

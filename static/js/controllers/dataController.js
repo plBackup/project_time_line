@@ -37,7 +37,7 @@ define(["angular","zrender/zrender","./app.controllers","../graph/render_project
         };
 
         self.showNodeDetail=function(){
-            console.log("show node detail");
+           $rootScope.trigger("showDetail");
         };
 
         function _render(nodes){
