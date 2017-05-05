@@ -32,6 +32,14 @@ define(["angular","zrender/zrender","./app.controllers","../graph/render_project
             _getNodes(data);
         });
 
+        self.closeNodeInfo=function(){
+            $(".node-info").removeClass("active").hide();
+        };
+
+        self.showNodeDetail=function(){
+            console.log("show node detail");
+        };
+
         function _render(nodes){
 
             var main_top=60;

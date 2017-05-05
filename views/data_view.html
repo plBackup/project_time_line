@@ -14,37 +14,37 @@
     </div>-->
     <div class="node-info">
         <h3 class="node-info-title">节点名称</h3>
+        <a class="btn-info-close" ng-click="dCtrl.closeNodeInfo()"></a>
         <div class="node-info-content">
             <ul>
                 <li>
-                    <label>业态</label>
+                    <label>业态: </label>
                     <span></span>
                 </li>
                 <li>
-                    <label>主责方</label>
+                    <label>主责方: </label>
                     <span>成本中心</span>
                 </li>
                 <li>
-                    <label>责任人</label>
+                    <label>责任人: </label>
                     <span></span>
                 </li>
                 <li>
-                    <label>计划开始</label>
+                    <label>计划开始: </label>
                     <span>2017-06-30</span>
                 </li>
                 <li>
-                    <label>计划结束</label>
+                    <label>计划结束: </label>
                     <span>2017-07-30</span>
                 </li>
                 <li>
-                    <label>状态</label>
+                    <label>状态: </label>
                     <span>进行中</span>
                 </li>
             </ul>
         </div>
-        <div class="node-info-opt clearfix">
-            <a class="btn btn-default btn-primary ys-btn-blue pull-left">详情</a>
-            <a class="btn btn-default pull-right">关闭</a>
+        <div class="node-info-opt">
+            <a class="btn btn-default ys-btn-dark" ng-click="dCtrl.showNodeDetail()">详情</a>
         </div>
     </div>
 </div>

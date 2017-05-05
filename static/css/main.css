@@ -137,7 +137,7 @@
     margin-left: 15px;
     margin-top: 0;
     min-width: 230px;
-    padding: 16px;
+    padding: 20px;
     top:0;
     left:0;
     color: #dfdfdf;
@@ -148,9 +148,13 @@
     background-color: #f5f6f8;
 }
 .node-info h3 {
-    margin-top: 8px;
-    margin-bottom: 8px;
-    font-size: 18px;
+    margin-top: 14px;
+    margin-bottom: 14px;
+    padding-left:12px;
+    padding-right:4px;
+    border-left:solid 4px #fbc44d;
+    font-size: 16px;
+    color:#333;
 }
 .node-info:after {
     display: block;
@@ -176,11 +180,19 @@
     border-left:solid 15px transparent;
     z-index:1;
 }
-
+.node-info .node-info-content>ul{
+    margin-right: 0;
+    padding: 16px;
+    padding-top: 6px;
+    list-style: none;
+}
+.node-info .node-info-content>ul>li{font-size:12px;color:#8592a3;font-weight:normal;}
+.node-info-content>ul>li label{font-weight:normal;}
+.node-info-content>ul>li span{font-weight:normal;color:#333;}
 .node-info .edit a {
     display: inline-block;
     margin-left: 8px;
-    marign-right: 8px;
+    margin-right: 8px;
     padding: 8px;
     padding-left: 16px;
     padding-right: 16px;
@@ -192,6 +204,15 @@
     text-align: center;
     text-decoration: none;
 }
+.node-info .node-info-opt{padding-left:16px;padding-right:16px;}
+.node-info .ys-btn-dark{display: block;padding:0;width:100%;height:32px;line-height: 32px;text-align: center; color:#fff;background-color:#4b5368;border:0;border-radius: 3px;}
+
+.node-info a.btn-info-close{display: block;width:32px;height:32px;position: absolute;top:-16px;right:-16px;cursor: pointer;}
+.node-info a.btn-info-close:before{display: block;content:"x";width:16px;height:16px;border-radius:16px;background-color:#c5d2db;
+    position: absolute;top:50%;margin-top:-8px;left:50%;margin-left:-8px;
+    text-align: center;color:#fff;line-height: 16px;font-size:12px;
+}
+
 .node-info .edit #confirm-cancel a {
     background-color: #0072bb;
 }
