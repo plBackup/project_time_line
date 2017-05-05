@@ -128,7 +128,7 @@ define(["jquery","zrender/zrender","./graph","./data_init","zrender/tool/color",
                 hoverable:false,
                 ondragstart: function (e) {
                     //$('.node-info').remove();
-                    $('.node-info').remove();
+                    $('.node-info').removeClass("active").hide();
                 },//end ondrag start,
                 ondrift:function(dx,dy){
                     movePix=graph.defaultPix;

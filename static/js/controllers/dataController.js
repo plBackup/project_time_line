@@ -59,19 +59,32 @@ define(["angular","zrender/zrender","./app.controllers","../graph/render_project
                 * 还有一种情况，当非node点击，需要清除当前focus数据， render_nodes.js触发一个zrEvent事件
                 * 在zrEvent事件中，清空当前nodeinfo数据，并隐藏；
                 * */
-               /* if($nodeInfo.data("node")===params.){
+
+                var left=params._x+88+parseInt($("#date-index").css("left"));
+                var top=params._y+params._y_plus+parseInt($("#project-index").css("top"));
+
+                if($nodeInfo.data("node")===params.id){
                     if($nodeInfo.hasClass("active")){
                         $nodeInfo.removeClass("active").fadeOut();
                     }else{
-                        $nodeInfo.addClass("active").fadeIn();
+                        $nodeInfo.addClass("active").css({
+                            top:top+"px",
+                            left:left+"px"
+                        }).fadeIn();
                     }
                 }else{
-                    $nodeInfo.removeClass("a")
-                }*/
+
+                    $nodeInfo.removeClass("active").data("node",params.id).hide().css({
+                        top:top+"px",
+                        left:left+"px"
+                    }).addClass("active").fadeIn();
+                }
 
 
             }).on("zrEvent",function(e){
                 console.log("******===========zr event=======================********");
+                var $nodeInfo=$(".node-info");
+                $nodeInfo.data("node","").removeClass("active").fadeOut();
             });
 
 
