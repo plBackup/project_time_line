@@ -34,8 +34,8 @@ define(["angular","zrender/zrender","./app.controllers","../graph/render_project
 
         function _render(nodes){
 
-            var main_top=88;
-            var main_bottom=50;
+            var main_top=60;
+            var main_bottom=0;
             var wrapperHeight=document.documentElement.clientHeight- main_top-main_bottom;
             $(".canvas-wrapper").css("height",wrapperHeight+"px");
             projectRender.init(nodes);
