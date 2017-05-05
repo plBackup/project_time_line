@@ -61,7 +61,7 @@ define(["angular","zrender/zrender","./app.controllers","../graph/render_project
                 * */
 
                 var left=params._x+88+parseInt($("#date-index").css("left"));
-                var top=params._y+params._y_plus+parseInt($("#project-index").css("top"));
+                var top=params._y+params._y_plus+parseInt($("#project-index").css("top"))-25;
 
                 if($nodeInfo.data("node")===params.id){
                     if($nodeInfo.hasClass("active")){
