@@ -91,8 +91,8 @@ define(["jquery","zrender/zrender","./graph","zrender/tool/color","zrender/tool/
             //todo：这里数据是放到project[nodes]中，所以要在data.init中做一层过滤处理
             var nodes = project["nodes"];
 
-            var level1_radius = 6;
-            var level2_radius = 6;
+            var level1_radius = 3;
+            var level2_radius = 3;
 
             var normal_color = "#92cddc";
             var done_color = "#439139";
@@ -214,17 +214,37 @@ define(["jquery","zrender/zrender","./graph","zrender/tool/color","zrender/tool/
                 );
 
                 //var radius, color, style_x;
-                var radius, color, text_color;
+                var radius, color, text_color,text_name_color;
 
-                if (e['level'] == 1) {
+                if (e['level'] == 0) {
                     radius = level1_radius;
-                    color = "#0069a0";
-                    text_color="#3f9ad6"
+                    color = "#00aaff";
+                    text_color="#fff"
+                } else if (e['level'] == 1) {
+                    radius = level1_radius;
+                    color = "#5ab46e";
+                    text_color="#fff"
                 } else if (e['level'] == 2) {
                     radius = level1_radius;
+                    color = "#f48a50";
+                    text_color="#fff"
+                }else if (e['level'] == 3) {
+                    radius = level1_radius;
+                    color = "#fbc44d";
+                    text_color="#fff"
+                }else if (e['level'] == 4) {
+                    radius = level1_radius;
+                    color = "#fbc44d";
+                    text_color="#fff"
+                }else if (e['level'] == 5) {
+                    radius = level1_radius;
+                    color = "#fbc44d";
+                    text_color="#fff"
+                }else if (e['level'] == all) {
+                    radius = level1_radius;
                     color = "#92cddc";
-                    text_color="#333"
-                } else {
+                    text_color="#fff"
+                }else {
                     radius = level2_radius;
                     color = "#fff";
                     text_color="#333"
@@ -241,24 +261,25 @@ define(["jquery","zrender/zrender","./graph","zrender/tool/color","zrender/tool/
                 //节点状态有4种：'complete', 'delay', 'on', 'unstart'
                 switch( e['status']){
                     case 'complete':
-                        stroke_color="#78b7db";
-                        text_color="#333";
+                        stroke_color="#ddd";
+                        text_name_color="#333";
                         break;
                     case 'delay':
                         stroke_color="#fd4239";
-                        text_color="#fd4239";
+                        text_name_color="#333";
                         break;
 
                     case 'on':
-                        stroke_color="#23ac38";
-                        text_color="#23ac38";
+                        stroke_color="#ddd";
+                        text_name_color="#333";
                         break;
                     case 'unstart':
-                        stroke_color="#fd4239";
-                        text_color="#fd4239";
+                        stroke_color="#ddd";
+                        text_name_color="#333";
                         break;
                     default:
-                        stroke_color="#333";
+                        stroke_color="#ddd";
+                        text_name_color="#333";
                         break;
                 }
 
@@ -279,7 +300,7 @@ define(["jquery","zrender/zrender","./graph","zrender/tool/color","zrender/tool/
                             brushType: 'both',
                             color: color,          // rgba supported
                             strokeColor: stroke_color,
-                            lineWidth: 2,
+                            lineWidth: 1,
                             lineJoin: 'round',
                             text: nodeTitle,
 
@@ -310,7 +331,7 @@ define(["jquery","zrender/zrender","./graph","zrender/tool/color","zrender/tool/
                             brushType: 'stroke',
                             color: text_color,          // rgba supported
                             strokeColor: text_color,
-                            lineWidth: 2,
+                            lineWidth: 1,
 
                             text: e['level'],
                             textPosition: 'inside',
@@ -343,7 +364,7 @@ define(["jquery","zrender/zrender","./graph","zrender/tool/color","zrender/tool/
                             brushType: 'both',
                             color: "#fff",          // rgba supported
                             strokeColor: stroke_color,
-                            lineWidth: 2,
+                            lineWidth: 1,
                             lineJoin: 'round',
                             // text : e['name'],
                             // text:e['name'].length>6?(e['name'].substr(0,6)+'\n'+e['name'].substr(6,12)):e['name'],
@@ -352,7 +373,7 @@ define(["jquery","zrender/zrender","./graph","zrender/tool/color","zrender/tool/
                             textFont: 'bold 12px verdana',
                             textAlign: 'center',
                             textBaseline: 'middle',
-                            textColor: text_color
+                            textColor: text_name_color
 
                             //strokeColor: color.getColor(colorIdx++),  // getColor from default palette
                             // lineWidth: 5,

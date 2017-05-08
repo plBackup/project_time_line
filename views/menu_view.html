@@ -22,9 +22,9 @@
 
             <li class="dropdown">
                 <label>级别</label>
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span >{{mCtrl.levels[mCtrl.menuFilter.level] | default:"请选择"}}</span> <span class="glyphicon glyphicon-menu-down"></span></a>
+                <a href="#" class="dropdown-toggle level_{{mCtrl.menuFilter.level}}" data-toggle="dropdown" id="level-selected"><span >{{mCtrl.levels[mCtrl.menuFilter.level] | default:"请选择"}}</span> <span class="glyphicon glyphicon-menu-down"></span></a>
                 <ul class="dropdown-menu" role="menu" id="level-filter">
-                    <li ng-repeat="(lid,level) in mCtrl.levels" ng-class="{'active':mCtrl.isActive(lid,mCtrl.menuFilter.level)}">
+                    <li ng-repeat="(lid,level) in mCtrl.levels" ng-class="{'active':mCtrl.isActive(lid,mCtrl.menuFilter.level)}" class="level_{{lid}}">
                         <a data-id={{lid}} ng-click='mCtrl.setModel("level",lid)'>{{level}}</a>
                     </li>
                 </ul>
