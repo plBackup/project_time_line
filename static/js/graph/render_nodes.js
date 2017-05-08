@@ -54,7 +54,9 @@ define(["jquery","zrender/zrender","./graph","zrender/tool/color","zrender/tool/
             _zrEvent_init(zr);
 
         };
-
+        nodesRender.focusNode=function(zr,nodeGroup){
+            _focusNode(zr,nodeGroup)
+        }
         function _zrEvent_init(zr){
 
             zr.on('click', function (params) {
@@ -279,7 +281,7 @@ define(["jquery","zrender/zrender","./graph","zrender/tool/color","zrender/tool/
                         break;
                     default:
                         stroke_color="#ddd";
-                        text_name_color="#333";
+                        text_name_color="#ddd";
                         break;
                 }
 
@@ -300,7 +302,7 @@ define(["jquery","zrender/zrender","./graph","zrender/tool/color","zrender/tool/
                             brushType: 'both',
                             color: color,          // rgba supported
                             strokeColor: stroke_color,
-                            lineWidth: 1,
+                            lineWidth: 2,
                             lineJoin: 'round',
                             text: nodeTitle,
 
@@ -331,7 +333,7 @@ define(["jquery","zrender/zrender","./graph","zrender/tool/color","zrender/tool/
                             brushType: 'stroke',
                             color: text_color,          // rgba supported
                             strokeColor: text_color,
-                            lineWidth: 1,
+                            lineWidth: 2,
 
                             text: e['level'],
                             textPosition: 'inside',

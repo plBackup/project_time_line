@@ -25,12 +25,25 @@ define(["angular","zrender/zrender","./app.controllers","../graph/render_project
 
         };
 
+        function _focusNode(nodesFilter){
+
+
+        }
+
         $scope.$on("menu_filter",function(event,data){
             console.log("menu data--------");
             self.nodesFilter=data;
             console.log(data);
             _getNodes(data);
         });
+
+        $scope.$on("node_filter",function(event,data){
+            console.log("menu data--------");
+            self.nodesFilter=data;
+            console.log(data);
+            _focusNode(data);
+        });
+
 
         self.closeNodeInfo=function(){
             $(".node-info").removeClass("active").hide();
@@ -40,6 +53,76 @@ define(["angular","zrender/zrender","./app.controllers","../graph/render_project
            $rootScope.$broadcast("showDetail");
         };
 
+
+
+        function _focusNode(nodes){
+
+            var main_top=60;
+            var main_bottom=0;
+            zr = zrender.getInstance(localStorage.zr);
+
+            var zrWidth=parseInt($(".canvas-wrapper").css("width"));
+            var zrHeight=parseInt($(".canvas-wrapper").css("height"));
+           /* var topOffset=$("#project-index").css("top");
+            var leftOffset=$("#date-index").css("left");*/
+            var nodes=zr.storage.get("node_3_group");
+            console.log("_focusNodes==================");
+            console.log(nodes);
+            console.log(zrWidth)
+            console.log(zrHeight);
+
+            if(nodes._x>(zrWidth/2)){
+                var leftOffset=nodes._x-(zrWidth/2);
+            }else{
+                var leftOffset=0;
+            }
+
+            if(nodes._y>(zrHeight/2)){
+                var topOffset=nodes._y-(zrHeight/2);
+            }else{
+                var topOffset=0;
+            }
+            console.log(leftOffset);
+            console.log(topOffset);
+            //x轴，y轴同步偏移
+            $("#date-index").css('left',(-1)*leftOffset);
+            $("#project-index").css('top',(-1)*topOffset);
+
+            zr.modLayer('0',{position:[(-1)*leftOffset,(-1)*topOffset]});
+
+            console.log(self.nodes);
+
+            $.each(self.nodes, function (i, e) {
+                //node.style.opacity=0.3;
+                var node = zr.storage.get("node_"+i+"_group");
+                console.log(node);
+                node.eachChild(function (e) {
+                    e.style.opacity = 0;
+                    e.z=0;
+                });
+            });
+
+
+            nodes.eachChild(function (e) {
+                e.style.opacity = 1;
+                e.z=9;
+            });
+
+            var imageData=zr.toDataURL();
+            zr.modShape("eagle_bg",{
+                style:{
+                    image: imageData,
+                }
+
+            });
+            zr.modShape("eagle",{position:[eagle_position_x,eagle_position_y]});
+             zr.modGroup("eagle_eye",{position:[eagle_position_x,eagle_position_y]});
+
+            eagleRender.setPosition(leftOffset,topOffset);
+            console.log(zr);
+            zr.render();
+
+        }
 
 
         function _render(nodes){

@@ -171,6 +171,32 @@ define(["jquery","zrender/zrender","./graph","./data_init","zrender/tool/color",
             },3000);*/
         };
 
+        self.setPosition=function(leftOffset,topOffset){
+            var canvas_w =parseInt( $(".canvas-wrapper").css("width"));
+            var canvas_h = parseInt($(".canvas-wrapper").css("height"));
+
+            //end nodesRender
+            var width = Math.ceil(zr.getWidth());
+            var height = Math.ceil(zr.getHeight());
+            var layer_move_x=0;
+            var layer_move_y=0;
+
+            var eagle_width,eagle_height,eagle_eye_width,eagle_eye_height,eagle_positionX,eagle_positionY;
+
+            eagle_width=200;
+            eagle_height=eagle_width*(height/width);
+
+            eagle_eye_width=(canvas_w/width)*eagle_width;
+            eagle_eye_height=(canvas_h/height)*eagle_height;
+
+            eagle_positionX=canvas_w-eagle_width-20;
+            eagle_positionY=canvas_h-eagle_height-20;
+
+            //鹰眼与视图的比例关系
+            var coef_x= (width)/(eagle_width);
+            var coef_y= (height)/(eagle_height);
+        }
+
         eagleRender.init=function(zr){
             //渲染
             eagleRender.render(zr);

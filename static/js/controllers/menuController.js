@@ -40,7 +40,12 @@ define(["angular","./app.controllers"],function(angular,controllers){
 
         self.triggerFilter=function($event){
             $event.preventDefault();
-            $rootScope.$broadcast("menu_filter",self.menuFilter);
+            if(self.menuFilter.node!==undefined && self.menuFilter.node!==""){
+                $rootScope.$broadcast("node_filter",self.menuFilter);
+            }else{
+                $rootScope.$broadcast("menu_filter",self.menuFilter);
+            }
+
         };
 
         function _init(){
