@@ -135,8 +135,9 @@ a:focus{ -webkit-box-shadow:none;box-shadow:none;}
     width: 80px;
     background-color: #dae1e7;
     border:0;
-    border-left:solid .5px #cacaca;
+    border-left:solid .5px #ddd;
     text-align: center;
+    font-size:14px;
     line-height: 30px;
     transform: rotate(30deg);
     -ms-transform: rotate(270deg);
@@ -145,7 +146,7 @@ a:focus{ -webkit-box-shadow:none;box-shadow:none;}
     -moz-transform: rotate(270deg);
 }
 
-.project-name +.project-name{border-right:solid .5px #cacaca;}
+.project-name +.project-name{border-right:solid .5px #ddd;}
 .project-name:hover, .project-active {
     background-color: #c8d1d8;
     color: #000;
