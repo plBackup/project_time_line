@@ -171,15 +171,15 @@ define(["jquery","zrender/zrender","./graph","./data_init","zrender/tool/color",
             },3000);*/
         };
 
-        self.setPosition=function(leftOffset,topOffset){
+        eagleRender.setPosition=function(zr,leftOffset,topOffset){
             var canvas_w =parseInt( $(".canvas-wrapper").css("width"));
             var canvas_h = parseInt($(".canvas-wrapper").css("height"));
 
             //end nodesRender
             var width = Math.ceil(zr.getWidth());
             var height = Math.ceil(zr.getHeight());
-            var layer_move_x=0;
-            var layer_move_y=0;
+            var layer_move_x=leftOffset;
+            var layer_move_y=topOffset;
 
             var eagle_width,eagle_height,eagle_eye_width,eagle_eye_height,eagle_positionX,eagle_positionY;
 
@@ -189,13 +189,24 @@ define(["jquery","zrender/zrender","./graph","./data_init","zrender/tool/color",
             eagle_eye_width=(canvas_w/width)*eagle_width;
             eagle_eye_height=(canvas_h/height)*eagle_height;
 
-            eagle_positionX=canvas_w-eagle_width-20;
-            eagle_positionY=canvas_h-eagle_height-20;
+
 
             //鹰眼与视图的比例关系
             var coef_x= (width)/(eagle_width);
             var coef_y= (height)/(eagle_height);
-        }
+
+            var eagle_eye_x=layer_move_x/coef_x;
+            var eagle_eye_y=layer_move_y/coef_y;
+
+
+            eagle_positionX=canvas_w-eagle_width-20+layer_move_x;
+            eagle_positionY=canvas_h-eagle_height-20+layer_move_y;
+
+            zr.modGroup("eagle_eye",{position:[eagle_positionX,eagle_positionY]});
+            zr.modShape("eagle",{
+                position:[eagle_eye_x,eagle_eye_y]
+            });
+        };
 
         eagleRender.init=function(zr){
             //渲染

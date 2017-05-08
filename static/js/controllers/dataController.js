@@ -102,7 +102,6 @@ define(["angular","zrender/zrender","./app.controllers","../graph/render_project
                 });
             });
 
-
             nodes.eachChild(function (e) {
                 e.style.opacity = 1;
                 e.z=9;
@@ -115,10 +114,11 @@ define(["angular","zrender/zrender","./app.controllers","../graph/render_project
                 }
 
             });
-            zr.modShape("eagle",{position:[eagle_position_x,eagle_position_y]});
-             zr.modGroup("eagle_eye",{position:[eagle_position_x,eagle_position_y]});
+        /*    zr.modShape("eagle",{position:[eagle_position_x,eagle_position_y]});
+             zr.modGroup("eagle_eye",{position:[eagle_position_x,eagle_position_y]});*/
+            console.log(eagleRender)
+            eagleRender.setPosition(zr,leftOffset,topOffset);
 
-            eagleRender.setPosition(leftOffset,topOffset);
             console.log(zr);
             zr.render();
 
