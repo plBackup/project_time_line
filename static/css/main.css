@@ -1,3 +1,29 @@
+html,body{font-family: 'PingFang SC', 'Helvetica Neue',"STHeitiSC-Light","Microsoft YaHei",sans-serif;height:100%;width:100%;font-size:20px;overflow: hidden;
+    -webkit-overflow-scrolling: touch;}
+body{background-color: #fff;}
+h1,h2,h3,h4,h5,h6,em,i,span{font-weight: normal;}
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6,p,em,i,span,p{margin:0;padding:0;font-family:'PingFang SC', 'Helvetica Neue',"STHeitiSC-Light","Microsoft YaHei",sans-serif;}
+a,img,button{
+    -webkit-box-shadow:none;
+    box-shadow:none;
+    transition: background-color 0.6s,border 0.6s,color 0.3s;
+    -webkit-transition: background-color 0.6s ,border 0.6s, color 0.3s;
+    tap-highlight-color: rgba(0,0,0,0);
+    focus-ring-color: rgba(0, 0, 0, 0);
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    -webkit-focus-ring-color: rgba(0, 0, 0, 0);
+
+    -moz-tap-highlight-color: rgba(0,0,0,0);
+    -moz-focus-ring-color: rgba(0, 0, 0, 0);
+
+    outline: none;
+
+    -webkit-user-select:none;
+    -moz-user-select:none;
+    -ms-user-select:none;
+}
+a:focus{ -webkit-box-shadow:none;box-shadow:none;}
+
 /*patch*/
 .ys-navbar{margin-bottom:0;
     border-radius: 0;background-color:#4b5368; border:0;}
@@ -229,7 +255,7 @@
     width: 100%;
     height: 20px;
     overflow: hidden;
-    margin-bottom: 16px;
+    margin-bottom: 0;
     font-size: 14px;
     color: #666;
 }
@@ -255,8 +281,8 @@
     display: block;
     width: 16px;
     height: 16px;
-    background-image: url(./red.png);
-    background-position: -1px -1px;
+    background-image: url(../images/blue.png);
+    background-position: 0 0;
     /*background-size: contain;*/
     background-repeat: no-repeat;
     content: " ";
@@ -264,7 +290,27 @@
 
 
 .input-checkbox-addon>input:checked + label:before {
-    background-position: -41px -1px;
+    background-position: -40px 0;
+}
+
+.input-radio-addon>label:before {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    margin-top: -8px;
+    display: block;
+    width: 16px;
+    height: 16px;
+    background-image: url(../images/blue.png);
+    background-position: -100px 0;
+    /*background-size: contain;*/
+    background-repeat: no-repeat;
+    content: " ";
+}
+
+
+.input-radio-addon>input:checked + label:before {
+    background-position: -140px 0;
 }
 
 /*right panel*/
@@ -292,7 +338,7 @@
     transition: width 0.3s,transform .3s;
 }
 .open-panel .rightpanel {
-    width: 800px;
+    width: 880px;
     -webkit-transform: translateX(0);
     -moz-transform: translateX(0);
     -ms-transform: translateX(0);
@@ -320,9 +366,7 @@
     color: #373c42;
 }
 .rightpanel .right-content {
-    padding: 20px;
-    padding-top: 0;
-    padding-right: 0;
+    padding:0;
 }
 .rightpanel .closebtn {
     position: absolute;
@@ -392,3 +436,30 @@
     left: 50%;
     margin-left: -30px;
 }
+
+/*page blank*/
+.blank>h3{position: absolute;top:50%;left:50%;margin-top:-75px;margin-left:-75px;
+    width:150px;height:150px;padding-top:80px;
+    font-size:15px;color:#333;line-height: 1.5;text-align: center;}
+.blank>h3:before{display: block;width:68px;height:55px;position: absolute;top:15px;  left:50%;margin-left:-34px;content:" ";
+    background-image:url(../images/blank.png);background-size:contain;background-repeat: no-repeat;background-position: center center;}
+
+/*right panel*/
+.rpanel-title{padding-left:25px;padding-right:25px;background-color:#f3f4f8;}
+.rpanel-title h3{height:44px;line-height: 44px;font-size:14px;color:#333;}
+.rpanel-content{padding:20px 25px;}
+.ys-table{}
+.ys-table thead{background-color:#f3f4f8;}
+.ys-table thead>tr>th{font-size:12px;color:#8491a2;font-weight:normal;border-bottom-width: 1px;}
+
+.ys-table tbody>tr>th,.ys-table tbody>tr>td{font-size:14px;color:#333;}
+
+.rpanel-content-detail .ys-table{}
+.rpanel-content-detail .ys-table>tbody>tr>th{font-size:12px;color:#8491a2;}
+.rpanel-content-detail .ys-table>tbody>tr>td{font-size:14px;color:#333;}
+
+.ys-table-noborde{}
+.ys-table-noborde>tbody+tbody{border-top:0;}
+.ys-table-noborder>tbody>tr>td, .ys-table-noborder>tbody>tr>th,
+.ys-table-noborder>tfoot>tr>td, .ys-table-noborder>tfoot>tr>th,
+.ys-table-noborder>thead>tr>td, .ys-table-noborder>thead>tr>th{border-top:0;height:38px;}

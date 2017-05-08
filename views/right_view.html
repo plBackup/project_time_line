@@ -10,6 +10,16 @@
             </div>
             <div class="rpanel-content rpanel-content-summary">
                 <table class="table ys-table">
+                    <colgroup>
+                        <col width="20%">
+                        <col width="10%">
+                        <col width="10%">
+                        <col width="10%">
+                        <col width="10%">
+                        <col width="15%">
+                        <col width="15%">
+                        <col width="10%">
+                    </colgroup>
                     <thead>
                         <tr>
                             <th>业态</th>
@@ -37,15 +47,15 @@
                 </table>
             </div><!--rpanel-table-->
             <div class="rpanel-content rpanel-content-detail">
-                <table class="table ys-table">
+                <table class="table ys-table ys-table-noborder">
                     <tbody>
                         <tr>
                             <th>涉及业态:</th>
                             <td>
                                 <div class="td-wrapper clearfix">
                                     <div class="input-addon input-checkbox-addon">
-                                        <input type="checkbox">
-                                        <label>一期西地块办公</label>
+                                        <input type="checkbox" name="retailing-form" id="retailing-form">
+                                        <label for="retailing-form">一期西地块办公</label>
                                     </div>
                                 </div>
                             </td>
@@ -56,12 +66,12 @@
                             <td>
                                 <div class="td-wrapper clearfix">
                                     <div class="input-addon input-radio-addon">
-                                        <input type="radio">
-                                        <label>进行中</label>
+                                        <input type="radio" name="status" id="status-going-on">
+                                        <label for="status-going-on">进行中</label>
                                     </div>
                                     <div class="input-addon input-radio-addon">
-                                        <input type="radio">
-                                        <label>已完成</label>
+                                        <input type="radio" name="status" id="status-done">
+                                        <label for="status-done">已完成</label>
                                     </div>
                                 </div>
                             </td>
@@ -102,12 +112,12 @@
                             <td>
                                 <div class="td-wrapper clearfix">
                                     <div class="input-addon input-radio-addon">
-                                        <input type="radio">
-                                        <label>是</label>
+                                        <input type="radio" name="schedule" id="on-schedule">
+                                        <label for="on-schedule">是</label>
                                     </div>
                                     <div class="input-addon input-radio-addon">
-                                        <input type="radio">
-                                        <label>否</label>
+                                        <input type="radio" name="schedule" id="out-schedule">
+                                        <label for="out-schedule">否</label>
                                     </div>
                                 </div>
                             </td>
@@ -117,12 +127,12 @@
                             <td>
                                 <div class="td-wrapper clearfix">
                                     <div class="input-addon input-radio-addon">
-                                        <input type="radio">
-                                        <label>是</label>
+                                        <input type="radio" name="effective" id="marker-effect">
+                                        <label for="marker-effect">是</label>
                                     </div>
                                     <div class="input-addon input-radio-addon">
-                                        <input type="radio">
-                                        <label>否</label>
+                                        <input type="radio" name="effective" id="marker-no-effect">
+                                        <label for="marker-no-effect">否</label>
                                     </div>
                                 </div>
                             </td>
