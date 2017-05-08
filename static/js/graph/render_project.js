@@ -59,8 +59,8 @@ define(["jquery","zrender/zrender","./graph","./data_init","./render_nodes","zre
                         yStart: startNode_y,
                         xEnd: endNode_x,
                         yEnd: endNode_y,
-                        strokeColor: "#333",
-                        lineWidth: 2,
+                        strokeColor: "#ddd",
+                        lineWidth: 1,
                         lineType: 'solid'    // default solid
                         //text : 'line'
                     },
