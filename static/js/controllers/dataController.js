@@ -3,7 +3,7 @@
  */
 define(["angular","zrender/zrender","./app.controllers","../graph/render_project","../graph/render_nodes","../graph/render_eagle"],function(angular,zrender,controllers,projectRender,nodesRender,eagleRender){
 
-    controllers.controller("dataCtrl",["$rootScope","$scope","$http","dataNodeService","nodeData",function($rootScope,$scope,$http,dataMenuService,nodeData){
+    controllers.controller("dataCtrl",["$rootScope","$scope","$http","dataNodeService","nodeData","$timeout",function($rootScope,$scope,$http,dataMenuService,nodeData,$timeout){
 
         var self=this;
         var zr;
@@ -129,9 +129,9 @@ define(["angular","zrender/zrender","./app.controllers","../graph/render_project
             _render(self.nodes);
         });
 
-
-
-
+        $timeout(function(){
+            $rootScope.loading_hide();
+        },2000);
         function _init(){
             if(typeof nodeData !=="undefined"){
                 self.nodes=nodeData.data["nodes"];
