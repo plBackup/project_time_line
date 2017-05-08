@@ -235,8 +235,8 @@ define(["jquery","zrender/zrender","./graph","./data_init","./render_nodes","zre
                         yStart : 0,
                         xEnd :x_start,
                         yEnd : h,//绘图高度--项目整体高度
-                        strokeColor : "#ddd",
-                        lineWidth : 2,
+                        strokeColor : "#e5e5e5",
+                        lineWidth : 1,
                         lineType : 'solid'    // default solid
                         //text : 'line'
                     },

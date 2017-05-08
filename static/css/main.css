@@ -75,7 +75,7 @@ a:focus{ -webkit-box-shadow:none;box-shadow:none;}
     background-color: #3a4153;
     font-size: 12px;
 }
-#project-search input{min-width: 175px;}
+#project-search input{min-width: 175px;color:#fff;}
 #project-search .btn{margin-left:6px;width:110px;background-color:#00aaff;color:#fff;font-size:14px;text-align: center;border-radius:3px;
     -webkit-transition: background-color .2s;
     -moz-transition: background-color .2s;
