@@ -12,6 +12,13 @@ define(["jquery","angular","zrender/zrender","./app.controllers",],function($,an
                 _panel_hide();
             };
 
+            self.uploadFile=function($event){
+                console.log($event);
+
+
+            };
+
+
             console.log("right contrller====================");
             $scope.$on("showDetail",function(e,obj){
                 //get node data

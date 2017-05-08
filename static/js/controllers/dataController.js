@@ -40,6 +40,8 @@ define(["angular","zrender/zrender","./app.controllers","../graph/render_project
            $rootScope.$broadcast("showDetail");
         };
 
+
+
         function _render(nodes){
 
             var main_top=60;

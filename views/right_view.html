@@ -11,10 +11,10 @@
             <div class="rpanel-content rpanel-content-summary">
                 <table class="table ys-table">
                     <colgroup>
-                        <col width="20%">
-                        <col width="10%">
-                        <col width="10%">
-                        <col width="10%">
+                        <col width="16%">
+                        <col width="12%">
+                        <col width="11%">
+                        <col width="11%">
                         <col width="10%">
                         <col width="15%">
                         <col width="15%">
@@ -48,13 +48,17 @@
             </div><!--rpanel-table-->
             <div class="rpanel-content rpanel-content-detail">
                 <table class="table ys-table ys-table-noborder">
+                    <colgroup>
+                        <col width="16%">
+                        <col width="84%">
+                    </colgroup>
                     <tbody>
                         <tr>
                             <th>涉及业态:</th>
                             <td>
                                 <div class="td-wrapper clearfix">
-                                    <div class="input-addon input-checkbox-addon">
-                                        <input type="checkbox" name="retailing-form" id="retailing-form">
+                                    <div class="input-addon input-checkbox-addon pull-left">
+                                        <input type="checkbox" name="retailing-form" id="retailing-form" checked>
                                         <label for="retailing-form">一期西地块办公</label>
                                     </div>
                                 </div>
@@ -65,11 +69,11 @@
                             <th>状态:</th>
                             <td>
                                 <div class="td-wrapper clearfix">
-                                    <div class="input-addon input-radio-addon">
+                                    <div class="input-addon input-radio-addon pull-left">
                                         <input type="radio" name="status" id="status-going-on">
                                         <label for="status-going-on">进行中</label>
                                     </div>
-                                    <div class="input-addon input-radio-addon">
+                                    <div class="input-addon input-radio-addon pull-left">
                                         <input type="radio" name="status" id="status-done">
                                         <label for="status-done">已完成</label>
                                     </div>
@@ -81,12 +85,12 @@
                             <th>成果判定:</th>
                             <td>
                                 <div class="td-wrapper clearfix">
-                                   <span>《工程结算审批表》</span>
-                                   <div class="td-opt-group">
+                                   <span class="pull-left">《工程结算审批表》</span>
+                                   <div class="td-opt-group pull-left">
                                        <a class="td-opt td-opt-del">删除</a>
-                                       <a class="td-opt td-opt-upload">上传
-                                            <input type="file">
-                                       </a>
+                                       <label class="td-opt td-opt-upload" ng-click="rCtrl.uploadFile($event)" for="file-upload">上传
+                                            <input type="file" id="file-upload">
+                                       </label>
                                    </div>
                                 </div>
                             </td>
@@ -95,7 +99,7 @@
                             <th>网批号查询:</th>
                             <td>
                                 <div class="td-wrapper clearfix">
-                                    <a class="td-link" href="#">767528</a>
+                                    <a class="td-link" href="http://www.baidu.com" target="_blank">767528</a>
                                 </div>
                             </td>
                         </tr><!--tr-->
@@ -111,11 +115,11 @@
                             <th>是否按期完成:</th>
                             <td>
                                 <div class="td-wrapper clearfix">
-                                    <div class="input-addon input-radio-addon">
+                                    <div class="input-addon input-radio-addon pull-left">
                                         <input type="radio" name="schedule" id="on-schedule">
                                         <label for="on-schedule">是</label>
                                     </div>
-                                    <div class="input-addon input-radio-addon">
+                                    <div class="input-addon input-radio-addon pull-left">
                                         <input type="radio" name="schedule" id="out-schedule">
                                         <label for="out-schedule">否</label>
                                     </div>
@@ -126,11 +130,11 @@
                             <th>是否影响里程碑节点:</th>
                             <td>
                                 <div class="td-wrapper clearfix">
-                                    <div class="input-addon input-radio-addon">
+                                    <div class="input-addon input-radio-addon pull-left">
                                         <input type="radio" name="effective" id="marker-effect">
                                         <label for="marker-effect">是</label>
                                     </div>
-                                    <div class="input-addon input-radio-addon">
+                                    <div class="input-addon input-radio-addon pull-left">
                                         <input type="radio" name="effective" id="marker-no-effect">
                                         <label for="marker-no-effect">否</label>
                                     </div>
@@ -139,11 +143,11 @@
                         </tr><!--tr-->
 
                         <tr>
-                            <th>风险及具体原因:</th>
+                            <th style="vertical-align: top;">风险及具体原因:</th>
                             <td>
-                                <div class="td-wrapper clearfix">
+                                <div class="td-wrapper">
                                     <textarea ></textarea>
-                                    <div class="td-btn-group">
+                                    <div class="td-btn-group clearfix">
                                         <a class="btn btn-primary">确定</a>
                                         <a class="btn btn-default">取消</a>
                                     </div>
