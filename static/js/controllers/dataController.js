@@ -54,22 +54,25 @@ define(["angular","zrender/zrender","./app.controllers","../graph/render_project
         };
 
 
-
+        /*
+        * todo:这里的这段过滤数据后的显示放到dataController中，
+        * 是基于之后做创建项目节点列表页面，有相似逻辑的考虑，
+        * 让render_nodes尽量保持通用。
+        *
+        * 数据过滤后，显示新的nodes，目前实现以下几点：
+        *
+        *如果第一个node节点的位置大于第一屏的x,y 50%,
+        * 显示第一个node节点至第一屏的中间
+        * 同时移动鹰眼坐标
+        *
+        * */
         function _focusNode(nodes){
 
-            var main_top=60;
-            var main_bottom=0;
             zr = zrender.getInstance(localStorage.zr);
-
             var zrWidth=parseInt($(".canvas-wrapper").css("width"));
             var zrHeight=parseInt($(".canvas-wrapper").css("height"));
-           /* var topOffset=$("#project-index").css("top");
-            var leftOffset=$("#date-index").css("left");*/
+
             var nodes=zr.storage.get("node_3_group");
-            console.log("_focusNodes==================");
-            console.log(nodes);
-            console.log(zrWidth)
-            console.log(zrHeight);
 
             if(nodes._x>(zrWidth/2)){
                 var leftOffset=nodes._x-(zrWidth/2);
@@ -114,14 +117,10 @@ define(["angular","zrender/zrender","./app.controllers","../graph/render_project
                 }
 
             });
-        /*    zr.modShape("eagle",{position:[eagle_position_x,eagle_position_y]});
-             zr.modGroup("eagle_eye",{position:[eagle_position_x,eagle_position_y]});*/
-            console.log(eagleRender)
+
             eagleRender.setPosition(zr,leftOffset,topOffset);
 
-            console.log(zr);
             zr.render();
-
         }
 
 
