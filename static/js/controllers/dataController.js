@@ -25,10 +25,6 @@ define(["angular","zrender/zrender","./app.controllers","../graph/render_project
 
         };
 
-        function _focusNode(nodesFilter){
-
-
-        }
 
         $scope.$on("menu_filter",function(event,data){
             console.log("menu data--------");
@@ -218,7 +214,10 @@ define(["angular","zrender/zrender","./app.controllers","../graph/render_project
         },2000);
         function _init(){
             if(typeof nodeData !=="undefined"){
+                console.log(nodeData);
                 self.nodes=nodeData.data["nodes"];
+
+
                 _clearDom();
                 _render(self.nodes);
             }

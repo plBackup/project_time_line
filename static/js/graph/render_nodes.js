@@ -132,8 +132,10 @@ define(["jquery","zrender/zrender","./graph","zrender/tool/color","zrender/tool/
                     }
                 }else{
                     //根据startdate 确认x位置 数据提供的是scheduleStartDate
-                    e['start_date']=e['scheduleStartDate'];
-                    e['end_date']=e['scheduleEndDate'];
+                    var sStartDate=new Date(e['scheduleStartDate']);
+                    var sEndDate=new Date(e['scheduleEndDate']);
+                    e['start_date']=sStartDate.getFullYear()+"-"+(sStartDate.getMonth()+1)+"-"+sStartDate.getDate();
+                    e['end_date']=sEndDate.getFullYear()+"-"+(sEndDate.getMonth()+1)+"-"+sEndDate.getDate();
                 }
 
 
