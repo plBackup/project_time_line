@@ -57,6 +57,35 @@ define(["js/app"],
                                 controllerAs:"mCtrl"
                             },
                             'content': {
+                                templateUrl: '../views/blank_project.html',
+                                /* controller:"dataCtrl",
+                                 controllerAs:"dCtrl"*/
+                            },
+                            "right":{
+                                templateUrl: '../views/blank_right.html',
+                            }
+                        },
+                        resolve: {
+
+                            menuData: function(dataMenuService,$stateParams,$rootScope) {
+                                var pid=$stateParams.pid;
+                                var search="?projectCd="+pid;
+                                $rootScope.pid=pid;
+                                return dataMenuService.getData(search);
+                            },
+
+                        }
+                    })
+                    .state('plan', {
+                        //abstract: true,
+                        url: '/main/{pid}/{plan}',
+                        views:{
+                            'menu':{
+                                templateUrl: '../views/menu_view.html',
+                                controller:"menuCtrl",
+                                controllerAs:"mCtrl"
+                            },
+                            'content': {
                                 templateUrl: '../views/data_view.html',
                                 controller:"dataCtrl",
                                 controllerAs:"dCtrl"
@@ -72,12 +101,15 @@ define(["js/app"],
                                  var pid=$stateParams.pid;
                                  var search="?projectCd="+pid;
                                  $rootScope.pid=pid;
+
                                  return dataMenuService.getData(search);
                              },
                             nodeData: function(dataNodeService,$stateParams,$rootScope) {
-                                var pid=$stateParams.pid;
-                                var search="?projectCd="+pid;
-                                $rootScope.pid=pid;
+                                var plan=$stateParams.plan;
+                                $rootScope.plan=plan;
+                                //all代表过滤1:未完成 0:全部
+                                "planId=4028347044bace9c0144d47419151028&level=1&status=all&all=0"
+                                var search="?planId="+plan+"&level=all&status=all&all=0";
                                 return dataNodeService.getData(search);
                             },
                         }

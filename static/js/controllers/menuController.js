@@ -34,6 +34,18 @@ define(["angular","./app.controllers"],function(angular,controllers){
             console.log("projectCd===="+projectCd)
             $location.path("/main/"+projectCd);
         };
+
+        self.setPlan=function(plan){
+            /**/
+            self.setModel("plan",plan);
+            var planId=plan.id;
+
+            if(typeof self.menuFilter.project !=="undefined"){
+                var projectCd=self.menuFilter.project.id;
+                $location.path("/main/"+projectCd+"/"+planId);
+            }
+
+        };
         self.isActive=function(menu,model){
             return menu==model;
         };
@@ -61,6 +73,18 @@ define(["angular","./app.controllers"],function(angular,controllers){
             console.log(curProject);
             self.setModel("project",curProject);
 
+            var plan=$rootScope.plan;
+
+            console.log("plane-----------------------")
+            if(typeof plan !=="undefined"){
+               var curPlan=undefined;
+               $.each(self.plans,function(i,e){
+                   if(e.id==plan){
+                       curPlan=e;
+                   }
+               });
+               self.setModel("plan",curPlan);
+            }
         }
 
         if($rootScope.pid){

@@ -15,7 +15,7 @@
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span >{{mCtrl.menuFilter.plan.name| default:"请选择"}}</span> <span class="glyphicon glyphicon-menu-down"></span></a>
                 <ul class="dropdown-menu" role="menu" id="bis-filter">
                     <li ng-repeat="plan in mCtrl.plans" ng-class="{'active':mCtrl.isActive(plan.id,mCtrl.menuFilter.plan.id)}">
-                        <a data-id={{plan.id}} ng-click='mCtrl.setModel("plan",plan)'>{{plan.name}}</a>
+                        <a data-id={{plan.id}} ng-click='mCtrl.setPlan(plan)'>{{plan.name}}</a>
                     </li>
                 </ul>
             </li>
@@ -39,10 +39,23 @@
                     </li>
                 </ul>
             </li>
+
+            <li>
+                <div class="raido-wrapper clearfix">
+                    <div class="input-addon input-radio-addon pull-left">
+                        <input type="radio" name="showoff" id="show-all" checked>
+                        <label for="show-all">全部</label>
+                    </div>
+                    <div class="input-addon input-radio-addon pull-left">
+                        <input type="radio" name="showoff" id="show-undone">
+                        <label for="show-undone">未完成</label>
+                    </div>
+                </div>
+            </li>
         </ul>
 
         <div class="navbar-form navbar-right" id="project-search">
-            <div class="form-group">
+            <div class="form-group clearfix">
                 <input type="text" name="searchSearch" value="" class="form-control" placeholder="请输入要查询的节点" ng-model="mCtrl.menuFilter.node">
             </div>
 

@@ -67,7 +67,11 @@ a:focus{ -webkit-box-shadow:none;box-shadow:none;}
     transform: rotate(180deg);}
 
 .navbar-form{margin-top:0;margin-bottom:0;}
-#project-search input,#project-search .btn{height:26px;line-height: 26px;
+
+#project-search>.form-group{vertical-align: inherit;}
+#project-search input,#project-search .btn{
+    float:right;
+    height:26px;line-height: 26px;
     padding-top: 0;
     padding-bottom: 0;
     border: 0;
