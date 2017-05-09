@@ -57,7 +57,7 @@ define(["jquery","zrender/zrender","./graph","./data_init","./render_nodes","zre
                     style: {
                         xStart: startNode_x,
                         yStart: startNode_y,
-                        xEnd: endNode_x,
+                        xEnd: endNode_x+startOffset,
                         yEnd: endNode_y,
                         strokeColor: "#ddd",
                         lineWidth: 1,
