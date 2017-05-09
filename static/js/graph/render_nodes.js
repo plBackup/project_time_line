@@ -281,7 +281,7 @@ define(["jquery","zrender/zrender","./graph","zrender/tool/color","zrender/tool/
                         break;
                     default:
                         stroke_color="#ddd";
-                        text_name_color="#ddd";
+                        text_name_color="#333";
                         break;
                 }
 
