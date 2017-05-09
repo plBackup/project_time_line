@@ -8,7 +8,7 @@ define(["angular","./app.controllers"],function(angular,controllers){
         var self=this;
         self.name="menu";
         console.log("menudata");
-        console.log(menuData);
+        console.dir(menuData.data);
         self.data=angular.copy(menuData.data);
         self.menuFilter={
             project:undefined,
@@ -30,7 +30,7 @@ define(["angular","./app.controllers"],function(angular,controllers){
         self.setProject=function(project){
             /**/
             self.setModel("project",project);
-            var projectCd=project.id;
+            var projectCd=project.projectCd;
             console.log("projectCd===="+projectCd)
             $location.path("/main/"+projectCd);
         };
@@ -41,7 +41,7 @@ define(["angular","./app.controllers"],function(angular,controllers){
             var planId=plan.id;
 
             if(typeof self.menuFilter.project !=="undefined"){
-                var projectCd=self.menuFilter.project.id;
+                var projectCd=self.menuFilter.project.projectCd;
                 $location.path("/main/"+projectCd+"/"+planId);
             }
 
@@ -66,7 +66,7 @@ define(["angular","./app.controllers"],function(angular,controllers){
             console.log(pid);
             var curProject=undefined;
             $.each(self.projects,function(i,e){
-                if(e.id==pid){
+                if(e.projectCd==pid){
                     curProject=e;
                 }
             });

@@ -10,7 +10,7 @@ define(["angular","./app.services"],function(angular,services){
                     search="";
                 }
 
-                return $http.get('../data/sdk!init.json'+search, {cache: false}).then(function (res) {
+                return $http.get('http://192.168.121.24:7900/PowerDesk/plan7/sdk!init.action'+search, {cache: false}).then(function (res) {
                     if(typeof cb!=="undefined"){
                         cb(res.data);
                     }else{
