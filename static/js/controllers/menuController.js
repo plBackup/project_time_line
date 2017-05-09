@@ -75,7 +75,7 @@ define(["angular","./app.controllers"],function(angular,controllers){
 
             var plan=$rootScope.plan;
 
-            console.log("plane-----------------------")
+            console.log("plane-----------------------");
             if(typeof plan !=="undefined"){
                var curPlan=undefined;
                $.each(self.plans,function(i,e){
@@ -84,6 +84,10 @@ define(["angular","./app.controllers"],function(angular,controllers){
                    }
                });
                self.setModel("plan",curPlan);
+            }else{
+
+                //如果无计划节点时，激活显示计划节点
+                $("#dropdown-plan").dropdown("toggle");
             }
         }
 

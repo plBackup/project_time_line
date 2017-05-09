@@ -36,9 +36,11 @@ a:focus{ -webkit-box-shadow:none;box-shadow:none;}
 }
 .navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:focus, .navbar-default .navbar-nav>.open>a:hover {
     color: #fff;
+    outline: solid 1px #00aaff;
     background-color: #3a4153;
 }
 .navbar-nav>li>.dropdown-menu {
+    margin-top:0;
     max-height: 300px;
     overflow: auto;
     left: 50px;
@@ -87,6 +89,16 @@ a:focus{ -webkit-box-shadow:none;box-shadow:none;}
     -o-transition: background-color .2s;
     transition: background-color .2s;}
 #project-search .btn:hover{background-color: #0099ea;}
+
+.raido-wrapper{padding-top:3px;padding-left:15px;}
+.raido-wrapper .input-addon{color:#fff;font-size:12px;}
+.raido-wrapper .input-radio-addon>label:before {
+    background-position: -160px 0;
+}
+.raido-wrapper .input-radio-addon>input:checked + label:before {
+    background-position: -180px 0;
+}
+/*body*/
 .canvas-wrapper {
     position: relative;
     width: 100%;
@@ -277,6 +289,7 @@ a:focus{ -webkit-box-shadow:none;box-shadow:none;}
     height: 20px;
     line-height:20px;
     padding-left: 22px;
+    cursor:pointer;
 }
 
 
@@ -517,6 +530,9 @@ a#level-selected.level_3:before{background-color: #fbc44d;}
 a#level-selected.level_4:before{background-color: #fbc44d;}
 a#level-selected.level_5:before{background-color: #fbc44d;}
 a#level-selected.level_all:before{background-color: #fff;}
+
+
+
 
 
 

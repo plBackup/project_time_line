@@ -12,7 +12,7 @@
             </li>
             <li class="dropdown">
                 <label>计划</label>
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span >{{mCtrl.menuFilter.plan.name| default:"请选择"}}</span> <span class="glyphicon glyphicon-menu-down"></span></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="dropdown-plan"><span >{{mCtrl.menuFilter.plan.name| default:"请选择"}}</span> <span class="glyphicon glyphicon-menu-down"></span></a>
                 <ul class="dropdown-menu" role="menu" id="bis-filter">
                     <li ng-repeat="plan in mCtrl.plans" ng-class="{'active':mCtrl.isActive(plan.id,mCtrl.menuFilter.plan.id)}">
                         <a data-id={{plan.id}} ng-click='mCtrl.setPlan(plan)'>{{plan.name}}</a>
