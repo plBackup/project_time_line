@@ -101,12 +101,14 @@ define(["angular","zrender/zrender","./app.controllers","../graph/render_project
                 console.log(node);
                 node.eachChild(function (e) {
                     e.style.opacity = 0;
+                    e.ignore=true;
                     e.z=0;
                 });
             });
 
             nodes.eachChild(function (e) {
                 e.style.opacity = 1;
+                e.ignore=false;
                 e.z=9;
             });
 
