@@ -204,13 +204,13 @@ define(["jquery","zrender/zrender","./graph","zrender/tool/color","zrender/tool/
                         _start_date: e['start_date'],
                         _end_date: e['end_date'],
                         _y_plus: y_plus,
+                        _index:i,
                         onclick: function (params) {
                             var nodeObj=params.target.parent;
                             $('body').trigger("nodeclick",nodeObj);
                             _render_curDate(zr,this);
 
                             var curNodeGroup=zr.storage.get(params.target._group);
-
                             _focusNode(zr,curNodeGroup);
                             zr.refresh();
                             //zr.update();
