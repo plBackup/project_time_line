@@ -10,7 +10,8 @@ define(["js/app"],
             '$stateParams',
             function ($rootScope, $state, $stateParams) {
                 $rootScope.$state = $state;
-                $rootScope.$stateParams = $stateParams
+                $rootScope.$stateParams = $stateParams;
+                $rootScope.plink="http://192.168.121.24:7900/PowerDesk/plan7";
             }
         ]).config(function ($stateProvider, $urlRouterProvider, $locationProvider, $uiViewScrollProvider) {
                 //用于改变state时跳至顶部

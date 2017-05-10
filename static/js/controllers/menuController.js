@@ -40,7 +40,6 @@ define(["angular","./app.controllers"],function(angular,controllers){
 
             if(typeof self.menuFilter.project !=="undefined"){
                 var projectCd=self.menuFilter.project.projectCd;
-
                 $location.path("/main/"+projectCd+"/"+planId);
             }
 

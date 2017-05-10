@@ -152,9 +152,6 @@ define(["jquery","zrender/zrender","./graph","zrender/tool/color","zrender/tool/
                 var y_plus = 0;
 
                 $.each(zrGroup, function (i, node) {
-                    console.log("-----------------------*node-----------------------*")
-                    console.log(node);
-                    console.log("-----------------------*node-----------------------*")
                     var zrNode_group = zr.storage.get(node);
                     // var zrNode=zr.storage.get(node.split("_")[0]+'_id');
                     var zrNode = zrNode_group.childAt(0);

@@ -90,9 +90,7 @@ define(["jquery","zrender/zrender","./graph","./data_init","./render_nodes","zre
                 //绘制nodes方法；
                 //init_nodes(zr,project);
                 //todo:nodesRender
-                console.log("project--------------------------------"+project.name);
-                console.log(project.nodes);
-                console.log("project--------------------------------")
+
                 nodesRender.render(zr,project);
 
                 project_count += 1;
@@ -248,7 +246,7 @@ define(["jquery","zrender/zrender","./graph","./data_init","./render_nodes","zre
 
 
             var len=Math.ceil(dateRange/200);
-            console.log("len----------------"+len);
+
             var init_bg={};
             for(i=0;i<len;i++){
                 var bgStr=((i+1)%2==0?"#fff":"#f6f6f6");
@@ -274,9 +272,6 @@ define(["jquery","zrender/zrender","./graph","./data_init","./render_nodes","zre
                     }
                 }
             }
-
-            console.log("init-bg---------------------");
-            console.log(init_bg);
 
             $.each(init_bg, function (k, v) {
                 var x_start = (v.x_start + day_offset) * default_pix + start_offset;
@@ -491,8 +486,6 @@ define(["jquery","zrender/zrender","./graph","./data_init","./render_nodes","zre
         projectRender.init=function(nodes,typeList,phase){
             //数据过滤
            //渲染
-            console.log("typeList======================");
-            console.log(typeList);
            projectRender.render(nodes,typeList,phase);
 
 

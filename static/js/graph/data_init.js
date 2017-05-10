@@ -89,18 +89,6 @@ define(["jquery"],function($){
     function _init_data(nodes){
         var nodes=nodes;
 
-        //var node0=new Array(),node1=new Array(),node2=new Array(),node3=new Array(),node4=new Array(),node5=new Array(),node6=new Array(),node7=new Array();
-/*
-        var nodeList={
-            node0:[],
-            node1:[],
-            node2:[],
-            node3:[],
-            node4:[],
-            node5:[],
-            node6:[],
-            node7:[]
-        };*/
         var nodeList={};
         $.each(data.rows,function(i,e){
             nodeList["node"+i]=[];
@@ -120,45 +108,11 @@ define(["jquery"],function($){
                 console.log("value type=======")
                 console.log(value.type);
             }
-
-
-            /*switch (value.type) {
-                case "type0":
-                    nodeList.node0.push(value);
-                    break;
-                case "type1":
-                    nodeList.node1.push(value);
-                    break;
-                case "type2":
-                    nodeList.node2.push(value);
-                    break;
-                case "type3":
-                    nodeList.node3.push(value);
-                    break;
-                case "type4":
-                    nodeList.node4.push(value);
-                    break;
-                case "type5":
-                    nodeList.node5.push(value);
-                    break;
-                case "type6":
-                    nodeList.node6.push(value);
-                    break;
-                case "type7":
-                    nodeList.node7.push(value);
-                    break;
-
-                default:
-                    nodeList.node7.push(value);
-            }*/
         });
 
         $.each(data.rows,function(i,e){
             data.rows[i].nodes=nodeList["node"+i];
         });
-
-        console.log("data rows========================");
-        console.log(data.rows);
     };
 
 
