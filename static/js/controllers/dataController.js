@@ -260,8 +260,8 @@ define(["angular","zrender/zrender","./app.controllers","../graph/graph","../gra
                     self.curSelectNode.startDate=params._start_date;
                     self.curSelectNode.endDate=params._end_date;
                     self.curSelectNode.status=params._status;
-                    self.curSelectNode.resNumbers=params._resNumbers,
-                    self.curSelectNode.resIds=params._resIds,
+                    self.curSelectNode.resNumbers=params._resNumbers;
+                    self.curSelectNode.resIds=params._resIds;
                     console.log($rootScope.plan.name);
                     self.curSelectNode.plan=$rootScope.plan.name;
 

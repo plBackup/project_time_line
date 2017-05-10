@@ -6,7 +6,7 @@
     <div class="right-content">
         <form name="detailForm">
             <div class="rpanel-title">
-                <h3>289.工程竣工结算</h3>
+                <h3>{{rCtrl.nodeInfo.sequence}}.{{rCtrl.nodeInfo.name}}</h3>
             </div>
             <div class="rpanel-content rpanel-content-summary">
                 <table class="table ys-table">
@@ -34,14 +34,14 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <th>一期西地块办公</th>
-                            <td>成本中心</td>
+                            <th>{{rCtrl.nodeInfo.plan}}</th>
+                            <td>{{rCtrl.nodeInfo.chargeOrgName}}</td>
                             <td>吕翠华</td>
                             <td>刘群英</td>
                             <td>申玉玉</td>
-                            <td>2015-08-13</td>
-                            <td>2015-06-13</td>
-                            <td>-38</td>
+                            <td>{{rCtrl.nodeInfo.startDate}}</td>
+                            <td>{{rCtrl.nodeInfo.endDate}}</td>
+                            <td>{{rCtrl.nodeInfo.delayOffset}}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -99,7 +99,9 @@
                             <th>网批号查询:</th>
                             <td>
                                 <div class="td-wrapper clearfix">
-                                    <a class="td-link" href="http://www.baidu.com" target="_blank">767528</a>
+                                    <a class="td-link" ng-repeat="resId in rCtrl.nodeInfo.resIds" href="{{rCtrl.baseLink}}/res/res-approve-info.action?id={{resId}}" target="_blank">
+                                        {{rCtrl.nodeInfo.resNumbers[$index]}}
+                                    </a>
                                 </div>
                             </td>
                         </tr><!--tr-->

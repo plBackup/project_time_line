@@ -6,6 +6,7 @@ define(["jquery","angular","zrender/zrender","./app.controllers",],function($,an
     controllers.controller("rightCtrl",["$rootScope","$scope","$http",function($rootScope,$scope,$http){
 
             var self=this;
+            self.baseLink=$rootScope.plink;
             self.nodeInfo={};
             self.formData={};
             self.close=function(){
@@ -28,15 +29,13 @@ define(["jquery","angular","zrender/zrender","./app.controllers",],function($,an
                     var data=res.data.data;
                     console.log(data)
                     $rootScope.loading_hide();
+                    _panel_show();
                 }),function errorCallback(res){
 
                     $rootScope.loading_hide();
                     alert("网络错误，请稍后再试");
 
                 }
-
-
-                _panel_show();
             });
 
             function _panel_show(){
