@@ -99,7 +99,7 @@ define([],function(){
        //todo: x轴计算宽度加30是把左侧栏的宽度计算上,统一用graph.startOffset来设定
        graph.startOffset=30;
        graph.defaultPix=4;//每天占据像素
-       graph.dayOffset=100;
+       graph.dayOffset=200;
 
        graph.init_status={
            status0:{
@@ -127,7 +127,7 @@ define([],function(){
                x_start:200,
                x_end:350,
                scale:1,
-               bg:"#f6f6f6",
+               bg:"√",
                date_count:20
            },
            status3:{
@@ -149,6 +149,45 @@ define([],function(){
                scale:1,
                bg:"#f6f6f6",
            }
+       }
+
+       /*
+       * todo:graph 绘图因为项目阶段重合性太大，算法又问题，暂时不绘制；
+       *
+       * */
+       graph.status_init=function(status){
+           graph.init_status={}
+           function _getDateOffset(end,start){
+               var offset=Math.ceil((end-start)/60*60*24*1000);
+               return offset;
+           }
+           $.each(status,function(i,e){
+               if(i==0){
+                   var xStart=_getDateOffset(e['scheduleEndDate']-e['scheduleStartDate'])-100;
+                   graph.init_status["status"+i]={
+                       id:"status"+i,
+                       name:e.name||"",
+                       key_point:"",
+                       x_start:xStart*(-1),
+                       x_end:0,
+                       scale:1,
+                       bg:"#f6f6f6",
+                   }
+               }else{
+                   var xEnd=_getDateOffset(e['scheduleEndDate']-status[0]['scheduleStartDate'])+20;
+                   graph.init_status["status"+i]={
+                       id:"status"+i,
+                       name:e.name||"..",
+                       key_point:"",
+                       x_start:graph.init_status["status"+i-1].x_end,
+                       x_end:0,
+                       scale:1,
+                       bg:"#f6f6f6",
+                   }
+               }
+           })
+
+
        }
 
         graph.init_graph={

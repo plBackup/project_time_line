@@ -78,7 +78,7 @@ define(["jquery"],function($){
 
     ];
     //todo
-    data.start_date="2015-01-01";
+    data.start_date="2014-01-01";
     data.cur_day=0;//当前时间节点 蓝线绘制代表当前状态
     data.nodes=[];
 
@@ -92,7 +92,7 @@ define(["jquery"],function($){
         var nodes=nodes;
 
         //var node0=new Array(),node1=new Array(),node2=new Array(),node3=new Array(),node4=new Array(),node5=new Array(),node6=new Array(),node7=new Array();
-
+/*
         var nodeList={
             node0:[],
             node1:[],
@@ -102,7 +102,12 @@ define(["jquery"],function($){
             node5:[],
             node6:[],
             node7:[]
-        };
+        };*/
+        var nodeList={};
+        $.each(data.rows,function(i,e){
+            nodeList["node"+i]=[];
+        });
+
         $.each(nodes,function(n,value){
             //value.x=jsX(value.id,0);
             //value.x_=jsX(value.id,0);
@@ -110,7 +115,17 @@ define(["jquery"],function($){
             //根据日期偏移量取得节点的日期， 在新作计划时，只要建立起始点的位置即可确认时间轴 ---
             //value.start_date=DateAdd("d",value.x,start_date1);
             //value.end_date=DateAdd("d",value.x+value.last,start_date1);
-            switch (value.type) {
+            var nodeIndex=parseInt(value.type-1)
+            if(typeof nodeList["node"+nodeIndex]!=="undefined"){
+
+                nodeList["node"+nodeIndex].push(value);
+            }else{
+                console.log("value type=======")
+                console.log(value.type);
+            }
+
+
+            /*switch (value.type) {
                 case "type0":
                     nodeList.node0.push(value);
                     break;
@@ -137,14 +152,16 @@ define(["jquery"],function($){
                     break;
 
                 default:
-                    nodeList.node1.push(value);
-            }
+                    nodeList.node7.push(value);
+            }*/
         });
 
         $.each(data.rows,function(i,e){
             data.rows[i].nodes=nodeList["node"+i];
         });
 
+        console.log("data rows========================");
+        console.log(data.rows);
     };
 
 

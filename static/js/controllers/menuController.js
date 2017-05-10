@@ -21,7 +21,7 @@ define(["angular","./app.controllers"],function(angular,controllers){
         self.levels=angular.copy(self.data.levels);
         self.status=angular.copy(self.data.status);
         self.plans=angular.copy(self.data.plans);
-
+        self.typeList=angular.copy(self.data.type);
 
         /*func*/
         self.setModel=function(type,menu){
@@ -42,6 +42,7 @@ define(["angular","./app.controllers"],function(angular,controllers){
 
             if(typeof self.menuFilter.project !=="undefined"){
                 var projectCd=self.menuFilter.project.projectCd;
+
                 $location.path("/main/"+projectCd+"/"+planId);
             }
 
@@ -84,6 +85,9 @@ define(["angular","./app.controllers"],function(angular,controllers){
                    }
                });
                self.setModel("plan",curPlan);
+
+                /*todo: render project 时需要typeList数据*/
+                $rootScope.typeList=self.typeList;
             }else{
 
                 //如果无计划节点时，激活显示计划节点

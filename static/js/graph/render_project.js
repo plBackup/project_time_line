@@ -4,7 +4,7 @@
 define(["jquery","zrender/zrender","./graph","./data_init","./render_nodes","zrender/tool/color","zrender/tool/area","zrender/shape/Circle","zrender/shape/Rectangle",'zrender/shape/Isogon',"zrender/shape/Text","zrender/shape/Line","zrender/Group"],
     function($,zrender,graph,data,nodesRender){
 
-        var project_start=data.start_date;//起始日期，视数据接口情况改成动态值
+        var project_start=data.start_date;//todo:起始日期，视数据接口情况改成动态值--后面用phase的值重新赋给
         var projectRender={};
 
         var color = require('zrender/tool/color');
@@ -24,29 +24,36 @@ define(["jquery","zrender/zrender","./graph","./data_init","./render_nodes","zre
         var getDate=graph.getDate;
         var gd=graph.gd;
         //初始化project
-        function _init_project(zrObject,w,nodes) {
+        function _init_project(zrObject,w,nodes,typeList) {
             var zr = zrObject;
             var project_count = 0;
-            var zrWidth = zr.getWidth();
-
-            var project_y = 30;//绘制y高度的起始位置，随着遍历project累加project 高度
+            var project_y = 80;//绘制y高度的起始位置，随着遍历project累加project 高度
 
             var startOffset=graph.startOffset;
+
+            var projectStart,projectEnd;
 
             //todo: data init
             data.init(nodes);
             nodesRender.init(zr);
+
+
             $.each(data.rows, function (i, e) {
                 //e:project
                 var project = e;
                 //todo:这里的start_date在node绘图中会用到，为了避免冗余传值,每个project遍历是附加上一个属性start_date
-                project.start_date=data.start_date;
+                project.start_date=project_start;
 
                 var id = project.id;
 
                 var startNode_x = startOffset;//偏移量
                 var endNode_x = w - startOffset;
-                var startNode_y = project["height"] + project_y;
+
+                if(i==0){
+                    var startNode_y = project["height"] + project_y;
+                }else{
+                    var startNode_y = project["height"] + project_y;
+                }
 
                 //标记project_y为新的位置，作为下级的起点
                 project_y = startNode_y;
@@ -83,6 +90,9 @@ define(["jquery","zrender/zrender","./graph","./data_init","./render_nodes","zre
                 //绘制nodes方法；
                 //init_nodes(zr,project);
                 //todo:nodesRender
+                console.log("project--------------------------------"+project.name);
+                console.log(project.nodes);
+                console.log("project--------------------------------")
                 nodesRender.render(zr,project);
 
                 project_count += 1;
@@ -162,16 +172,42 @@ define(["jquery","zrender/zrender","./graph","./data_init","./render_nodes","zre
             zr.render();
         }//end 绘制当前的时间点
 
-        projectRender.render=function(nodes){
+        projectRender.render=function(nodes,typeList,phase){
             //根据日期设置 初始化画布和时间轴宽度
+
             //todo: x轴计算宽度加30是把左侧栏的宽度计算上,统一用graph.startOffset来设定
             //var w=(graph.init_status.status4.x_end-graph.init_status.status0.x_start)*(graph.defaultPix)+graph.startOffset*2+30;
-            var w=(graph.init_status.status4.x_end-graph.init_status.status0.x_start)*(graph.defaultPix)+graph.startOffset;
+            var typeList=typeList;
+            //var w=(graph.init_status.status4.x_end-graph.init_status.status0.x_start)*(graph.defaultPix)+graph.startOffset;
+            var start=phase.scheduleStartDate;
+            var end=phase.scheduleEndDate;
 
-            var canvas_w =parseInt( $(".navbar").css("width"));
-            var mainTop=88;
-            var canvas_h = parseInt($(".canvas-wrapper").css("height"));
-            var h=30;
+            var project_start_date=new Date(start-50*24*60*60*1000);//todo:起始点向前偏移50天
+
+            project_start=project_start_date.getFullYear()+"-"+(project_start_date.getMonth()+1)+"-"+project_start_date.getDate();
+
+
+
+            data.rows=[];
+            $.each(typeList,function(k,v){
+                data.rows.push({
+                    id: "type"+k,
+                    name : v,
+                    index:(k-1),
+                    height:150,
+                    offset:30,
+                    cur_done:0,
+                    description:v,
+                    nodes:[]
+                })
+            });
+
+            //todo:w根据传入的起始值计算，前后各加50天；
+            var dateRange=Math.ceil((end-start)/(24*60*60*1000))+50+50;
+            var w=dateRange*(graph.defaultPix)+graph.startOffset;
+
+            var typeList=typeList;
+            var h=80;
             $.each(data.rows,function(i,e){
                 h+=e.height;
             });
@@ -188,13 +224,49 @@ define(["jquery","zrender/zrender","./graph","./data_init","./render_nodes","zre
 
             //设置绘制基本变量
             var start_offset = graph.startOffset;//startOffset为绘图时考虑dom定位产生的差异做的调节变量，默认为0；
-            var init_bg = graph.init_status;
+
             var default_pix = graph.defaultPix;//每天代表的像素单位，默认为4，根据调节变大（根据点的大小，如果日期点精确表示天的话，默认像素大小需要为20-30px
             var day_offset = graph.dayOffset;//日期偏移量，在绘图时辅助绘图起始位置计算
 
             var zr = zrender.init(document.getElementById("main"));
             localStorage.zr=zr.getId();
             //横向阶段绘制
+            //todo:这里根据总宽度设置init_bg ,每200天绘制一段，取消项目阶段的绘制。
+            //var init_bg = graph.init_status;
+            //var statusLength=getDateLength(project_start,project_end);
+
+
+            var len=Math.ceil(dateRange/200);
+            console.log("len----------------"+len);
+            var init_bg={};
+            for(i=0;i<len;i++){
+                var bgStr=((i+1)%2==0?"#fff":"#f6f6f6");
+                if(i==(len-1)){
+                    init_bg["status"+i]={
+                        id:"status"+i,
+                        name:"",
+                        //key_point:"土地摘牌",
+                        x_start:i*200-200,
+                        x_end:dateRange-200,
+                        scale:1,
+                        bg:bgStr,
+                    }
+                }else{
+                    init_bg["status"+i]={
+                        id:"status"+i,
+                        name:"",
+                        //key_point:"土地摘牌",
+                        x_start:i*200-200,
+                        x_end:i*200,
+                        scale:1,
+                        bg:bgStr,
+                    }
+                }
+            }
+
+            console.log("init-bg---------------------");
+            console.log(init_bg);
+
             $.each(init_bg, function (k, v) {
                 var x_start = (v.x_start + day_offset) * default_pix + start_offset;
                 var rect_width = (v.x_end - v.x_start) * default_pix;
@@ -246,8 +318,8 @@ define(["jquery","zrender/zrender","./graph","./data_init","./render_nodes","zre
                     clickable:false
                 }));
                 //
-                //文本背景
-                zr.addShape(new RectangleShape({
+                //todo：取消文本背景
+               /* zr.addShape(new RectangleShape({
                     style : {
                         x : x_start ,
                         y :1,
@@ -269,7 +341,7 @@ define(["jquery","zrender/zrender","./graph","./data_init","./render_nodes","zre
                     draggable : false,
                     hoverable:false,
                     clickable:false
-                }));
+                }));*/
                 //绘制 date 时间线
                 var dateline_plus = 20;
                 var dateline_width = dateline_plus * default_pix;
@@ -397,7 +469,7 @@ define(["jquery","zrender/zrender","./graph","./data_init","./render_nodes","zre
             });
 
             //绘制项目分割；
-            _init_project(zr,w,nodes);
+            _init_project(zr,w,nodes,typeList);
             //绘制当前的时间点
             _render_curDate(zr);
 
@@ -405,10 +477,13 @@ define(["jquery","zrender/zrender","./graph","./data_init","./render_nodes","zre
             zr.render();
     };
 
-        projectRender.init=function(nodes){
+        projectRender.init=function(nodes,typeList,phase){
             //数据过滤
            //渲染
-           projectRender.render(nodes);
+            console.log("typeList======================");
+            console.log(typeList);
+           projectRender.render(nodes,typeList,phase);
+
 
     };
 

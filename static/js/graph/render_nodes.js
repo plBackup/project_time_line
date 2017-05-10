@@ -37,6 +37,8 @@ define(["jquery","zrender/zrender","./graph","zrender/tool/color","zrender/tool/
         /*curdateNodes用于处理点击节点时突出显示的当前时间线*/
         var curdateNodes=[];
 
+        var yOffsetPlus=50;
+
         nodesRender.render=function(zr,project){
             //end nodesRender
             //数据过滤
@@ -150,13 +152,16 @@ define(["jquery","zrender/zrender","./graph","zrender/tool/color","zrender/tool/
                 var y_plus = 0;
 
                 $.each(zrGroup, function (i, node) {
+                    console.log("-----------------------*node-----------------------*")
+                    console.log(node);
+                    console.log("-----------------------*node-----------------------*")
                     var zrNode_group = zr.storage.get(node);
                     // var zrNode=zr.storage.get(node.split("_")[0]+'_id');
                     var zrNode = zrNode_group.childAt(0);
                     //这里根据真实数据会出现后面节点再时间轴前面显示的问题，所以做双倍距离来判断
                     var inside = zrArea.isInside(zrNode,
                         {x: (zrNode_group.position[0] + zrNode.style.x - 88), y: (zrNode_group.position[1] + zrNode.style.y - 5), width: zrNode.style.width * 2, height: zrNode.style.height},
-                        style_x, project.node_y + e.y_offset + y_plus + 120);
+                        style_x, project.node_y + e.y_offset + y_plus + yOffsetPlus);
 
                     if (inside) {
                         //这里加入对c._level的判断，如果circleArea._level=1，把之前不等于1的点设为不可见
@@ -167,7 +172,7 @@ define(["jquery","zrender/zrender","./graph","zrender/tool/color","zrender/tool/
 
                 //遍历后加入新的节点id
                 //todo:目前数据提供的id有问题，暂时用'node_'+i替代
-                zrGroup.push("node_"+i+"_group");
+                zrGroup.push("node_"+e['sequence']+"_group");
                 //zrGroup.push(e['id'] + '_group');
 
                 //对每个节点集合建立group，方便同时改变。
@@ -185,11 +190,11 @@ define(["jquery","zrender/zrender","./graph","zrender/tool/color","zrender/tool/
                 var g = new Group({
                         //todo:目前数据提供的id有问题，暂时用'node_'+i替代
                         //id: e['id'] + '_group',
-                        id:'node_'+i+'_group',
+                        id:'node_'+e['sequence']+'_group',
                         position: [style_x, project.node_y],//project.node_y为node分类(y轴）的起始位置
                         //todo:这里_x,_y的值是记录绘制关系节点时的起始位置，目前没有提供相关数据，为以后扩展，保持数据记录
                         _x: style_x,
-                        _y: project.node_y + e.y_offset + 25 + 120,
+                        _y: project.node_y + e.y_offset + 25 + yOffsetPlus,
                         _level: e['level'],//节点级别
                         _width: 88,
                         _height: 45,
@@ -199,8 +204,8 @@ define(["jquery","zrender/zrender","./graph","zrender/tool/color","zrender/tool/
                         _chargeOrgName: e['chargeOrgName'],//主责单位
                         _chargeOrgCd:e['chargeOrgCd'],
                         _type_name: e['type_name'],//这个数据目前没有提供
-                        _start_date: e['scheduleStartDate'],
-                        _end_date: e['scheduleEndDate'],
+                        _start_date: e['start_date'],
+                        _end_date: e['end_date'],
                         _y_plus: y_plus,
                         onclick: function (params) {
                             var nodeObj=params.target.parent;
@@ -291,12 +296,12 @@ define(["jquery","zrender/zrender","./graph","zrender/tool/color","zrender/tool/
                 var nodeTitle="  "+e['sequence'];
                 g.addChild(new RectangleShape(
                     {
-                        id:'node_'+i+'_id',
+                        id:'node_'+e['sequence']+'_id',
                         style: {
                             //  x: style_x,
                             x: 0,
-                            //y: project.node_y+ e.y_offset+120,
-                            y: e.y_offset + 120 + y_plus,
+                            //y: project.node_y+ e.y_offset+yOffsetPlus,
+                            y: e.y_offset + yOffsetPlus + y_plus,
                             width: 88,
                             height: 25,
 
@@ -320,16 +325,16 @@ define(["jquery","zrender/zrender","./graph","zrender/tool/color","zrender/tool/
                         clickable: true,   // default false
 
                         _name: e['name'],
-                        _group: 'node_'+i+'_group',
+                        _group: 'node_'+e['sequence']+'_group',
                     }
                 ));//add cricle
                 g.addChild(new CircleShape(
                     {
-                        id:'node_'+i+"_level",
+                        id:'node_'+e['sequence']+"_level",
                         style:{
                             x: 18,
-                            //y: project.node_y+ e.y_offset+120,
-                            y: e.y_offset + 120 + y_plus+12,
+                            //y: project.node_y+ e.y_offset+yOffsetPlus,
+                            y: e.y_offset + yOffsetPlus + y_plus+12,
 
                             r: 6,
                             brushType: 'stroke',
@@ -350,17 +355,17 @@ define(["jquery","zrender/zrender","./graph","zrender/tool/color","zrender/tool/
                         clickable: false,   // default false
 
                         _name: e['name'],
-                        _group: 'node_'+i+'_group',
+                        _group: 'node_'+e['sequence']+'_group',
                     }
                 ));
                 g.addChild(new RectangleShape(
                     {
-                        id: 'node_'+i,
+                        id: 'node_'+e['sequence'],
                         style: {
                             // x: style_x,
-                            // y: project.node_y+e.y_offset+25+120,
+                            // y: project.node_y+e.y_offset+25+yOffsetPlus,
                             x: 0,
-                            y: e.y_offset + 25 + 120 + y_plus,
+                            y: e.y_offset + 25 + yOffsetPlus + y_plus,
                             width: 88,
                             height: 45,
                             radius: [0, 0, radius, radius],
@@ -391,7 +396,7 @@ define(["jquery","zrender/zrender","./graph","zrender/tool/color","zrender/tool/
                         clickable: true, // default false
 
                         _name: e['name'],
-                        _group: 'node_'+i+'_group',
+                        _group: 'node_'+e['sequence']+'_group',
 
                     }
                 ));//add cricle
@@ -503,7 +508,7 @@ define(["jquery","zrender/zrender","./graph","zrender/tool/color","zrender/tool/
                 //node.style.opacity=0.3;
                 var node = zr.storage.get(e);
                 node.eachChild(function (e) {
-                    e.style.opacity = 1
+                    e.style.opacity = 1;
                     e.z=0;
                 });
             });

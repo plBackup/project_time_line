@@ -122,13 +122,15 @@ define(["angular","zrender/zrender","./app.controllers","../graph/render_project
         }
 
 
-        function _render(nodes){
+        function _render(nodes,phase){
 
             var main_top=60;
             var main_bottom=0;
             var wrapperHeight=document.documentElement.clientHeight- main_top-main_bottom;
             $(".canvas-wrapper").css("height",wrapperHeight+"px");
-            projectRender.init(nodes);
+
+            var typeList=$rootScope.typeList;
+            projectRender.init(nodes,typeList,phase);
             //todo:因为后面实例均需要zr实例，但在projectRender里需要做很多前期计算才能渲染，所以把zr实例放到projectRender里，
             //通过localStorage传递zr id,来传递zr；
             zr = zrender.getInstance(localStorage.zr);
@@ -214,12 +216,12 @@ define(["angular","zrender/zrender","./app.controllers","../graph/render_project
         },2000);
         function _init(){
             if(typeof nodeData !=="undefined"){
-                console.log(nodeData);
+                self.phase=nodeData.data["phase"];
                 self.nodes=nodeData.data["nodes"];
 
 
                 _clearDom();
-                _render(self.nodes);
+                _render(self.nodes,self.phase);
             }
         }
 
