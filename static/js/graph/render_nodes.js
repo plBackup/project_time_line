@@ -54,6 +54,15 @@ define(["jquery","zrender/zrender","./graph","zrender/tool/color","zrender/tool/
             zrGroup = [];
             //nodesRender.render(zr,project);
             _zrEvent_init(zr);
+            console.log("...........")
+            $("body").off("test").on("test",function(){
+                console.log("removeDateLin--------------------")
+                $.each(curdateNodes, function (i, e) {
+                    zr.delShape(e);
+                });
+                //zr.update();
+                curdateNodes = [];
+            });
 
         };
         nodesRender.focusNode=function(zr,nodeGroup){
@@ -71,11 +80,12 @@ define(["jquery","zrender/zrender","./graph","zrender/tool/color","zrender/tool/
                 else {
                     //恢复节点显示
                     _resetNode(zr);
-                    date_nodes = [];
+                    curdateNodes = [];
                     /*对node-info的处理统一放到dataController中以angular方式处理*/
                    $("body").trigger("zrEvent");
                 }
             });
+
         }
 
         function _render_nodes(zr,projectObject) {
@@ -518,7 +528,7 @@ define(["jquery","zrender/zrender","./graph","zrender/tool/color","zrender/tool/
             });
             //zr.update();
 
-            date_nodes = [];
+            curdateNodes = [];
         }
         return nodesRender;
     });

@@ -48,9 +48,65 @@ define(["js/app"],
 
                         }
                     })
+                    .state('set', {
+                        //abstract: true,
+                        url: '/set',
+                        views:{
+                            'menu':{
+                                templateUrl: '../views/menu_view.html',
+                                controller:"menuCtrl",
+                                controllerAs:"mCtrl"
+                            },
+                            'content': {
+                                templateUrl: '../views/blank.html',
+                                /* controller:"dataCtrl",
+                                 controllerAs:"dCtrl"*/
+                            },
+                            "right":{
+                                templateUrl: '../views/blank_right.html',
+                            }
+                        },
+                        resolve: {
+
+                            menuData: function(dataMenuService) {
+                                //$rootScope.pid=undefined;
+                                return dataMenuService.getData();
+                            },
+
+                        }
+                    })
                     .state('project', {
                         //abstract: true,
                         url: '/main/{pid}',
+                        views:{
+                            'menu':{
+                                templateUrl: '../views/menu_view.html',
+                                controller:"menuCtrl",
+                                controllerAs:"mCtrl"
+                            },
+                            'content': {
+                                templateUrl: '../views/blank_project.html',
+                                /* controller:"dataCtrl",
+                                 controllerAs:"dCtrl"*/
+                            },
+                            "right":{
+                                templateUrl: '../views/blank_right.html',
+                            }
+                        },
+                        resolve: {
+
+                            menuData: function(dataMenuService,$stateParams,$rootScope) {
+                                var pid=$stateParams.pid;
+                                var search="?projectCd="+pid;
+                                $rootScope.pid=pid;
+                                return dataMenuService.getData(search);
+                            },
+
+                        }
+                    })
+                    .state('setproject', {
+                        //abstract: true,
+                        url: '/set/{pid}',
                         views:{
                             'menu':{
                                 templateUrl: '../views/menu_view.html',
@@ -114,6 +170,44 @@ define(["js/app"],
                                 return dataNodeService.getData(search);
                             },
                         }
-            });
+            })
+                    .state('setplan', {
+                        //abstract: true,
+                        url: '/set/{pid}/{plan}',
+                        views:{
+                            'menu':{
+                                templateUrl: '../views/menu_view.html',
+                                controller:"menuCtrl",
+                                controllerAs:"mCtrl"
+                            },
+                            'content': {
+                                templateUrl: '../views/data_view.html',
+                                controller:"dataCtrl",
+                                controllerAs:"dCtrl"
+                            },
+                            "right":{
+                                templateUrl: '../views/right_view.html',
+                                controller:"rightCtrl",
+                                controllerAs:"rCtrl"
+                            }
+                        },
+                        resolve: {
+                            menuData: function(dataMenuService,$stateParams,$rootScope) {
+                                var pid=$stateParams.pid;
+                                var search="?projectCd="+pid;
+                                $rootScope.pid=pid;
+
+                                return dataMenuService.getData(search);
+                            },
+                            nodeData: function(dataNodeService,$stateParams,$rootScope) {
+                                var plan=$stateParams.plan;
+                                $rootScope.plan=plan;
+                                //all代表过滤1:全部 0:未完成
+                                "planId=4028347044bace9c0144d47419151028&level=1&status=all&all=1"
+                                var search="?planId="+plan+"&level=all&status=all&all=1";
+                                return dataNodeService.getData(search);
+                            },
+                        }
+                    });
             });
     });

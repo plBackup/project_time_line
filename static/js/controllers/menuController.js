@@ -62,7 +62,6 @@ define(["angular","./app.controllers"],function(angular,controllers){
                 self.menuFilter.node=undefined;
                 $rootScope.$broadcast("node_filter",self.menuFilter);
             }
-
         };
 
         self.triggerMenuFilter=function(type,menu,$event){

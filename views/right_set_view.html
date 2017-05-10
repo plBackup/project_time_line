@@ -1,0 +1,162 @@
+<div class="right-content-wrapper" id="right-rpanel">
+    <div class="right-panel-header">
+        <a href="javascript:void(0)" class="closebtn" ng-click="rCtrl.close()">×</a>
+        <h3></h3>
+    </div><!--right panel header-->
+    <div class="right-content">
+        <form name="detailForm">
+            <div class="rpanel-title">
+                <h3>289.工程竣工结算</h3>
+            </div>
+            <div class="rpanel-content rpanel-content-summary">
+                <table class="table ys-table">
+                    <colgroup>
+                        <col width="16%">
+                        <col width="12%">
+                        <col width="11%">
+                        <col width="11%">
+                        <col width="10%">
+                        <col width="15%">
+                        <col width="15%">
+                        <col width="10%">
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th>业态</th>
+                            <th>主责方</th>
+                            <th>中心负责人</th>
+                            <th>部门负责人</th>
+                            <th>负责人</th>
+                            <th>计划开始</th>
+                            <th>计划完成</th>
+                            <th>过期天数</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th>一期西地块办公</th>
+                            <td>成本中心</td>
+                            <td>吕翠华</td>
+                            <td>刘群英</td>
+                            <td>申玉玉</td>
+                            <td>2015-08-13</td>
+                            <td>2015-06-13</td>
+                            <td>-38</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div><!--rpanel-table-->
+            <div class="rpanel-content rpanel-content-detail">
+                <table class="table ys-table ys-table-noborder">
+                    <colgroup>
+                        <col width="16%">
+                        <col width="84%">
+                    </colgroup>
+                    <tbody>
+                        <tr>
+                            <th>涉及业态:</th>
+                            <td>
+                                <div class="td-wrapper clearfix">
+                                    <div class="input-addon input-checkbox-addon pull-left">
+                                        <input type="checkbox" name="retailing-form" id="retailing-form" checked>
+                                        <label for="retailing-form">一期西地块办公</label>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr><!--tr-->
+
+                        <tr>
+                            <th>状态:</th>
+                            <td>
+                                <div class="td-wrapper clearfix">
+                                    <div class="input-addon input-radio-addon pull-left">
+                                        <input type="radio" name="status" id="status-going-on">
+                                        <label for="status-going-on">进行中</label>
+                                    </div>
+                                    <div class="input-addon input-radio-addon pull-left">
+                                        <input type="radio" name="status" id="status-done">
+                                        <label for="status-done">已完成</label>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr><!--tr-->
+
+                        <tr>
+                            <th>成果判定:</th>
+                            <td>
+                                <div class="td-wrapper clearfix">
+                                   <span class="pull-left">《工程结算审批表》</span>
+                                   <div class="td-opt-group pull-left">
+                                       <a class="td-opt td-opt-del">删除</a>
+                                       <label class="td-opt td-opt-upload" ng-click="rCtrl.uploadFile($event)" for="file-upload">上传
+                                            <input type="file" id="file-upload">
+                                       </label>
+                                   </div>
+                                </div>
+                            </td>
+                        </tr><!--tr-->
+                        <tr>
+                            <th>网批号查询:</th>
+                            <td>
+                                <div class="td-wrapper clearfix">
+                                    <a class="td-link" href="http://www.baidu.com" target="_blank">767528</a>
+                                </div>
+                            </td>
+                        </tr><!--tr-->
+                    </tbody><!--tbody-->
+
+                    <tbody class="rpanel-opt-table">
+                        <tr>
+                            <th colspan="2">
+                                <h3>责任人操作</h3>
+                            </th>
+                        </tr><!--tr-->
+                        <tr>
+                            <th>是否按期完成:</th>
+                            <td>
+                                <div class="td-wrapper clearfix">
+                                    <div class="input-addon input-radio-addon pull-left">
+                                        <input type="radio" name="schedule" id="on-schedule">
+                                        <label for="on-schedule">是</label>
+                                    </div>
+                                    <div class="input-addon input-radio-addon pull-left">
+                                        <input type="radio" name="schedule" id="out-schedule">
+                                        <label for="out-schedule">否</label>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr><!--tr-->
+                        <tr>
+                            <th>是否影响里程碑节点:</th>
+                            <td>
+                                <div class="td-wrapper clearfix">
+                                    <div class="input-addon input-radio-addon pull-left">
+                                        <input type="radio" name="effective" id="marker-effect">
+                                        <label for="marker-effect">是</label>
+                                    </div>
+                                    <div class="input-addon input-radio-addon pull-left">
+                                        <input type="radio" name="effective" id="marker-no-effect">
+                                        <label for="marker-no-effect">否</label>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr><!--tr-->
+
+                        <tr>
+                            <th style="vertical-align: top;">风险及具体原因:</th>
+                            <td>
+                                <div class="td-wrapper">
+                                    <textarea ></textarea>
+                                    <div class="td-btn-group clearfix">
+                                        <a class="btn btn-primary">确定</a>
+                                        <a class="btn btn-default">取消</a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr><!--tr-->
+                    </tbody>
+                </table>
+            </div><!--rpanel-content-detail-->
+        </form>
+    </div><!--right content-->
+</div><!--right content wrapper-->
