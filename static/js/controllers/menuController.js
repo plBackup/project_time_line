@@ -20,6 +20,9 @@ define(["angular","./app.controllers"],function(angular,controllers){
         self.levels=angular.copy(self.data.levels);
         self.status=angular.copy(self.data.status);
         self.plans=angular.copy(self.data.plans);
+        /*这里把业态和状态映射 放到全局访问*/
+        $rootScope.status=angular.copy(self.data.status);
+        console.log($rootScope.status);
         self.typeList=angular.copy(self.data.type);
 
         /*func*/
@@ -96,6 +99,8 @@ define(["angular","./app.controllers"],function(angular,controllers){
 
                 /*todo: render project 时需要typeList数据*/
                 $rootScope.typeList=self.typeList;
+                /*这里把业态映射 放到全局访问*/
+                $rootScope.plan=curPlan;
             }else{
 
                 //如果无计划节点时，激活显示计划节点

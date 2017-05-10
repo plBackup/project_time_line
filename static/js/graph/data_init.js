@@ -101,11 +101,11 @@ define(["jquery"],function($){
             //根据日期偏移量取得节点的日期， 在新作计划时，只要建立起始点的位置即可确认时间轴 ---
             //value.start_date=DateAdd("d",value.x,start_date1);
             //value.end_date=DateAdd("d",value.x+value.last,start_date1);
-            var nodeIndex=parseInt(value.type-1)
+            var nodeIndex=parseInt(value.type-1);
             if(typeof nodeList["node"+nodeIndex]!=="undefined"){
                 nodeList["node"+nodeIndex].push(value);
             }else{
-                console.log("value type=======")
+                console.log("value type=======");
                 console.log(value.type);
             }
         });

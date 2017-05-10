@@ -1,12 +1,22 @@
 /**
  * Created by whobird on 17/4/24.
  */
-define(["angular","zrender/zrender","./app.controllers","../graph/render_project","../graph/render_nodes","../graph/render_eagle"],function(angular,zrender,controllers,projectRender,nodesRender,eagleRender){
+define(["angular","zrender/zrender","./app.controllers","../graph/graph","../graph/render_project","../graph/render_nodes","../graph/render_eagle"],function(angular,zrender,controllers,graph,projectRender,nodesRender,eagleRender){
 
     controllers.controller("dataCtrl",["$rootScope","$scope","$http","dataNodeService","nodeData","$timeout",function($rootScope,$scope,$http,dataMenuService,nodeData,$timeout){
 
         var self=this;
         var zr;
+        self.curSelectNode={
+            name:"",
+            chargeOrgName:"",
+            startDate:"",
+            endDate:"",
+            status:"",
+            delayOffset:"-",
+            plan:$rootScope.plan.name
+        };
+
         self.name="data";
         self.planId=null;
         self.nodes=null;
@@ -223,6 +233,33 @@ define(["angular","zrender/zrender","./app.controllers","../graph/render_project
                 console.log("params==========================================");
                 console.log(params);
                 console.log("params==========================================");
+
+                /*self.curSelectNode={
+                    name:"",
+                    chargeOrgName:"",
+                    startDate:"",
+                    endDate:"",
+                    status:"",
+                    delayOffset:"-",
+                    plan:$rootScope.plan.name
+                };*/
+                $scope.$apply(function(){
+                    self.curSelectNode.name=params._name;
+                    self.curSelectNode.chargeOrgName=params._chargeOrgName;
+                    self.curSelectNode.startDate=params._start_date;
+                    self.curSelectNode.endDate=params._end_date;
+                    self.curSelectNode.status=params._status;
+                    console.log($rootScope.plan.name)
+                    self.curSelectNode.plan=$rootScope.plan.name;
+
+                    if(typeof params._delayCompleteDate!=="undefined" || params._delayCompleteDate!==""){
+                        self.delayOffset=graph.getDateOffset(params._end_date,params._delayCompleteDate);
+                    }else{
+                        self.delayOffset="-";
+                    }
+                });
+
+
                 var left=params._x+88+parseInt($("#date-index").css("left"));
                 var top=params._y+params._y_plus+parseInt($("#project-index").css("top"))-25;
 
@@ -287,8 +324,6 @@ define(["angular","zrender/zrender","./app.controllers","../graph/render_project
             if(typeof nodeData !=="undefined"){
                 self.phase=nodeData.data["phase"];
                 self.nodes=nodeData.data["nodes"];
-
-
                 _clearDom();
                 _render(self.nodes,self.phase);
             }

@@ -204,7 +204,10 @@ define(["jquery","zrender/zrender","./graph","zrender/tool/color","zrender/tool/
                         _start_date: e['start_date'],
                         _end_date: e['end_date'],
                         _y_plus: y_plus,
+                        _expireStatus:e['expireStatus'],
+                        _isWarning:e["isWarning"],
                         _index:i,
+                        _delayCompleteDate:e['delayCompleteDate'],
                         onclick: function (params) {
                             var nodeObj=params.target.parent;
                             $('body').trigger("nodeclick",nodeObj);

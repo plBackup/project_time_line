@@ -182,6 +182,7 @@ a:focus{ -webkit-box-shadow:none;box-shadow:none;}
     margin-left: 15px;
     margin-top: 0;
     min-width: 230px;
+    width:230px;
     padding: 20px;
     top:0;
     left:0;
@@ -231,8 +232,8 @@ a:focus{ -webkit-box-shadow:none;box-shadow:none;}
     padding-top: 6px;
     list-style: none;
 }
-.node-info .node-info-content>ul>li{font-size:12px;color:#8592a3;font-weight:normal;}
-.node-info-content>ul>li label{font-weight:normal;}
+.node-info .node-info-content>ul>li{margin-bottom:3px;font-size:12px;color:#8592a3;font-weight:normal;}
+.node-info-content>ul>li label{margin-bottom:0;font-weight:normal;}
 .node-info-content>ul>li span{font-weight:normal;color:#333;}
 .node-info .edit a {
     display: inline-block;
@@ -251,6 +252,17 @@ a:focus{ -webkit-box-shadow:none;box-shadow:none;}
 }
 .node-info .node-info-opt{padding-left:16px;padding-right:16px;}
 .node-info .ys-btn-dark{display: block;padding:0;width:100%;height:32px;line-height: 32px;text-align: center; color:#fff;background-color:#4b5368;border:0;border-radius: 3px;}
+
+
+.node-info .ys-btn-dark.active.focus, .node-info .ys-btn-dark.active:focus,
+.node-info .ys-btn-dark.active:hover, .node-info .ys-btn-dark:active.focus,
+.node-info .ys-btn-dark:active:focus, .node-info .ys-btn-dark:active:hover,
+.node-info .ys-btn-dark:hover, .node-info .ys-btn-dark:active{
+    color: #fff;
+    background-color: #52596e;
+   border:0;
+}
+
 
 .node-info a.btn-info-close{display: block;width:32px;height:32px;position: absolute;top:-16px;right:-16px;cursor: pointer;}
 .node-info a.btn-info-close:before{display: block;content:"x";width:18px;height:18px;border-radius:18px;background-color:#b9c2c9;

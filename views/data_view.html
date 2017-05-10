@@ -13,17 +13,17 @@
 
     </div>-->
     <div class="node-info">
-        <h3 class="node-info-title">节点名称</h3>
+        <h3 class="node-info-title">{{dCtrl.curSelectNode.name}}</h3>
         <a class="btn-info-close" ng-click="dCtrl.closeNodeInfo()"></a>
         <div class="node-info-content">
             <ul>
                 <li>
                     <label>业态: </label>
-                    <span></span>
+                    <span>{{dCtrl.curSelectNode.plan}}</span>
                 </li>
                 <li>
                     <label>主责方: </label>
-                    <span>成本中心</span>
+                    <span>{{dCtrl.curSelectNode.chargeOrgName}}</span>
                 </li>
                 <li>
                     <label>责任人: </label>
@@ -31,15 +31,19 @@
                 </li>
                 <li>
                     <label>计划开始: </label>
-                    <span>2017-06-30</span>
+                    <span>{{dCtrl.curSelectNode.startDate}}</span>
                 </li>
                 <li>
                     <label>计划结束: </label>
-                    <span>2017-07-30</span>
+                    <span>{{dCtrl.curSelectNode.endDate}}</span>
                 </li>
                 <li>
                     <label>状态: </label>
-                    <span>进行中</span>
+                    <span>{{dCtrl.curSelectNode.status}}</span>
+                </li>
+                <li ng-show="true">
+                    <label>延期时间: </label>
+                    <span>{{dCtrl.curSelectNode.delayOffset}}</span>
                 </li>
             </ul>
         </div>

@@ -282,7 +282,9 @@ define(["jquery","zrender/zrender","./graph","./data_init","./render_nodes","zre
                 var d_width = d_plus * default_pix;
                 var d_count = parseInt(rect_width / d_width);
                 for (i = 0; i < d_count; i++) {
-                    var d = v.x_start + d_plus * i;
+                    //todo：原设想根据项目阶段，前期阶段以负值显示，目前按照日期偏移的50天来显示
+                   /* var d = v.x_start + d_plus * i;*/
+                    var d = v.x_start + d_plus * i+150;
                     $('<span class="date-day" id="' + v.id + '-' + i + '">'+"<i>" + d+"</i>" + '</span>').appendTo("#date-index").css("width", d_width + "px");
                 }
 
