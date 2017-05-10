@@ -55,13 +55,16 @@ define(["angular","./app.controllers"],function(angular,controllers){
                 $rootScope.$broadcast("node_filter",self.menuFilter);
             }else{
                 //$rootScope.$broadcast("menu_filter",self.menuFilter);
-                alert("请输入节点名称或节点序列查询");
+                /*alert("请输入节点名称或节点序列查询");*/
+                self.menuFilter.node=undefined;
+                $rootScope.$broadcast("node_filter",self.menuFilter);
             }
 
         };
 
         self.triggerMenuFilter=function(type,menu,$event){
             //$event.preventDefault();
+            self.menuFilter.node=undefined;
             self.setModel(type,menu);
             console.log("self menu filter=====================");
             console.log(self.menuFilter);

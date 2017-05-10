@@ -79,59 +79,121 @@ define(["angular","zrender/zrender","./app.controllers","../graph/render_project
         * 同时移动鹰眼坐标
         *
         * */
-        function _focusNode(nodes){
-
-            zr = zrender.getInstance(localStorage.zr);
-            var zrWidth=parseInt($(".canvas-wrapper").css("width"));
-            var zrHeight=parseInt($(".canvas-wrapper").css("height"));
-
-            var nodes=zr.storage.get("node_3_group");
-
-            if(nodes._x>(zrWidth/2)){
-                var leftOffset=nodes._x-(zrWidth/2);
-            }else{
-                var leftOffset=0;
-            }
-
-            if(nodes._y>(zrHeight/2)){
-                var topOffset=nodes._y-(zrHeight/2);
-            }else{
-                var topOffset=0;
-            }
-
-            //x轴，y轴同步偏移
-            $("#date-index").css('left',(-1)*leftOffset);
-            $("#project-index").css('top',(-1)*topOffset);
-
-            zr.modLayer('0',{position:[(-1)*leftOffset,(-1)*topOffset]});
-
-
-
-            $.each(self.nodes, function (i, e) {
-                //node.style.opacity=0.3;
-                var node = zr.storage.get("node_"+i+"_group");
-                node.eachChild(function (e) {
-                    e.style.opacity = 0;
-                    e.ignore=true;
-                    e.z=0;
+        function _filterNodes(searchStr){
+                var nodesTemp=[];
+                $.each(self.nodes, function (i, e) {
+                    //node.style.opacity=0.3;
+                    if(e['sequence']==searchStr||e.name.match(searchStr)){
+                        nodesTemp.push(e);
+                    }
                 });
-            });
+            return nodesTemp;
+        }
+        function _focusNode(data){
+            console.log("---------focus node----------------");
+            console.log(data);
+            console.log("---------focus node----------------");
+            var searchStr=data.node;
+            zr = zrender.getInstance(localStorage.zr);
+            //如果查询节点为空，恢复所有节点显示
+            if(typeof searchStr==="undefined" || searchStr===""){
+                console.log("self nodes====================")
+                console.log(self.nodes);
+                console.log("self nodes====================")
+                $.each(self.nodes, function (i, e) {
+                    //node.style.opacity=0.3;
 
-            nodes.eachChild(function (e) {
-                e.style.opacity = 1;
-                e.ignore=false;
-                e.z=9;
-            });
+                    var node = zr.storage.get("node_"+e['sequence']+"_group");
+                       if(node){
+                           node.eachChild(function (e) {
+                               e.style.opacity = 1;
+                               e.ignore=false;
+                               e.z=0;
+                           });
+                       }else{
+                           console.log(i);
+                           console.log(e['name'])
+                       }
+                });
 
-            var imageData=zr.toDataURL();
-            zr.modShape("eagle_bg",{
-                style:{
-                    image: imageData,
+                var imageData=zr.toDataURL();
+                zr.modShape("eagle_bg",{
+                    style:{
+                        image: imageData,
+                    }
+
+                });
+            }else{
+                var zrWidth=parseInt($(".canvas-wrapper").css("width"));
+                var zrHeight=parseInt($(".canvas-wrapper").css("height"));
+
+                var nodesArr=_filterNodes(searchStr);
+
+                if(nodesArr.length==0){
+                    alert("未找到相应节点");
+                    return;
+                }
+                console.log("self nodes================================");
+                console.log(self.nodes);
+                console.log("self nodes================================");
+                $.each(self.nodes, function (i, e) {
+                    //node.style.opacity=0.3;
+                    var node = zr.storage.get("node_"+e['sequence']+"_group");
+                    console.log("---------------------------------------node_"+e['sequence']+"_group")
+                    console.log(node);
+                    if(node){
+                        node.eachChild(function (e) {
+                            e.style.opacity = 0;
+                            e.ignore=true;
+                            e.z=0;
+                        });
+                    }
+
+                });
+                $.each(nodesArr,function(i,e){
+                    var node = zr.storage.get("node_"+e['sequence']+"_group");
+                    if(node){
+                        node.eachChild(function (e) {
+                            e.style.opacity = 1;
+                            e.ignore=false;
+                            e.z=9;
+                        });
+                    }
+
+                });
+                console.log("nodesArr===============================================")
+                console.log(nodesArr[0])
+                console.log("nodesArr===============================================")
+                var nodeFirst=zr.storage.get("node_"+nodesArr[0]['sequence']+"_group");
+                if(nodeFirst._x>(zrWidth/2)){
+                    var leftOffset=nodeFirst._x-(zrWidth/2);
+                }else{
+                    var leftOffset=0;
+                }
+                if(nodeFirst._y>(zrHeight/2)){
+                    var topOffset=nodeFirst._y-(zrHeight/2);
+                }else{
+                    var topOffset=0;
                 }
 
-            });
+                //x轴，y轴同步偏移
+                $("#date-index").css('left',(-1)*leftOffset);
+                $("#project-index").css('top',(-1)*topOffset);
 
-            eagleRender.setPosition(zr,leftOffset,topOffset);
+                zr.modLayer('0',{position:[(-1)*leftOffset,(-1)*topOffset]});
+                var imageData=zr.toDataURL();
+                zr.modShape("eagle_bg",{
+                    style:{
+                        image: imageData,
+                    }
+
+                });
+
+                eagleRender.setPosition(zr,leftOffset,topOffset);
+
+            }
+
+
 
             zr.render();
         }
