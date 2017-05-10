@@ -1,4 +1,4 @@
-html,body{font-family: 'PingFang SC', 'Helvetica Neue',"STHeitiSC-Light","Microsoft YaHei",sans-serif;height:100%;width:100%;font-size:20px;overflow: hidden;
+html,body{font-family: 'PingFang SC', 'Helvetica Neue',"STHeitiSC-Light","Microsoft YaHei",sans-serif;height:100%;width:100%;font-size:20px;min-width:1280px;/*overflow: hidden;*/
     -webkit-overflow-scrolling: touch;}
 body{background-color: #fff;}
 h1,h2,h3,h4,h5,h6,em,i,span{font-weight: normal;}

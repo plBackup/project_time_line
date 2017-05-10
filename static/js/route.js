@@ -48,33 +48,7 @@ define(["js/app"],
 
                         }
                     })
-                    .state('set', {
-                        //abstract: true,
-                        url: '/set',
-                        views:{
-                            'menu':{
-                                templateUrl: '../views/menu_view.html',
-                                controller:"menuCtrl",
-                                controllerAs:"mCtrl"
-                            },
-                            'content': {
-                                templateUrl: '../views/blank.html',
-                                /* controller:"dataCtrl",
-                                 controllerAs:"dCtrl"*/
-                            },
-                            "right":{
-                                templateUrl: '../views/blank_right.html',
-                            }
-                        },
-                        resolve: {
 
-                            menuData: function(dataMenuService) {
-                                //$rootScope.pid=undefined;
-                                return dataMenuService.getData();
-                            },
-
-                        }
-                    })
                     .state('project', {
                         //abstract: true,
                         url: '/main/{pid}',
@@ -104,35 +78,7 @@ define(["js/app"],
 
                         }
                     })
-                    .state('setproject', {
-                        //abstract: true,
-                        url: '/set/{pid}',
-                        views:{
-                            'menu':{
-                                templateUrl: '../views/menu_view.html',
-                                controller:"menuCtrl",
-                                controllerAs:"mCtrl"
-                            },
-                            'content': {
-                                templateUrl: '../views/blank_project.html',
-                                /* controller:"dataCtrl",
-                                 controllerAs:"dCtrl"*/
-                            },
-                            "right":{
-                                templateUrl: '../views/blank_right.html',
-                            }
-                        },
-                        resolve: {
 
-                            menuData: function(dataMenuService,$stateParams,$rootScope) {
-                                var pid=$stateParams.pid;
-                                var search="?projectCd="+pid;
-                                $rootScope.pid=pid;
-                                return dataMenuService.getData(search);
-                            },
-
-                        }
-                    })
                     .state('plan', {
                         //abstract: true,
                         url: '/main/{pid}/{plan}',
@@ -171,13 +117,69 @@ define(["js/app"],
                             },
                         }
             })
+                    .state('set', {
+                        //abstract: true,
+                        url: '/set',
+                        views:{
+                            'menu':{
+                                templateUrl: '../views/menu_view.html',
+                                controller:"setMenuCtrl",
+                                controllerAs:"mCtrl"
+                            },
+                            'content': {
+                                templateUrl: '../views/blank.html',
+                                /* controller:"dataCtrl",
+                                 controllerAs:"dCtrl"*/
+                            },
+                            "right":{
+                                templateUrl: '../views/blank_right.html',
+                            }
+                        },
+                        resolve: {
+
+                            menuData: function(dataMenuService) {
+                                //$rootScope.pid=undefined;
+                                return dataMenuService.getData();
+                            },
+
+                        }
+                    })
+                    .state('setproject', {
+                        //abstract: true,
+                        url: '/set/{pid}',
+                        views:{
+                            'menu':{
+                                templateUrl: '../views/menu_view.html',
+                                controller:"setMenuCtrl",
+                                controllerAs:"mCtrl"
+                            },
+                            'content': {
+                                templateUrl: '../views/blank_project.html',
+                                /* controller:"dataCtrl",
+                                 controllerAs:"dCtrl"*/
+                            },
+                            "right":{
+                                templateUrl: '../views/blank_right.html',
+                            }
+                        },
+                        resolve: {
+
+                            menuData: function(dataMenuService,$stateParams,$rootScope) {
+                                var pid=$stateParams.pid;
+                                var search="?projectCd="+pid;
+                                $rootScope.pid=pid;
+                                return dataMenuService.getData(search);
+                            },
+
+                        }
+                    })
                     .state('setplan', {
                         //abstract: true,
                         url: '/set/{pid}/{plan}',
                         views:{
                             'menu':{
                                 templateUrl: '../views/menu_view.html',
-                                controller:"menuCtrl",
+                                controller:"setMenuCtrl",
                                 controllerAs:"mCtrl"
                             },
                             'content': {
