@@ -28,6 +28,8 @@ define(["angular","zrender/zrender","./app.controllers","../graph/render_project
             var status= typeof nodesFilter.status==="undefined"?"all":nodesFilter.status;
             //var status= typeof nodesFilter.all==="undefined"?"0":nodesFilter.all;
             var search="?planId="+nodesFilter.plan.id+"&level="+level+"&status="+status+"&all="+nodesFilter.all;
+
+            $rootScope.loading_show();
             $http.get($rootScope.plink+"/sdk!node.action"+search,{cache:false,'Content-Type':'application/x-www-form-urlencoded'}).then(function successCallback(res) {
                 //todo：根据status做判断
                 var data=res.data.data;
@@ -35,7 +37,10 @@ define(["angular","zrender/zrender","./app.controllers","../graph/render_project
                 self.nodes= data.nodes;
                 $rootScope.$broadcast("render_nodes",{});
             }),function errorCallback(res){
+
+                $rootScope.loading_hide();
                 alert("网络错误，请稍后再试");
+
             }
 
         };
@@ -48,7 +53,7 @@ define(["angular","zrender/zrender","./app.controllers","../graph/render_project
 
         $scope.$on("node_filter",function(event,data){
             self.nodesFilter=data;
-
+            $rootScope.loading_show();
             _focusNode(data);
         });
 
@@ -122,6 +127,7 @@ define(["angular","zrender/zrender","./app.controllers","../graph/render_project
 
                 if(nodesArr.length==0){
                     alert("未找到相应节点");
+                    $rootScope.loading_hide();
                     return;
                 }
 
@@ -178,9 +184,8 @@ define(["angular","zrender/zrender","./app.controllers","../graph/render_project
 
             }
 
-
-
             zr.render();
+            $rootScope.loading_hide();
         }
 
 
@@ -242,7 +247,7 @@ define(["angular","zrender/zrender","./app.controllers","../graph/render_project
                 $nodeInfo.data("node","").removeClass("active").fadeOut();
             });
 
-
+            $rootScope.loading_hide();
         };
 
         /*var defer=undefined;
@@ -272,11 +277,10 @@ define(["angular","zrender/zrender","./app.controllers","../graph/render_project
         $scope.$on("render_nodes",function(event,data){
             _clearDom();
             _render(self.nodes,self.phase);
+
         });
 
-        $timeout(function(){
-            $rootScope.loading_hide();
-        },2000);
+
         function _init(){
             if(typeof nodeData !=="undefined"){
                 self.phase=nodeData.data["phase"];

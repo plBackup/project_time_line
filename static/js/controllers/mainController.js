@@ -24,6 +24,22 @@ define(["angular","./app.controllers",],function(angular,controllers){
            $rootScope.loading_hide();
         });
 
+        $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState) {
+            $rootScope.loading_show();
+        });
+        $rootScope.$on('$viewContentLoading',
+            function(event, viewConfig){
+                $rootScope.loading_show();
+            });
+        $rootScope.$on('$stateChangeSuccess',
+            function(event, toState, toParams, fromState, fromParams){
+                $rootScope.loading_hide();
+            });
+        $scope.$on('$viewContentLoaded',
+            function(event){
+                $rootScope.loading_hide();
+            });
+
     }]);
     //return controllers;
 });
