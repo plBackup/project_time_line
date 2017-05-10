@@ -54,9 +54,7 @@ define(["jquery","zrender/zrender","./graph","zrender/tool/color","zrender/tool/
             zrGroup = [];
             //nodesRender.render(zr,project);
             _zrEvent_init(zr);
-            console.log("...........")
-            $("body").off("test").on("test",function(){
-                console.log("removeDateLin--------------------")
+            $(".canvas-wrapper").off("removeDateLine").on("removeDateLine",function(){
                 $.each(curdateNodes, function (i, e) {
                     zr.delShape(e);
                 });

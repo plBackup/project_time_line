@@ -105,14 +105,11 @@ define(["angular","zrender/zrender","./app.controllers","../graph/graph","../gra
             var searchStr=data.node;
             zr = zrender.getInstance(localStorage.zr);
 
-            //清除页面上的时间线和弹出层
+            //清除页面上的时间线和弹出层,利用页面事件的方式处理
+            //因为curdateNodes用于处理点击节点时突出显示的当前时间线跨模块处理会比较冗余
             var $nodeInfo=$(".node-info");
             $nodeInfo.removeClass("active").fadeOut();
-            console.log("-----------removeDateLine------------------")
-            $("body").on("test",function(){
-                alert("...")
-            })
-            $("body").trigger("test");
+            $(".canvas-wrapper").trigger("removeDateLine");
 
             //如果查询节点为空，恢复所有节点显示
             if(typeof searchStr==="undefined" || searchStr===""){

@@ -10,7 +10,7 @@ define(["angular","./app.services"],function(angular,services){
                     search="";
                 }
 
-                return $http.get('/sdk!init.action'+search, {cache: false}).then(function (res) {
+                return $http.get($rootScope.plink+'/sdk!init.action'+search, {cache: false}).then(function (res) {
                     if(typeof cb!=="undefined"){
                         cb(res.data);
                     }else{
