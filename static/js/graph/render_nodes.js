@@ -204,6 +204,7 @@ define(["jquery","zrender/zrender","./graph","zrender/tool/color","zrender/tool/
                         _width: 88,
                         _height: 45,
                         _nodeId: e['id'],
+                        _sequence:e["sequence"],
                         _name: e['name'],
                         _status: e['status'],//节点状态
                         _chargeOrgName: e['chargeOrgName'],//主责单位
@@ -215,7 +216,10 @@ define(["jquery","zrender/zrender","./graph","zrender/tool/color","zrender/tool/
                         _expireStatus:e['expireStatus'],
                         _isWarning:e["isWarning"],
                         _index:i,
+
                         _delayCompleteDate:e['delayCompleteDate'],
+                        _resNumbers:e["resNumbers"],
+                        _resIds:e["resIds"],
                         onclick: function (params) {
                             var nodeObj=params.target.parent;
                             $('body').trigger("nodeclick",nodeObj);

@@ -8,6 +8,7 @@ define(["angular","zrender/zrender","./app.controllers","../graph/graph","../gra
         var self=this;
         var zr;
         self.curSelectNode={
+            nodeId:"",
             name:"",
             chargeOrgName:"",
             startDate:"",
@@ -22,7 +23,7 @@ define(["angular","zrender/zrender","./app.controllers","../graph/graph","../gra
         self.nodes=null;
         self.project=null;
         self.nodesFilter=null;
-
+        self.baseLink=$rootScope.plink;
         function _getNodes(nodesFilter){
             //var search="?planId="+plan+"&level=all&status=all&all=1";
             /*self.menuFilter={
@@ -73,7 +74,7 @@ define(["angular","zrender/zrender","./app.controllers","../graph/graph","../gra
         };
 
         self.showNodeDetail=function(){
-           $rootScope.$broadcast("showDetail");
+           $rootScope.$broadcast("showDetail",self.curSelectNode);
         };
 
 
@@ -252,12 +253,16 @@ define(["angular","zrender/zrender","./app.controllers","../graph/graph","../gra
                     plan:$rootScope.plan.name
                 };*/
                 $scope.$apply(function(){
+                    self.curSelectNode.nodeId=params._nodeId;
+                    self.curSelectNode.sequence=params._sequence;
                     self.curSelectNode.name=params._name;
                     self.curSelectNode.chargeOrgName=params._chargeOrgName;
                     self.curSelectNode.startDate=params._start_date;
                     self.curSelectNode.endDate=params._end_date;
                     self.curSelectNode.status=params._status;
-                    console.log($rootScope.plan.name)
+                    self.curSelectNode.resNumbers=params._resNumbers,
+                    self.curSelectNode.resIds=params._resIds,
+                    console.log($rootScope.plan.name);
                     self.curSelectNode.plan=$rootScope.plan.name;
 
                     if(typeof params._delayCompleteDate!=="undefined" || params._delayCompleteDate!==""){
