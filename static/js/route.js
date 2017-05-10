@@ -184,7 +184,7 @@ define(["js/app"],
                             },
                             'content': {
                                 templateUrl: '../views/data_view.html',
-                                controller:"dataCtrl",
+                                controller:"setDataCtrl",
                                 controllerAs:"dCtrl"
                             },
                             "right":{

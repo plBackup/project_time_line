@@ -3,6 +3,6 @@
  */
 //index起作用是导入器的作用，
 
-define(["./app.controllers","./mainController","./dataController","./menuController","./rightcontroller","./setMenuController","./setController"],function(){
+define(["./app.controllers","./mainController","./dataController","./menuController","./rightcontroller","./setMenuController","./setDataController"],function(){
 
 });
