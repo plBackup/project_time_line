@@ -25,7 +25,6 @@ define(["angular","zrender/zrender","./app.controllers","../graph/render_project
 
         };
 
-
         $scope.$on("menu_filter",function(event,data){
             console.log("menu data--------");
             self.nodesFilter=data;
@@ -81,20 +80,18 @@ define(["angular","zrender/zrender","./app.controllers","../graph/render_project
             }else{
                 var topOffset=0;
             }
-            console.log(leftOffset);
-            console.log(topOffset);
+
             //x轴，y轴同步偏移
             $("#date-index").css('left',(-1)*leftOffset);
             $("#project-index").css('top',(-1)*topOffset);
 
             zr.modLayer('0',{position:[(-1)*leftOffset,(-1)*topOffset]});
 
-            console.log(self.nodes);
+
 
             $.each(self.nodes, function (i, e) {
                 //node.style.opacity=0.3;
                 var node = zr.storage.get("node_"+i+"_group");
-                console.log(node);
                 node.eachChild(function (e) {
                     e.style.opacity = 0;
                     e.ignore=true;
@@ -141,8 +138,7 @@ define(["angular","zrender/zrender","./app.controllers","../graph/render_project
 
             /*事件处理要先清除，再重新绑定*/
             $('body').off().on("nodeclick",function(e,params){
-                console.log("node click---------------================");
-                console.log(params);
+
                 var $nodeInfo=$(".node-info");
                 /*todo:判断 nodeinfo 当前对应的 node id,
                 * 如果nodeid不等，则销毁当前node-info数据，在新位置重新显示
@@ -174,7 +170,6 @@ define(["angular","zrender/zrender","./app.controllers","../graph/render_project
 
 
             }).on("zrEvent",function(e){
-                console.log("******===========zr event=======================********");
                 var $nodeInfo=$(".node-info");
                 $nodeInfo.data("node","").removeClass("active").fadeOut();
             });

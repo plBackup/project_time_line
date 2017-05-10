@@ -84,8 +84,6 @@ define(["jquery"],function($){
 
     data.init=function(nodes){
         _init_data(nodes);
-        console.log("=============data rows======================");
-        console.log(data.rows);
     }
 
     function _init_data(nodes){
@@ -117,7 +115,6 @@ define(["jquery"],function($){
             //value.end_date=DateAdd("d",value.x+value.last,start_date1);
             var nodeIndex=parseInt(value.type-1)
             if(typeof nodeList["node"+nodeIndex]!=="undefined"){
-
                 nodeList["node"+nodeIndex].push(value);
             }else{
                 console.log("value type=======")

@@ -201,6 +201,17 @@ define(["jquery","zrender/zrender","./graph","./data_init","./render_nodes","zre
                     nodes:[]
                 })
             });
+            //todo: 这里对data.rows,多添加一个备注节点为了底部留出弹出框位置；
+            data.rows.push({
+                id: "type"+"_commits",
+                name : "备注",
+                index:"commits",
+                height:200,
+                offset:30,
+                cur_done:0,
+                description:"备注",
+                nodes:[]
+            })
 
             //todo:w根据传入的起始值计算，前后各加50天；
             var dateRange=Math.ceil((end-start)/(24*60*60*1000))+50+50;

@@ -37,7 +37,7 @@ define(["jquery","zrender/zrender","./graph","zrender/tool/color","zrender/tool/
         /*curdateNodes用于处理点击节点时突出显示的当前时间线*/
         var curdateNodes=[];
 
-        var yOffsetPlus=50;
+        var yOffsetPlus=30;
 
         nodesRender.render=function(zr,project){
             //end nodesRender

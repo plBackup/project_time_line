@@ -6,20 +6,15 @@ define(["jquery","angular","zrender/zrender","./app.controllers",],function($,an
     controllers.controller("rightCtrl",["$rootScope","$scope","$http",function($rootScope,$scope,$http){
 
             var self=this;
-            console.log("right control=========")
+
             self.close=function(){
-                console.log("close---------------")
                 _panel_hide();
             };
 
             self.uploadFile=function($event){
-                console.log($event);
-
 
             };
 
-
-            console.log("right contrller====================");
             $scope.$on("showDetail",function(e,obj){
                 //get node data
                 _panel_show();
