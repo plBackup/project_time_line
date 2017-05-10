@@ -23,14 +23,11 @@ define(["angular","zrender/zrender","./app.controllers","../graph/render_project
                 node:undefined,
                 all:0
             };*/
-            console.log("nodes filter==========================");
-            console.dir(nodesFilter);
+
             var level= typeof nodesFilter.level==="undefined"?"all":nodesFilter.level;
             var status= typeof nodesFilter.status==="undefined"?"all":nodesFilter.status;
             //var status= typeof nodesFilter.all==="undefined"?"0":nodesFilter.all;
             var search="?planId="+nodesFilter.plan.id+"&level="+level+"&status="+status+"&all="+nodesFilter.all;
-           console.log(search);
-
             $http.get($rootScope.plink+"/sdk!node.action"+search,{cache:false,'Content-Type':'application/x-www-form-urlencoded'}).then(function successCallback(res) {
                 //todo：根据status做判断
                 var data=res.data.data;
@@ -44,16 +41,14 @@ define(["angular","zrender/zrender","./app.controllers","../graph/render_project
         };
 
         $scope.$on("menu_filter",function(event,data){
-            console.log("menu data--------");
             self.nodesFilter=data;
-            console.log(data);
+
             _getNodes(data);
         });
 
         $scope.$on("node_filter",function(event,data){
-            console.log("menu data--------");
             self.nodesFilter=data;
-            console.log(data);
+
             _focusNode(data);
         });
 
@@ -90,16 +85,12 @@ define(["angular","zrender/zrender","./app.controllers","../graph/render_project
             return nodesTemp;
         }
         function _focusNode(data){
-            console.log("---------focus node----------------");
-            console.log(data);
-            console.log("---------focus node----------------");
+
             var searchStr=data.node;
             zr = zrender.getInstance(localStorage.zr);
             //如果查询节点为空，恢复所有节点显示
             if(typeof searchStr==="undefined" || searchStr===""){
-                console.log("self nodes====================")
-                console.log(self.nodes);
-                console.log("self nodes====================")
+
                 $.each(self.nodes, function (i, e) {
                     //node.style.opacity=0.3;
 
@@ -133,14 +124,11 @@ define(["angular","zrender/zrender","./app.controllers","../graph/render_project
                     alert("未找到相应节点");
                     return;
                 }
-                console.log("self nodes================================");
-                console.log(self.nodes);
-                console.log("self nodes================================");
+
                 $.each(self.nodes, function (i, e) {
                     //node.style.opacity=0.3;
                     var node = zr.storage.get("node_"+e['sequence']+"_group");
-                    console.log("---------------------------------------node_"+e['sequence']+"_group")
-                    console.log(node);
+
                     if(node){
                         node.eachChild(function (e) {
                             e.style.opacity = 0;
@@ -161,9 +149,6 @@ define(["angular","zrender/zrender","./app.controllers","../graph/render_project
                     }
 
                 });
-                console.log("nodesArr===============================================")
-                console.log(nodesArr[0])
-                console.log("nodesArr===============================================")
                 var nodeFirst=zr.storage.get("node_"+nodesArr[0]['sequence']+"_group");
                 if(nodeFirst._x>(zrWidth/2)){
                     var leftOffset=nodeFirst._x-(zrWidth/2);
