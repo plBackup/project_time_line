@@ -14,14 +14,32 @@ define(["angular","zrender/zrender","./app.controllers","../graph/render_project
         self.nodesFilter=null;
 
         function _getNodes(nodesFilter){
+            //var search="?planId="+plan+"&level=all&status=all&all=1";
+            /*self.menuFilter={
+                project:undefined,
+                level:undefined,
+                status:undefined,
+                plan:undefined,
+                node:undefined,
+                all:0
+            };*/
+            console.log("nodes filter==========================");
+            console.dir(nodesFilter);
+            var level= typeof nodesFilter.level==="undefined"?"all":nodesFilter.level;
+            var status= typeof nodesFilter.status==="undefined"?"all":nodesFilter.status;
+            //var status= typeof nodesFilter.all==="undefined"?"0":nodesFilter.all;
+            var search="?planId="+nodesFilter.plan.id+"&level="+level+"&status="+status+"&all="+nodesFilter.all;
+           console.log(search);
 
-            $http.get("../data/sdk!node.json",{cache:false}).then(function (res) {
+            $http.get($rootScope.plink+"/sdk!node.action"+search,{cache:false,'Content-Type':'application/x-www-form-urlencoded'}).then(function successCallback(res) {
                 //todo：根据status做判断
                 var data=res.data.data;
                 self.planId=data.planId;
                 self.nodes= data.nodes;
                 $rootScope.$broadcast("render_nodes",{});
-            });
+            }),function errorCallback(res){
+                alert("网络错误，请稍后再试");
+            }
 
         };
 
@@ -137,6 +155,9 @@ define(["angular","zrender/zrender","./app.controllers","../graph/render_project
 
 
             /*事件处理要先清除，再重新绑定*/
+            var $nodeInfo=$(".node-info");
+            $nodeInfo.removeClass("active").fadeOut();
+
             $('body').off().on("nodeclick",function(e,params){
 
                 var $nodeInfo=$(".node-info");
@@ -203,7 +224,7 @@ define(["angular","zrender/zrender","./app.controllers","../graph/render_project
 
         $scope.$on("render_nodes",function(event,data){
             _clearDom();
-            _render(self.nodes);
+            _render(self.nodes,self.phase);
         });
 
         $timeout(function(){

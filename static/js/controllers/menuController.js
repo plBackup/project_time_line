@@ -13,7 +13,8 @@ define(["angular","./app.controllers"],function(angular,controllers){
             level:undefined,
             status:undefined,
             plan:undefined,
-            node:undefined
+            node:undefined,
+            all:0
         };
         self.projects=angular.copy(self.data.projects);
         self.levels=angular.copy(self.data.levels);
@@ -53,9 +54,18 @@ define(["angular","./app.controllers"],function(angular,controllers){
             if(self.menuFilter.node!==undefined && self.menuFilter.node!==""){
                 $rootScope.$broadcast("node_filter",self.menuFilter);
             }else{
-                $rootScope.$broadcast("menu_filter",self.menuFilter);
+                //$rootScope.$broadcast("menu_filter",self.menuFilter);
+                alert("请输入节点名称或节点序列查询");
             }
 
+        };
+
+        self.triggerMenuFilter=function(type,menu,$event){
+            //$event.preventDefault();
+            self.setModel(type,menu);
+            console.log("self menu filter=====================");
+            console.log(self.menuFilter);
+            $rootScope.$broadcast("menu_filter",self.menuFilter);
         };
 
         function _init(){
