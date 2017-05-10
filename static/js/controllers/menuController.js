@@ -14,7 +14,7 @@ define(["angular","./app.controllers"],function(angular,controllers){
             status:undefined,
             plan:undefined,
             node:undefined,
-            all:0
+            all:1
         };
         self.projects=angular.copy(self.data.projects);
         self.levels=angular.copy(self.data.levels);
