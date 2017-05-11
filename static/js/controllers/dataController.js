@@ -15,6 +15,8 @@ define(["angular","zrender/zrender","./app.controllers","../graph/graph","../gra
             endDate:"",
             status:"",
             delayOffset:"-",
+            isWarning:false,
+            level:"",
             plan:$rootScope.plan.name
         };
 
@@ -264,7 +266,9 @@ define(["angular","zrender/zrender","./app.controllers","../graph/graph","../gra
                     self.curSelectNode.resIds=params._resIds;
                     console.log($rootScope.plan.name);
                     self.curSelectNode.plan=$rootScope.plan.name;
-
+                    //isWarning来判断责任人操作的显示和状态操作和提示信息
+                    self.curSelectNode.isWarning=params._isWarning;
+                    self.curSelectNode.level=params._level;
                     if(typeof params._delayCompleteDate!=="undefined" || params._delayCompleteDate!==""){
                         self.delayOffset=graph.getDateOffset(params._end_date,params._delayCompleteDate);
                     }else{

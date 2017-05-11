@@ -80,6 +80,25 @@
                                 </div>
                             </td>
                         </tr><!--tr-->
+                        <tr ng-if="rCtrl.nodeInfo.isWarning==true">
+                            <th>操作:</th>
+                            <td>
+                                <div class="td-wrapper clearfix">
+                                    <div class="input-addon input-radio-addon pull-left">
+                                        <input type="radio" name="warning-opt" id="warning-opt-complete" ng-value="complete" ng-model="warningOpt">
+                                        <label for="warning-opt-complete">已完成</label>
+                                    </div>
+                                    <div class="input-addon input-radio-addon pull-left">
+                                        <input type="radio" name="warning-opt" id="warning-opt-ondate" ng-value="complete" ng-model="warningOpt">
+                                        <label for="warning-opt-ondate">预计按期完成</label>
+                                    </div>
+                                    <div class="input-addon input-radio-addon pull-left">
+                                        <input type="radio" name="warning-opt" id="warning-opt-delay" ng-value="complete" ng-model="warningOpt">
+                                        <label for="warning-opt-delay">预计延期完成</label>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr><!--tr-->
 
                         <tr>
                             <th>成果判定:</th>
