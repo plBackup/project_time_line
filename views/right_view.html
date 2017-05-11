@@ -36,9 +36,9 @@
                         <tr>
                             <th>{{rCtrl.nodeInfo.plan}}</th>
                             <td>{{rCtrl.nodeInfo.chargeOrgName}}</td>
-                            <td>吕翠华</td>
-                            <td>刘群英</td>
-                            <td>申玉玉</td>
+                            <td>{{rCtrl.nodeInfo.centerManagerName}}</td>
+                            <td>{{rCtrl.nodeInfo.departmentHeadName}}</td>
+                            <td data-charger="{{rCtrl.nodeInfo.isChargeMan}}">{{rCtrl.nodeInfo.chargerName}}</td>
                             <td>{{rCtrl.nodeInfo.startDate}}</td>
                             <td>{{rCtrl.nodeInfo.endDate}}</td>
                             <td>{{rCtrl.nodeInfo.delayOffset}}</td>
@@ -65,22 +65,26 @@
                             </td>
                         </tr><!--tr-->
 
-                        <tr>
+                        <tr ng-if="">
                             <th>状态:</th>
                             <td>
                                 <div class="td-wrapper clearfix ">
                                     <div class="input-addon input-radio-addon pull-left">
-                                        <input type="radio" name="status" id="status-going-on">
+                                        <input type="radio" name="status" id="status-going-on" ng-disabled="rCtrl.nodeInfo.isChargeMan==true">
                                         <label for="status-going-on">进行中</label>
                                     </div>
                                     <div class="input-addon input-radio-addon pull-left">
-                                        <input type="radio" name="status" id="status-done">
+                                        <input type="radio" name="status" id="status-done" ng-disabled="rCtrl.nodeInfo.isChargeMan==true">
                                         <label for="status-done">已完成</label>
                                     </div>
                                 </div>
                             </td>
                         </tr><!--tr-->
-                        <tr ng-if="rCtrl.nodeInfo.isWarning==true">
+
+
+
+                       <!-- <tr ng-if="rCtrl.nodeInfo.isWarning==true " >-->
+                        <tr ng-if="rCtrl.nodeInfo.isChargeMan==true">
                             <th>操作:</th>
                             <td>
                                 <div class="td-wrapper clearfix">
@@ -126,7 +130,7 @@
                         </tr><!--tr-->
                     </tbody><!--tbody-->
 
-                    <tbody class="rpanel-opt-table">
+                    <tbody class="rpanel-opt-table" ng-if="rCtrl.nodeInfo.isChargeMan==true">
                         <tr>
                             <th colspan="2">
                                 <h3>责任人操作</h3>

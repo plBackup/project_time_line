@@ -223,6 +223,12 @@ define(["jquery","zrender/zrender","./graph","zrender/tool/color","zrender/tool/
                         _delayCompleteDate:e['delayCompleteDate'],
                         _resNumbers:e["resNumbers"],
                         _resIds:e["resIds"],
+                        _centerManagerCd:e["centerManagerCd"],
+                        _centerManagerName:e["centerManagerName"],
+                        _departmentHeadCd:e["departmentHeadCd"],
+                        _departmentHeadName:e["departmentHeadName"],
+                        _chargerCd:e["chargerCd"],
+                        _chargerName:e["chargerName"],
                         onclick: function (params) {
                             var nodeObj=params.target.parent;
                             $('body').trigger("nodeclick",nodeObj);

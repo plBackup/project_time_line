@@ -24,7 +24,7 @@ define(["jquery","angular","zrender/zrender","./app.controllers",],function($,an
                 $rootScope.loading_show();
                 ///plan6/sdk!detail.action?nodeId=402834e53c6c48ab013c7afb7f8827ab
                 var search="?nodeId="+data.nodeId;
-                $http.get($rootScope.plink+"/sdk!detail.action"+search,{cache:false,'Content-Type':'application/x-www-form-urlencoded'}).then(function successCallback(res) {
+                $http.get($rootScope.plink+"/sdk!detail.action"+search,{cache:false,'Content-Type':'application/x-www-form-urlencoded',withCredentials:true}).then(function successCallback(res) {
                     //todo：根据status做判断
                     var data=res.data.data;
                     console.log(data)

@@ -1,3 +1,28 @@
+<!-- 非四、五级计划 -->
+                 <s:if test="templetId!=4&&templetId!=6">
+                 	 <s:if test="node.confirmStatus  ==2 && node.resStatus != 2 ">
+                        <span class="special-input checkbox">
+		                <a id="goToRes"   onclick="checkOne(this);openInfo();" style="text-decoration: none;color: red;" nodeId="<s:property value="key"/>">已完成</a ></span>
+                	</s:if>
+                	<s:if test=" node.isWarning ==1 && node.confirmStatus  ==2">
+                        <span class="special-input checkbox">
+		                <a id="goToStu1"  onclick="checkOne(this);openInfo();" style="text-decoration: none;color: red;" nodeId="<s:property value="key"/>">预计按期完成</a ></span>
+		                <span class="special-input checkbox">
+		                <a id="goToStu2"  onclick="goToResUpdateStatus('${node.nodeId}','2',$(this));checkOne(this);" style="text-decoration: none;color: red;" nodeId="<s:property value="key"/>">预计延期完成</a ></span>
+                    </s:if>
+               </s:if>
+               <s:if test="templetId==4||templetId==6">
+               		<input type="button" class="btn-blue" value="已完成" onclick="startRes('1','${node.nodeId}',$(this))"/>
+               </s:if>
+
+
+                        <s:if test="node.confirmStatus  ==2 && node.resStatus != 2 ">
+                        <s:if test="templetId==4||templetId==6">
+                        <input type="button" class="btn-blue" value="申请延期或撤销" onclick="startRes('2','${node.nodeId}',$(this))"/> </s:if>
+                   		</s:if>
+
+
+
 <s:if test="node.status == 2">
                         已完成
                     </s:if>

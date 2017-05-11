@@ -7,6 +7,16 @@ define(["angular","./app.controllers"],function(angular,controllers){
 
         var self=this;
         self.name="menu";
+
+        if(typeof menuData.data.uuid==undefined ||menuData.data.uuid==""){
+            location.href=$rootScope.plink;
+        }
+        $rootScope.curUser=menuData.data.uuid;
+        
+        console.log("curUser===============")
+        console.log($rootScope.curUser);
+        console.log("curUser===============")
+
         self.data=angular.copy(menuData.data);
         self.menuFilter={
             project:undefined,
@@ -20,6 +30,8 @@ define(["angular","./app.controllers"],function(angular,controllers){
         self.levels=angular.copy(self.data.levels);
         self.status=angular.copy(self.data.status);
         self.plans=angular.copy(self.data.plans);
+
+
         /*这里把业态和状态映射 放到全局访问*/
         $rootScope.status=angular.copy(self.data.status);
         console.log($rootScope.status);
