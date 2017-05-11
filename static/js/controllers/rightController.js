@@ -13,7 +13,10 @@ define(["jquery","angular","zrender/zrender","./app.controllers",],function($,an
             self.formData={};
             //self.message留言
             self.message="";
-            self.chargerInfo={}
+            //temp 纪录之前的责任人操作数据
+            self.chargerInfo={};
+            //完成状态的选择
+            self.statusOpt=''
 
             self.close=function(){
                 _panel_hide();

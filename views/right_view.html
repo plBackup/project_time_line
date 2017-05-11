@@ -101,21 +101,26 @@
                         </tr><!--tr-->
 
                        <!-- <tr ng-if="rCtrl.nodeInfo.isWarning==true " >-->
-                        <tr>
+                        <tr ng-if="rCtrl.nodeInfo.isChargeMan==true">
                             <th>操作:</th>
                             <td>
                                 <div class="td-wrapper clearfix">
-                                    <div class="input-addon input-radio-addon pull-left">
-                                        <input type="radio" name="warning-opt" id="warning-opt-complete" ng-value="complete" ng-model="warningOpt">
+                                    <div class="input-addon input-radio-addon pull-left" ng-if="rCtrl.nodeInfo.confirmStatus==2 &&rCtrl.nodeInfo.resStatus!=2">
+                                        <input type="radio" name="warning-opt" id="warning-opt-complete" ng-value="" ng-model="rCtrl.statusOpt">
                                         <label for="warning-opt-complete">已完成</label>
                                     </div>
-                                    <div class="input-addon input-radio-addon pull-left">
-                                        <input type="radio" name="warning-opt" id="warning-opt-ondate" ng-value="complete" ng-model="warningOpt">
+                                    <div class="input-addon input-radio-addon pull-left" ng-if="rCtrl.nodeInfo.isWarning==1&&rCtrl.nodeInfo.confirmStatus==2 ">
+                                        <input type="radio" name="warning-opt" id="warning-opt-ondate" ng-value="complete" ng-model="rCtrl.statusOpt">
                                         <label for="warning-opt-ondate">预计按期完成</label>
                                     </div>
-                                    <div class="input-addon input-radio-addon pull-left">
-                                        <input type="radio" name="warning-opt" id="warning-opt-delay" ng-value="complete" ng-model="warningOpt">
+                                    <div class="input-addon input-radio-addon pull-left" ng-if="rCtrl.nodeInfo.isWarning==1 &&rCtrl.nodeInfo.confirmStatus==2 ">
+                                        <input type="radio" name="warning-opt" id="warning-opt-delay" ng-value="complete" ng-model="rCtrl.statusOpt">
                                         <label for="warning-opt-delay">预计延期完成</label>
+                                    </div>
+
+                                    <div class="input-addon input-radio-addon pull-left" ng-if="rCtrl.nodeInfo.confirmStatus==2 &&rCtrl.nodeInfo.resStatus!=2">
+                                        <input type="radio" name="warning-opt" id="warning-opt-cancel" ng-value="complete" ng-model="rCtrl.statusOpt">
+                                        <label for="warning-opt-delay">申请延期或撤销</label>
                                     </div>
                                 </div>
                             </td>
@@ -125,13 +130,18 @@
                             <th>成果判定:</th>
                             <td>
                                 <div class="td-wrapper clearfix">
-                                   <span class="pull-left">《工程结算审批表》</span>
-                                   <div class="td-opt-group pull-left">
-                                       <a class="td-opt td-opt-del">删除</a>
-                                       <label class="td-opt td-opt-upload" ng-click="rCtrl.uploadFile($event)" for="file-upload">上传
-                                            <input type="file" id="file-upload">
-                                       </label>
-                                   </div>
+                                  <div class="clearfix">
+                                      <span class="pull-left">{{rCtrl.formData.outputDesc}}</span>
+                                  </div>
+                                  <div class="td-attachment clearfix">
+                                      <span class="pull-left">附件接口待定</span>
+                                      <div class="td-opt-group pull-left" ng-if="rCtrl.nodeInfo.isChargeMan==true">
+                                          <a class="td-opt td-opt-del">删除</a>
+                                          <label class="td-opt td-opt-upload" ng-click="rCtrl.uploadFile($event)" for="file-upload">上传
+                                              <input type="file" id="file-upload">
+                                          </label>
+                                      </div>
+                                  </div>
                                 </div>
                             </td>
                         </tr><!--tr-->
@@ -148,6 +158,7 @@
                         </tr><!--tr-->
 
                     </tbody><!--tbody-->
+
                     <!--非责任人反馈信息-->
                     <tbody class="rpanel-opt-table" ng-if="rCtrl.nodeInfo.isChargeMan!=true">
                         <tr>
@@ -196,6 +207,7 @@
                             </td>
                         </tr><!--tr-->
                     </tbody>
+
                     <!--责任人操作-->
                     <tbody class="rpanel-opt-table" ng-if="rCtrl.nodeInfo.isChargeMan==true">
                         <tr>
