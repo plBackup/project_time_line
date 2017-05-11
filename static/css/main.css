@@ -517,7 +517,7 @@ a:focus{ -webkit-box-shadow:none;box-shadow:none;}
 .td-opt-upload{}
 .td-opt-upload>input[type=file]{position: absolute;top:-200px;left:-200px;visibility: hidden;}
 
-.td-wrapper>textarea{width:100%;height:120px;border:0;background-color:#f3f4f8;}
+.td-wrapper>textarea{width:100%;height:120px;border:0;background-color:#f3f4f8;resize: none;}
 
 .td-btn-group{float:right;padding:20px 0;}
 .td-btn-group>.btn{width:86px;height:32px;line-height: 32px;text-align: center;padding:0;text-align: center;border-radius:3px;}
@@ -554,10 +554,53 @@ a#level-selected.level_5:before{background-color: #fbc44d;}
 a#level-selected.level_all:before{background-color: #fff;}
 
 
+/**/
+.ys-comment-process .ys-block-title>span {
+    display: inline-block;
+    padding-left: 8px;
+    border-left: solid 4px #00aaff;
+    font-size: 16px;
+    color: #222;
+    height: 18px;
+    line-height: 18px;
+}
+
+.ys-comment-opt .ys-table {
+    margin-bottom: 8px;
+    font-size:14px;
+}
+.ys-comment-opt .ys-table th{
+    color: #8491a2;
+}
+.ys-comment-opt .ys-table td{
+}
 
 
-
-
+.ys-comment-opt-comment {
+    position: relative;
+    margin-top: 20px;
+    padding-right: 90px;
+    height: 92px;
+    border:solid 1px #e5e5e5;
+    font-size: 14px;
+}
+.ys-comment-opt-comment textarea {
+    resize: none;
+    width: 100%;
+    height: 90px;
+    border: 0;
+}
+.ys-comment-opt-comment button {
+    position: absolute;
+    height: 90px;
+    width: 90px;
+    right: 0;
+    top: 1px;
+    right:1px;
+    background-color: #3da0db;
+    color: #fff;
+    border:0;
+}
 
 
 

@@ -14,7 +14,7 @@ define(["angular","zrender/zrender","./app.controllers","../graph/graph","../gra
             startDate:"",
             endDate:"",
             status:"",
-
+            statusText:"",
             delayOffset:"-",
 
             expireStatus:"", // 过期状态
@@ -291,6 +291,7 @@ define(["angular","zrender/zrender","./app.controllers","../graph/graph","../gra
                     self.curSelectNode.departmentHeadName=params._departmentHeadName;
                     self.curSelectNode.chargerCd=params._chargerCd;
                      self.curSelectNode.chargerName=params._chargerName;
+                    self.curSelectNode.statusText=params._statusText;
                     /*todo 判断当前节点是不是责任人，决定责任人列表的显示*/
                     self.curSelectNode.isChargeMan= $rootScope.curUser==params._chargerCd;
                     if(typeof params._delayCompleteDate!=="undefined" || params._delayCompleteDate!==""){

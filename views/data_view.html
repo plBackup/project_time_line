@@ -39,14 +39,14 @@
                 </li>
                 <li>
                     <label>状态: </label>
-                    <span>{{dCtrl.curSelectNode.status}}</span>
+                    <span>{{dCtrl.curSelectNode.statusText}}</span>
                 </li>
                 <li ng-show="true">
                     <label>延期时间: </label>
                     <span>{{dCtrl.curSelectNode.delayOffset}}</span>
                 </li>
-                <li>
-                    <label>网批查询号: </label>
+                <li ng-if="dCtrl.curSelectNode.resIds[0]!==undefined && dCtrl.curSelectNode.resIds[0]!==''">
+                    <label>网批查询号:</label>
                     <span>
                         <a ng-repeat="resId in dCtrl.curSelectNode.resIds" href="{{dCtrl.baseLink}}/res/res-approve-info.action?id={{resId}}" target="_blank">
                             {{dCtrl.curSelectNode.resNumbers[$index]}}

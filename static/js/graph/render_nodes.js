@@ -229,6 +229,7 @@ define(["jquery","zrender/zrender","./graph","zrender/tool/color","zrender/tool/
                         _departmentHeadName:e["departmentHeadName"],
                         _chargerCd:e["chargerCd"],
                         _chargerName:e["chargerName"],
+                        _statusText:e["statusText"],
                         onclick: function (params) {
                             var nodeObj=params.target.parent;
                             $('body').trigger("nodeclick",nodeObj);

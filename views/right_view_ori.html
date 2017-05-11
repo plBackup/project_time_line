@@ -70,7 +70,7 @@
                         <tr>
                             <th>状态:</th>
                             <td>
-                                <!--<div class="td-wrapper clearfix " ng-if="rCtrl.nodeInfo.isWarning!==true">
+                                <div class="td-wrapper clearfix ">
                                     <div class="input-addon input-radio-addon pull-left">
                                         <input type="radio" name="status" id="status-going-on" ng-disabled="rCtrl.nodeInfo.isChargeMan==true">
                                         <label for="status-going-on">进行中</label>
@@ -79,23 +79,6 @@
                                         <input type="radio" name="status" id="status-done" ng-disabled="rCtrl.nodeInfo.isChargeMan==true">
                                         <label for="status-done">已完成</label>
                                     </div>
-                                </div>-->
-                                <div class="td-wrappr clearfix" ng-if="rCtrl.nodeInfo.status==2">
-                                    <span>已完成</span>
-                                </div>
-                                <div class="td-wrappr clearfix" ng-if="rCtrl.nodeInfo.status!=2&&rCtrl.nodeInfo.confirmStatus==1 && (rCtrl.nodeInfo.resStatus==1 ||rCtrl.nodeInfo.resStatus==3)">
-                                    <span>未启动</span>
-                                </div>
-                                <div class="td-wrappr clearfix" ng-if="rCtrl.nodeInfo.status!=2&&rCtrl.nodeInfo.confirmStatus==1 && (rCtrl.nodeInfo.resStatus==2)">
-                                    <span>确认中</span>
-                                </div>
-                                <div class="td-wrapper clearfix " ng-if="rCtrl.nodeInfo.status!=2&&rCtrl.nodeInfo.confirmStatus==2 && (rCtrl.nodeInfo.resStatus==1 ||rCtrl.nodeInfo.resStatus==3)">
-                                    <span ng-if="rCtrl.nodeInfo.isWarning ==true" class="alert-warning">该计划处于预警状态，须重点关注。请点击“预计按期完成”、“预计延期完成”、“已完成”实时知会相关人员计划当前状态。</span>
-
-                                    <span ng-if="rCtrl.nodeInfo.isWarning !=true" class="alert-warning">请按计划时间开展工作，点击“已完成”发起完成网批</span>
-                                </div>
-                                <div class="td-wrappr clearfix" ng-if="rCtrl.nodeInfo.status!==2&&rCtrl.nodeInfo.confirmStatus==2 && (rCtrl.nodeInfo.resStatus==2)">
-                                    <span class="alert-warning">该计划处于网批状态，点击“网批查询号”查询网批详情</span>
                                 </div>
                             </td>
                         </tr><!--tr-->
