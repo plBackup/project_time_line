@@ -168,7 +168,7 @@ a:focus{ -webkit-box-shadow:none;box-shadow:none;}
 .project-name:hover, .project-active {
     background-color: #c8d1d8;
     color: #000;
-    cursor: pointer;
+   /* cursor: pointer;*/
 }
 
 
