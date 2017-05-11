@@ -148,8 +148,56 @@
                         </tr><!--tr-->
 
                     </tbody><!--tbody-->
+                    <!--非责任人反馈信息-->
+                    <tbody class="rpanel-opt-table" ng-if="rCtrl.nodeInfo.isChargeMan!=true">
+                        <tr>
+                            <th colspan="2">
+                                <h3>责任人反馈信息</h3>
+                            </th>
+                        </tr><!--tr-->
+                        <tr ng-if="rCtrl.formData.finishOnTime==''">
+                            <th>是否按期完成:</th>
+                            <td>
+                                <div class="td-wrapper clearfix">
+                                    <div class="input-addon input-radio-addon pull-left">
+                                        <input type="radio" name="schedule" id="on-schedule-fd" ng-disabled="true" ng-value="3" ng-model="rCtrl.formData.finishOnTime">
+                                        <label for="on-schedule-fd">是</label>
+                                    </div>
+                                    <div class="input-addon input-radio-addon pull-left">
+                                        <input type="radio" name="schedule" id="out-schedule-fd" ng-disabled="true" ng-value="2" ng-model="rCtrl.formData.finishOnTime">
+                                        <label for="out-schedule-fd">否</label>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr><!--tr-->
+                        <tr ng-if="rCtrl.formData.influenceMainNode==''">
+                            <th>是否影响里程碑节点:</th>
+                            <td>
+                                <div class="td-wrapper clearfix">
 
-                    <tbody class="rpanel-opt-table">
+                                    <div class="input-addon input-radio-addon pull-left">
+                                        <input type="radio" name="effective" id="marker-effect-fd" ng-disabled="true" ng-value="3" ng-model="rCtrl.formData.influenceMainNode">
+                                        <label for="marker-effect-fd">是</label>
+                                    </div>
+                                    <div class="input-addon input-radio-addon pull-left">
+                                        <input type="radio" name="effective" id="marker-no-effect-fd" ng-disabled="true" ng-value="2" ng-model="rCtrl.formData.influenceMainNode">
+                                        <label for="marker-no-effect-fd">否</label>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr><!--tr-->
+
+                        <tr>
+                            <th style="vertical-align: top;">风险及具体原因:</th>
+                            <td>
+                                <div class="td-wrapper">
+                                    <textarea ng-disabled="true" >{{rCtrl.formData.delayReason}}</textarea>
+                                </div>
+                            </td>
+                        </tr><!--tr-->
+                    </tbody>
+                    <!--责任人操作-->
+                    <tbody class="rpanel-opt-table" ng-if="rCtrl.nodeInfo.isChargeMan==true">
                         <tr>
                             <th colspan="2">
                                 <h3>责任人操作</h3>
@@ -160,11 +208,11 @@
                             <td>
                                 <div class="td-wrapper clearfix">
                                     <div class="input-addon input-radio-addon pull-left">
-                                        <input type="radio" name="schedule" id="on-schedule">
+                                        <input type="radio" name="schedule" id="on-schedule" ng-value="3" ng-model="rCtrl.formData.finishOnTime">
                                         <label for="on-schedule">是</label>
                                     </div>
                                     <div class="input-addon input-radio-addon pull-left">
-                                        <input type="radio" name="schedule" id="out-schedule">
+                                        <input type="radio" name="schedule" id="out-schedule" ng-value="2" ng-model="rCtrl.formData.finishOnTime">
                                         <label for="out-schedule">否</label>
                                     </div>
                                 </div>
@@ -175,11 +223,11 @@
                             <td>
                                 <div class="td-wrapper clearfix">
                                     <div class="input-addon input-radio-addon pull-left">
-                                        <input type="radio" name="effective" id="marker-effect">
+                                        <input type="radio" name="effective" id="marker-effect" ng-value="3" ng-model="rCtrl.formData.influenceMainNode">
                                         <label for="marker-effect">是</label>
                                     </div>
                                     <div class="input-addon input-radio-addon pull-left">
-                                        <input type="radio" name="effective" id="marker-no-effect">
+                                        <input type="radio" name="effective" id="marker-no-effect" ng-value="2" ng-model="rCtrl.formData.influenceMainNode">
                                         <label for="marker-no-effect">否</label>
                                     </div>
                                 </div>
@@ -190,10 +238,10 @@
                             <th style="vertical-align: top;">风险及具体原因:</th>
                             <td>
                                 <div class="td-wrapper">
-                                    <textarea ></textarea>
+                                    <textarea>{{rCtrl.formData.delayReason}}</textarea>
                                     <div class="td-btn-group clearfix">
-                                        <a class="btn btn-primary">确定</a>
-                                        <a class="btn btn-default">取消</a>
+                                        <a class="btn btn-primary" ng-click="rCtrl.chargerCommit($event)">确定</a>
+                                        <a class="btn btn-default" ng-click="rCtrl.resetCommit($event)">取消</a>
                                     </div>
                                 </div>
                             </td>
@@ -208,7 +256,7 @@
                             <col width="80%">
                         </colgroup>
                         <tbody>
-                        <tr>
+                        <tr ng-repeat="message in rCtrl.formData.messages">
                             <th>王永周 <i>（07-27  18:50）</i></th>
                             <td>同意崔工意见</td>
                         </tr>
@@ -216,8 +264,8 @@
                     </table>
 
                     <div class="ys-comment-opt-comment">
-                        <textarea width="100%" style="" placeholder="发表留言(留言内容不具有审批效力)"></textarea>
-                        <button>留言</button>
+                        <textarea width="100%" style="" placeholder="发表留言(留言内容不具有审批效力)">{{rCtrl.message}}</textarea>
+                        <button ng-click="rCtrl.sentMessage($event)">留言</button>
                     </div>
                 </div><!--end ys-comment-opt-->
 

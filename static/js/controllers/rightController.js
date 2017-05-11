@@ -7,14 +7,35 @@ define(["jquery","angular","zrender/zrender","./app.controllers",],function($,an
 
             var self=this;
             self.baseLink=$rootScope.plink;
+            /*nodeInfo为事件带过来的节点对象*/
             self.nodeInfo={};
+            /*form data 为http请求数据*/
             self.formData={};
+            //self.message留言
+            self.message="";
+            self.chargerInfo={}
+
             self.close=function(){
                 _panel_hide();
             };
 
             self.uploadFile=function($event){
 
+            };
+
+            self.chargerCommit=function($event){
+                $event.preventDefault();
+            };
+            self.resetCommit=function($event){
+                $event.preventDefault();
+                $scope.$apply(function(){
+                    self.formData.delayReason=self.chargerInfo.delayReason;
+                    self.formData.influenceMainNode=self.chargerInfo.influenceMainNode;
+                    self.formData.delayReason=self.chargerInfo.delayReason;
+                });
+            };
+            self.sendMessage=function($event){
+                $event.preventDefault();
             };
 
             $scope.$on("showDetail",function(e,data){
@@ -28,6 +49,12 @@ define(["jquery","angular","zrender/zrender","./app.controllers",],function($,an
                     //todo：根据status做判断
                     var data=res.data.data;
                     console.log(data)
+                    self.formData=angular.copy(data);
+
+                    self.chargerInfo.delayReason=angular.copy(self.formData.delayReason);
+                    self.chargerInfo.influenceMainNode=angular.copy(self.formData.influenceMainNode);
+                    self.chargerInfo.finishOnTime=angular.copy(self.formData.finishOnTime);
+
                     $rootScope.loading_hide();
                     _panel_show();
                 }),function errorCallback(res){
