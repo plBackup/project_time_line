@@ -1,0 +1,22 @@
+<s:if test="node.status == 2">
+                        已完成
+                    </s:if>
+                    <s:elseif test="node.confirmStatus == 1 && (node.resStatus ==1 || node.resStatus  == 3)">
+                        未启动
+                    </s:elseif>
+                    <s:elseif test="node.confirmStatus == 1 && node.resStatus == 2 ">
+                        确认中
+                    </s:elseif>
+                    <s:elseif test="node.confirmStatus == 2 && (node.resStatus ==1 || node.resStatus  == 3)">
+                        <font color="red">
+                            <s:if test="node.isWarning ==1">
+                                该计划处于预警状态，须重点关注。请点击“预计按期完成”、“预计延期完成”、“已完成”实时知会相关人员计划当前状态。
+                            </s:if>
+                            <s:else>
+                                请按计划时间开展工作，点击“已完成”发起完成网批
+                            </s:else>
+                        </font>
+                    </s:elseif>
+                    <s:elseif test="node.confirmStatus == 2 && node.resStatus ==2 ">
+                        <font color="red">该计划处于网批状态，点击“网批查询号”查询网批详情</font>
+                    </s:elseif>

@@ -14,7 +14,12 @@ define(["angular","zrender/zrender","./app.controllers","../graph/graph","../gra
             startDate:"",
             endDate:"",
             status:"",
+
             delayOffset:"-",
+            isWarning:false,
+            expireStatus:"", // 过期状态
+            resStatus:"",// 网批状态
+            confirmStatus:"",// 确认状态
             isWarning:false,
             level:"",
             plan:$rootScope.plan.name
@@ -268,7 +273,12 @@ define(["angular","zrender/zrender","./app.controllers","../graph/graph","../gra
                     self.curSelectNode.plan=$rootScope.plan.name;
                     //isWarning来判断责任人操作的显示和状态操作和提示信息
                     self.curSelectNode.isWarning=params._isWarning;
+                    self.curSelectNode.expireStatus=params._expireStatus; // 过期状态
+                    self.curSelectNode.resStatus=params._resStatus;// 网批状态
+                    self.curSelectNode.confirmStatus=params._confirmStatus;// 确认状态
                     self.curSelectNode.level=params._level;
+                    /*todo 判断当前节点是不是责任人，决定责任人列表的显示*/
+                    /*self.curSelectNode.isChargeMan= $rootScope.curUser==params._chargeMan;*/
                     if(typeof params._delayCompleteDate!=="undefined" || params._delayCompleteDate!==""){
                         self.delayOffset=graph.getDateOffset(params._end_date,params._delayCompleteDate);
                     }else{
@@ -341,6 +351,15 @@ define(["angular","zrender/zrender","./app.controllers","../graph/graph","../gra
             if(typeof nodeData !=="undefined"){
                 self.phase=nodeData.data["phase"];
                 self.nodes=nodeData.data["nodes"];
+
+                //todo：curUser ， isChargeMan用于右侧责任人操作的显示；
+                self.curUser=nodeData.data["curUser"];
+                self.isChargeMan=nodeData.data['isChargeMan'];
+                self.curUser="cheng";
+                if(typeof self.curUser=="undefined" ||self.curUser==""){
+                    location.href=$rootScope.plink;
+                }
+
                 _clearDom();
                 _render(self.nodes,self.phase);
             }

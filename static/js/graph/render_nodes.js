@@ -213,8 +213,11 @@ define(["jquery","zrender/zrender","./graph","zrender/tool/color","zrender/tool/
                         _start_date: e['start_date'],
                         _end_date: e['end_date'],
                         _y_plus: y_plus,
-                        _expireStatus:e['expireStatus'],
+                        _expireStatus:e['expireStatus'], // 过期状态
+                        _resStatus:e['resStatus'],// 网批状态
+                        _confirmStatus:e['confirmStatus'],// 确认状态
                         _isWarning:e["isWarning"],
+
                         _index:i,
 
                         _delayCompleteDate:e['delayCompleteDate'],
