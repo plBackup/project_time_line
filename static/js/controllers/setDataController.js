@@ -334,6 +334,7 @@ define(["angular","zrender/zrender","./app.controllers","../graph/graph","../gra
             }).on("zrEvent",function(e){
                 var $nodeInfo=$(".node-info");
                 $nodeInfo.data("node","").removeClass("active").fadeOut();
+                _presetNodes(nodes,zr);
             });
 
             /*todo 这里根据节点的active状态，初始化节点的显示*/

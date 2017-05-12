@@ -124,7 +124,7 @@ define(["js/app"],
                         url: '/set',
                         views:{
                             'menu':{
-                                templateUrl: '../views/menu_view.html',
+                                templateUrl: '../views/menu_view_set.html',
                                 controller:"setMenuCtrl",
                                 controllerAs:"mCtrl"
                             },
@@ -151,7 +151,7 @@ define(["js/app"],
                         url: '/set/{pid}',
                         views:{
                             'menu':{
-                                templateUrl: '../views/menu_view.html',
+                                templateUrl: '../views/menu_view_set.html',
                                 controller:"setMenuCtrl",
                                 controllerAs:"mCtrl"
                             },
@@ -180,7 +180,7 @@ define(["js/app"],
                         url: '/set/{pid}/{plan}',
                         views:{
                             'menu':{
-                                templateUrl: '../views/menu_view.html',
+                                templateUrl: '../views/menu_view_set.html',
                                 controller:"setMenuCtrl",
                                 controllerAs:"mCtrl"
                             },
