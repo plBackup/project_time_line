@@ -16,32 +16,10 @@
                     </colgroup>
                     <tbody>
 
-                        <!--<tr>
-                            <th>业态:</th>
-                            <td>
-                                <div class="td-wrapper clearfix">
-                                    <div class="input-addon input-checkbox-addon pull-left">
-                                        <input type="checkbox" name="retailing-form" id="retailing-form" checked>
-                                        <label for="retailing-form">一期西地块办公</label>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>-->
-                        <!--tr-->
-
                         <tr>
                             <th>状态:</th>
                             <td>
-                                <!--<div class="td-wrapper clearfix " ng-if="rCtrl.nodeInfo.isWarning!==true">
-                                    <div class="input-addon input-radio-addon pull-left">
-                                        <input type="radio" name="status" id="status-going-on" ng-disabled="rCtrl.nodeInfo.isChargeMan==true">
-                                        <label for="status-going-on">进行中</label>
-                                    </div>
-                                    <div class="input-addon input-radio-addon pull-left">
-                                        <input type="radio" name="status" id="status-done" ng-disabled="rCtrl.nodeInfo.isChargeMan==true">
-                                        <label for="status-done">已完成</label>
-                                    </div>
-                                </div>-->
+
                                 <div class="td-wrappr clearfix" ng-if="rCtrl.nodeInfo.status==2">
                                     <span>已完成</span>
                                 </div>
@@ -169,79 +147,8 @@
                             </td>
                         </tr><!--tr-->
                     </tbody>
-
-                    <!--责任人操作-->
-                    <tbody class="rpanel-opt-table" ng-if="rCtrl.nodeInfo.isChargeMan==true">
-                        <tr>
-                            <th colspan="2">
-                                <h3>责任人操作</h3>
-                            </th>
-                        </tr><!--tr-->
-                        <tr>
-                            <th>是否按期完成:</th>
-                            <td>
-                                <div class="td-wrapper clearfix">
-                                    <div class="input-addon input-radio-addon pull-left">
-                                        <input type="radio" name="schedule" id="on-schedule" ng-value="3" ng-model="rCtrl.formData.finishOnTime">
-                                        <label for="on-schedule">是</label>
-                                    </div>
-                                    <div class="input-addon input-radio-addon pull-left">
-                                        <input type="radio" name="schedule" id="out-schedule" ng-value="2" ng-model="rCtrl.formData.finishOnTime">
-                                        <label for="out-schedule">否</label>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr><!--tr-->
-                        <tr>
-                            <th>是否影响里程碑节点:</th>
-                            <td>
-                                <div class="td-wrapper clearfix">
-                                    <div class="input-addon input-radio-addon pull-left">
-                                        <input type="radio" name="effective" id="marker-effect" ng-value="3" ng-model="rCtrl.formData.influenceMainNode">
-                                        <label for="marker-effect">是</label>
-                                    </div>
-                                    <div class="input-addon input-radio-addon pull-left">
-                                        <input type="radio" name="effective" id="marker-no-effect" ng-value="2" ng-model="rCtrl.formData.influenceMainNode">
-                                        <label for="marker-no-effect">否</label>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr><!--tr-->
-
-                        <tr>
-                            <th style="vertical-align: top;">风险及具体原因:</th>
-                            <td>
-                                <div class="td-wrapper">
-                                    <textarea>{{rCtrl.formData.delayReason}}</textarea>
-                                    <div class="td-btn-group clearfix">
-                                        <a class="btn btn-primary" ng-click="rCtrl.chargerCommit($event)">确定</a>
-                                        <a class="btn btn-default" ng-click="rCtrl.resetCommit($event)">取消</a>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr><!--tr-->
-                    </tbody>
                 </table>
-                <div class="ys-comment-process ys-comment-opt">
-                    <div class="ys-block-title"><span>留言记录</span></div>
-                    <table class="table ys-table ys-table-noborder">
-                        <colgroup>
-                            <col width="20%">
-                            <col width="80%">
-                        </colgroup>
-                        <tbody>
-                        <tr ng-repeat="message in rCtrl.formData.messages">
-                            <th>王永周 <i>（07-27  18:50）</i></th>
-                            <td>同意崔工意见</td>
-                        </tr>
-                        </tbody>
-                    </table>
 
-                    <div class="ys-comment-opt-comment">
-                        <textarea width="100%" style="" placeholder="发表留言(留言内容不具有审批效力)">{{rCtrl.message}}</textarea>
-                        <button ng-click="rCtrl.sentMessage($event)">留言</button>
-                    </div>
-                </div><!--end ys-comment-opt-->
 
             </div><!--rpanel-content-detail-->
           </form>

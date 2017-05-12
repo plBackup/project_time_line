@@ -8,13 +8,28 @@ define(["angular","zrender/zrender","./app.controllers","../graph/graph","../gra
         var self=this;
         var zr;
         self.curSelectNode={
+            nodeId:"",
             name:"",
             chargeOrgName:"",
             startDate:"",
             endDate:"",
             status:"",
+            statusText:"",
             delayOffset:"-",
-            plan:$rootScope.plan.name
+
+            expireStatus:"", // 过期状态
+            resStatus:"",// 网批状态
+            confirmStatus:"",// 确认状态
+            isWarning:false,
+            level:"",
+            plan:$rootScope.plan.name,
+
+            centerManagerCd: "",
+            centerManagerName: "",
+            departmentHeadCd: "",
+            departmentHeadName: "",
+            chargerCd: "",
+            chargerName: "",
         };
 
         self.name="data";
@@ -22,17 +37,17 @@ define(["angular","zrender/zrender","./app.controllers","../graph/graph","../gra
         self.nodes=null;
         self.project=null;
         self.nodesFilter=null;
-
+        self.baseLink=$rootScope.plink;
         function _getNodes(nodesFilter){
             //var search="?planId="+plan+"&level=all&status=all&all=1";
             /*self.menuFilter={
-                project:undefined,
-                level:undefined,
-                status:undefined,
-                plan:undefined,
-                node:undefined,
-                all:0
-            };*/
+             project:undefined,
+             level:undefined,
+             status:undefined,
+             plan:undefined,
+             node:undefined,
+             all:0
+             };*/
 
             var level= typeof nodesFilter.level==="undefined"?"all":nodesFilter.level;
             var status= typeof nodesFilter.status==="undefined"?"all":nodesFilter.status;
@@ -40,7 +55,7 @@ define(["angular","zrender/zrender","./app.controllers","../graph/graph","../gra
             var search="?planId="+nodesFilter.plan.id+"&level="+level+"&status="+status+"&all="+nodesFilter.all;
 
             $rootScope.loading_show();
-            $http.get($rootScope.plink+"/sdk!node.action"+search,{cache:false,'Content-Type':'application/x-www-form-urlencoded'}).then(function successCallback(res) {
+            $http.get($rootScope.plink+"/sdk!node.action"+search,{cache:false,'Content-Type':'application/x-www-form-urlencoded',withCredentials:true}).then(function successCallback(res) {
                 //todo：根据status做判断
                 var data=res.data.data;
                 self.planId=data.planId;
@@ -73,30 +88,30 @@ define(["angular","zrender/zrender","./app.controllers","../graph/graph","../gra
         };
 
         self.showNodeDetail=function(){
-           $rootScope.$broadcast("showDetail");
+            $rootScope.$broadcast("showDetail",self.curSelectNode);
         };
 
 
         /*
-        * todo:这里的这段过滤数据后的显示放到dataController中，
-        * 是基于之后做创建项目节点列表页面，有相似逻辑的考虑，
-        * 让render_nodes尽量保持通用。
-        *
-        * 数据过滤后，显示新的nodes，目前实现以下几点：
-        *
-        *如果第一个node节点的位置大于第一屏的x,y 50%,
-        * 显示第一个node节点至第一屏的中间
-        * 同时移动鹰眼坐标
-        *
-        * */
+         * todo:这里的这段过滤数据后的显示放到dataController中，
+         * 是基于之后做创建项目节点列表页面，有相似逻辑的考虑，
+         * 让render_nodes尽量保持通用。
+         *
+         * 数据过滤后，显示新的nodes，目前实现以下几点：
+         *
+         *如果第一个node节点的位置大于第一屏的x,y 50%,
+         * 显示第一个node节点至第一屏的中间
+         * 同时移动鹰眼坐标
+         *
+         * */
         function _filterNodes(searchStr){
-                var nodesTemp=[];
-                $.each(self.nodes, function (i, e) {
-                    //node.style.opacity=0.3;
-                    if(e['sequence']==searchStr||e.name.match(searchStr)){
-                        nodesTemp.push(e);
-                    }
-                });
+            var nodesTemp=[];
+            $.each(self.nodes, function (i, e) {
+                //node.style.opacity=0.3;
+                if(e['sequence']==searchStr||e.name.match(searchStr)){
+                    nodesTemp.push(e);
+                }
+            });
             return nodesTemp;
         }
 
@@ -118,16 +133,21 @@ define(["angular","zrender/zrender","./app.controllers","../graph/graph","../gra
                     //node.style.opacity=0.3;
 
                     var node = zr.storage.get("node_"+e['sequence']+"_group");
-                       if(node){
-                           node.eachChild(function (e) {
-                               e.style.opacity = 1;
-                               e.ignore=false;
-                               e.z=0;
-                           });
-                       }else{
-                           console.log(i);
-                           console.log(e['name'])
-                       }
+                    if(node){
+                        node.eachChild(function (e) {
+                            if(e.active==true){
+                                e.style.opacity=1;
+                            }else{
+                                e.style.opacity=.5;
+                            }
+
+                            e.ignore=false;
+                            e.z=0;
+                        });
+                    }else{
+                        console.log(i);
+                        console.log(e['name'])
+                    }
                 });
 
                 var imageData=zr.toDataURL();
@@ -232,36 +252,58 @@ define(["angular","zrender/zrender","./app.controllers","../graph/graph","../gra
 
                 var $nodeInfo=$(".node-info");
                 /*todo:判断 nodeinfo 当前对应的 node id,
-                * 如果nodeid不等，则销毁当前node-info数据，在新位置重新显示
-                * 如果nodeid相等，则toggle显示node-info(考虑到鹰眼拖动时要隐藏node-info)
-                *
-                * 还有一种情况，当非node点击，需要清除当前focus数据， render_nodes.js触发一个zrEvent事件
-                * 在zrEvent事件中，清空当前nodeinfo数据，并隐藏；
-                * */
+                 * 如果nodeid不等，则销毁当前node-info数据，在新位置重新显示
+                 * 如果nodeid相等，则toggle显示node-info(考虑到鹰眼拖动时要隐藏node-info)
+                 *
+                 * 还有一种情况，当非node点击，需要清除当前focus数据， render_nodes.js触发一个zrEvent事件
+                 * 在zrEvent事件中，清空当前nodeinfo数据，并隐藏；
+                 * */
                 console.log("params==========================================");
                 console.log(params);
                 console.log("params==========================================");
 
                 /*self.curSelectNode={
-                    name:"",
-                    chargeOrgName:"",
-                    startDate:"",
-                    endDate:"",
-                    status:"",
-                    delayOffset:"-",
-                    plan:$rootScope.plan.name
-                };*/
+                 name:"",
+                 chargeOrgName:"",
+                 startDate:"",
+                 endDate:"",
+                 status:"",
+                 delayOffset:"-",
+                 plan:$rootScope.plan.name
+                 };*/
                 $scope.$apply(function(){
+                    self.curSelectNode.nodeId=params._nodeId;
+                    self.curSelectNode.sequence=params._sequence;
                     self.curSelectNode.name=params._name;
                     self.curSelectNode.chargeOrgName=params._chargeOrgName;
                     self.curSelectNode.startDate=params._start_date;
                     self.curSelectNode.endDate=params._end_date;
                     self.curSelectNode.status=params._status;
-                    console.log($rootScope.plan.name)
+                    self.curSelectNode.resNumbers=params._resNumbers;
+                    self.curSelectNode.resIds=params._resIds;
+                    console.log($rootScope.plan.name);
                     self.curSelectNode.plan=$rootScope.plan.name;
+                    //isWarning来判断责任人操作的显示和状态操作和提示信息
+                    self.curSelectNode.isWarning=params._isWarning;
+                    self.curSelectNode.expireStatus=params._expireStatus; // 过期状态
+                    self.curSelectNode.resStatus=params._resStatus;// 网批状态
+                    self.curSelectNode.confirmStatus=params._confirmStatus;// 确认状态
+                    self.curSelectNode.level=params._level;
 
+                    self.curSelectNode.centerManagerCd=params._centerManagerCd;
+                    self.curSelectNode.centerManagerName=params._centerManagerName;
+                    self.curSelectNode.departmentHeadCd=params._departmentHeadCd;
+                    self.curSelectNode.departmentHeadName=params._departmentHeadName;
+                    self.curSelectNode.chargerCd=params._chargerCd;
+                    self.curSelectNode.chargerName=params._chargerName;
+                    self.curSelectNode.statusText=params._statusText;
+                    /*todo 判断当前节点是不是责任人，决定责任人列表的显示*/
+                    self.curSelectNode.isChargeMan= $rootScope.curUser==params._chargerCd;
                     if(typeof params._delayCompleteDate!=="undefined" || params._delayCompleteDate!==""){
-                        self.delayOffset=graph.getDateOffset(params._end_date,params._delayCompleteDate);
+                        //params._delayCompleteDate 为毫秒数
+                        var delayCompleteDate=new Date(params._delayCompleteDate);
+                        var dStr=delayCompleteDate.getFullYear()+"-"+(delayCompleteDate.getMonth()+1)+"-"+delayCompleteDate.getDate();
+                        self.delayOffset=graph.getDateOffset(params._end_date,dStr);
                     }else{
                         self.delayOffset="-";
                     }
@@ -294,23 +336,38 @@ define(["angular","zrender/zrender","./app.controllers","../graph/graph","../gra
                 $nodeInfo.data("node","").removeClass("active").fadeOut();
             });
 
+            /*todo 这里根据节点的active状态，初始化节点的显示*/
+            _presetNodes(nodes,zr)
             $rootScope.loading_hide();
         };
 
         /*var defer=undefined;
-        $(window).on("resize",function(){
-            clearTimeout(defer);
-            console.log("resize====================")
-            defer=undefined;
-            if(!defer){
-                defer=setTimeout(function(){
-                    console.log("rerender====================")
-                    zr.dispose();
-                    _render(nodes);
+         $(window).on("resize",function(){
+         clearTimeout(defer);
+         console.log("resize====================")
+         defer=undefined;
+         if(!defer){
+         defer=setTimeout(function(){
+         console.log("rerender====================")
+         zr.dispose();
+         _render(nodes);
 
-                },200);
-            }
-        });*/
+         },200);
+         }
+         });*/
+         function _presetNodes(nodes,zr){
+             $.each(nodes,function(i,e){
+                if(e.active !==true){
+                    var node = zr.storage.get("node_"+e['sequence']+"_group");
+                    if(node){
+                        node.eachChild(function (e) {
+                            e.style.opacity = .5;
+                        });
+                    }
+
+                }
+             });
+         }
 
         function _clearDom(){
             if(typeof zr !=="undefined"){
@@ -332,6 +389,7 @@ define(["angular","zrender/zrender","./app.controllers","../graph/graph","../gra
             if(typeof nodeData !=="undefined"){
                 self.phase=nodeData.data["phase"];
                 self.nodes=nodeData.data["nodes"];
+
                 _clearDom();
                 _render(self.nodes,self.phase);
             }

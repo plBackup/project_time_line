@@ -191,7 +191,7 @@ define(["js/app"],
                             },
                             "right":{
                                 templateUrl: '../views/right_view_set.html',
-                                controller:"rightCtrl",
+                                controller:"setRightCtrl",
                                 controllerAs:"rCtrl"
                             }
                         },

@@ -25,6 +25,15 @@
                     <label>主责方: </label>
                     <span>{{dCtrl.curSelectNode.chargeOrgName}}</span>
                 </li>
+
+                <li>
+                    <label>中心责任人: </label>
+                    <span>{{dCtrl.curSelectNode.centerManagerName}}</span>
+                </li>
+                <li>
+                    <label>部门责任人: </label>
+                    <span>{{dCtrl.curSelectNode.departmentHeadName}}</span>
+                </li>
                 <li>
                     <label>责任人: </label>
                     <span>{{dCtrl.curSelectNode.chargerName}}</span>
@@ -37,26 +46,12 @@
                     <label>计划结束: </label>
                     <span>{{dCtrl.curSelectNode.endDate}}</span>
                 </li>
-                <li>
-                    <label>状态: </label>
-                    <span>{{dCtrl.curSelectNode.statusText}}</span>
-                </li>
-                <li ng-show="true">
-                    <label>延期时间: </label>
-                    <span>{{dCtrl.curSelectNode.delayOffset}}</span>
-                </li>
-                <li ng-if="dCtrl.curSelectNode.resIds[0]!==undefined && dCtrl.curSelectNode.resIds[0]!==''">
-                    <label>网批查询号:</label>
-                    <span>
-                        <a ng-repeat="resId in dCtrl.curSelectNode.resIds" href="{{dCtrl.baseLink}}/res/res-approve-info.action?id={{resId}}" target="_blank">
-                            {{dCtrl.curSelectNode.resNumbers[$index]}}
-                        </a>
-                    </span>
-                </li>
+
             </ul>
         </div>
         <div class="node-info-opt">
-            <a class="btn btn-default ys-btn-dark" ng-click="dCtrl.showNodeDetail()">详情</a>
+            <a class="btn btn-default ys-btn-dark" ng-click="dCtrl.showNodeDetail()" ng-if="dCtrl.curSelectNode.active==true">修改</a>
+            <a class="btn btn-default ys-btn-dark" ng-click="dCtrl.showNodeDetail()" ng-if="dCtrl.curSelectNode.active!=true">添加</a>
         </div>
     </div>
 </div>
