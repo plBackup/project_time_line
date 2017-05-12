@@ -3,7 +3,7 @@
  */
 define(["js/app"],
     function(app) {
-        console.log(app)
+        console.log(app);
         return app.run([
             '$rootScope',
             '$state',
@@ -11,10 +11,10 @@ define(["js/app"],
             function ($rootScope, $state, $stateParams) {
                 $rootScope.$state = $state;
                 $rootScope.$stateParams = $stateParams;
+                $rootScope.domain="http://192.168.121.24:7900";
                 $rootScope.plink="http://192.168.121.24:7900/PowerDesk/plan7";
             }
         ]).config(function ($stateProvider, $urlRouterProvider, $locationProvider, $uiViewScrollProvider) {
-
 
                 //用于改变state时跳至顶部
                 $uiViewScrollProvider.useAnchorScroll();
@@ -185,12 +185,12 @@ define(["js/app"],
                                 controllerAs:"mCtrl"
                             },
                             'content': {
-                                templateUrl: '../views/data_view.html',
+                                templateUrl: '../views/data_view_set.html',
                                 controller:"setDataCtrl",
                                 controllerAs:"dCtrl"
                             },
                             "right":{
-                                templateUrl: '../views/right_view.html',
+                                templateUrl: '../views/right_view_set.html',
                                 controller:"rightCtrl",
                                 controllerAs:"rCtrl"
                             }

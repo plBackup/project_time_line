@@ -1,0 +1,61 @@
+<s:if test="node.nodeId != ''">
+                <ul class="ul-80">
+                    <li>
+                        <s:iterator value="messageList">
+                            <s:if test="type == 1">
+                                <div style="word-break:break-all;white-space:normal;">
+                                    <span><%=CodeNameUtil.getUserNameByCd(JspUtil.findString("creator"))%>(<s:date format="yyyy-MM-dd HH:mm"
+                                                                                                                   name="messageDate"></s:date>):</span>
+                                    留言&nbsp;：${contents }
+                                </div>
+                            </s:if>
+                            <s:if test="type == 2">
+                                <s:iterator value="plan6MessageShareds">
+                                    <div style="word-break:break-all;">
+                                    <span><%=CodeNameUtil.getUserNameByCd(JspUtil.findString("creator"))%>(<s:date format="yyyy-MM-dd HH:mm"
+                                                                                                                   name="messageDate"></s:date>):</span>
+                                        共享给&nbsp;<%
+                                        String[] messageUserCds = JspUtil.findString("messageUserCd").split(",");
+                                        for (int i = 0; i < messageUserCds.length; i++) {
+                                            String wsPlasUser = CodeNameUtil.getUserNameByCd(messageUserCds[i]);
+                                            if (StringUtils.isNotBlank(wsPlasUser)) {
+                                                out.print(wsPlasUser + (i + 1 < messageUserCds.length ? "、" : ""));
+                                            }
+                                        }
+                                    %>：${contents }
+                                        <%if (SpringSecurityUtils.getCurrentUserName().equals(CodeNameUtil.getUserNameByCd(JspUtil.findString("sharedUserCd")))) {%>
+                                        <a style="text-decoration:none" onclick="javascript:popReply($(this),'${creator}');">【回复】</a>
+                                        <%} %>
+                                    </div>
+                                </s:iterator>
+                            </s:if>
+                            <s:if test="type == 3">
+                                <div style="word-break:break-all;">
+                                    <span><%=CodeNameUtil.getUserNameByCd(JspUtil.findString("creator"))%>(<s:date format="yyyy-MM-dd HH:mm"
+                                                                                                                   name="messageDate"></s:date>):</span>
+                                    回复给&nbsp;<%=CodeNameUtil.getUserNameByCd(JspUtil.findString("messageUserCd"))%>
+                                    <%if (SpringSecurityUtils.getCurrentUserName().equals(CodeNameUtil.getUserNameByCd(JspUtil.findString("messageUserCd")))) {%>
+                                    <a style="text-decoration:none" onclick="javascript:popReply($(this),'${creator}');">【回复】</a>
+                                    <%} %>
+                                    ：${contents }
+                                </div>
+                            </s:if>
+                        </s:iterator>
+                    </li>
+                </ul>
+                <ul class="ul-senior">
+                    <li>
+                        <label style="width:12%;"></label>
+                        <textarea rows="30" cols="40" id="newMessage"></textarea>
+                        <input class="btn-special-blue" type="button" value="留言" id="btnMess"/>
+                        <script type="text/javascript">
+                            $("#newMessage").show();
+                        </script>
+                        <input class="btn-special-blue" type="button" value="共享" id="btnProMess"/>
+                        <input type="hidden" id="sharedUserCd" value=""/>
+                        <script type="text/javascript">
+                            $("#newMessage").show();
+                        </script>
+                    </li>
+                </ul>
+            </s:if>

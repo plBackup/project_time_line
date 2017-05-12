@@ -7,6 +7,7 @@ define(["jquery","angular","zrender/zrender","./app.controllers",],function($,an
 
             var self=this;
             self.baseLink=$rootScope.plink;
+            self.domain=$rootScope.domain;
             /*nodeInfo为事件带过来的节点对象*/
             self.nodeInfo={};
             /*form data 为http请求数据*/
@@ -37,10 +38,32 @@ define(["jquery","angular","zrender/zrender","./app.controllers",],function($,an
                     self.formData.delayReason=self.chargerInfo.delayReason;
                 });
             };
+
             self.sendMessage=function($event){
                 $event.preventDefault();
             };
 
+            self.canReply=function(shareds){
+                $.each(shareds,function(i,e){
+                    if(self.curUser==e.sharedUserCd){
+                        return true;
+                    }
+                });
+
+                return false;
+            };
+
+            self.toDateStr=function(messageDateObj){
+                var d=new Date(messageDateObj.time);
+                return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate()+"  "+messageDateObj.hours+":"+messageDateObj.minutes+":"+messageDateObj.seconds;
+            };
+            self.reply=function($event){
+                $event.preventDefault();
+                $("#message-textarea").focus();
+            };
+           /* self.deleteAttach=function($event,attach){
+
+            }*/
             $scope.$on("showDetail",function(e,data){
                 //get node data
                 console.log(data)

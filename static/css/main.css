@@ -590,7 +590,7 @@ a#level-selected.level_all:before{background-color: #fff;}
 .ys-comment-opt-comment {
     position: relative;
     margin-top: 20px;
-    padding-right: 90px;
+
     height: 92px;
     border:solid 1px #e5e5e5;
     font-size: 14px;
@@ -599,13 +599,13 @@ a#level-selected.level_all:before{background-color: #fff;}
     resize: none;
     width: 100%;
     height: 90px;
+    padding-right: 90px;
     border: 0;
 }
 .ys-comment-opt-comment button {
     position: absolute;
     height: 90px;
     width: 90px;
-    right: 0;
     top: 1px;
     right:1px;
     background-color: #3da0db;
@@ -616,6 +616,14 @@ a#level-selected.level_all:before{background-color: #fff;}
 .td-upload-wrapper .progress{height:15px;}
 .upload-main-process{font-size: 12px;color:#757575;font-style: normal;}
 .td-upload-wrapper .file-name{display: inline-block;width:100%;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;}
+.td-attachment{margin-top:8px;}
+.span-note-grey{font-size:14px;color:#8491a2;}
+
+.ys-comment-opt{margin-top:15px;}
+.ys-comment-opt textarea{padding:6px;}
+
+.ys-comment-opt em,.ys-comment-opt i{font-style: normal;}
+.ys-comment-opt a.ys-btn-reply{cursor: pointer;color: #3da0db;}
 
 
 

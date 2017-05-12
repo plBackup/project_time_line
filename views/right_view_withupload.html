@@ -131,15 +131,85 @@
                         <td>
                             <div class="td-wrapper clearfix">
                                 <div class="clearfix">
-                                    <span class="pull-left span-note-grey">{{rCtrl.formData.outputDesc}}</span>
+                                    <span class="pull-left">{{rCtrl.formData.outputDesc}}</span>
                                 </div>
-                                <div class="td-attachment clearfix">
-                                    <div class="attach-group clearfix" ng-repeat="attach in rCtrl.formData.attachs">
-                                        <span class="pull-left"><a href="{{rCtrl.domain+'/PowerDesk'+attach.url}}" target="_blank">{{attach.name}}</a></span>
-                                       <!-- <div class="td-opt-group pull-left" ng-if="rCtrl.nodeInfo.isChargeMan==true">
+                                <div class="td-attachment clearfix" ng-controller="fileCtrl" nv-file-drop="" uploader="uploader" filters="queueLimit, customFilter">
+                                    <div class="attach-group clearfix" ng-repeat="attach in rCtrl.formData.messages.attachs">
+                                        <span class="pull-left"><a href="{{attach.url}}" target="_blank">{{attach.name}}</a></span>
+                                        <div class="td-opt-group pull-left" ng-if="rCtrl.nodeInfo.isChargeMan==true">
                                             <a class="td-opt td-opt-del" ng-click="rCtrl.deleteAttach($event,attach)">删除</a>
-                                        </div>-->
+                                        </div>
                                     </div>
+                                    <div class="td-upload-wrapper" ng-if="rCtrl.nodeInfo.isChargeMan==true">
+                                        <label class="td-opt td-opt-upload" ng-click="rCtrl.uploadFile($event)" for="file-upload">上传
+                                            <input type="file" id="file-upload" nv-file-select="" uploader="uploader" multiple >
+                                        </label>
+                                        <table class="table">
+                                            <colgroup>
+                                                <col width="40%">
+                                                <col width="15%">
+                                               <!-- <col width="20%">-->
+                                                <col width="10%">
+                                                <col width="35%">
+                                            </colgroup>
+                                            <thead>
+                                            <tr>
+                                                <th class="text-left">文件名</th>
+                                                <th class="text-left" ng-show="uploader.isHTML5">文件大小</th>
+                                                <!--<th class="text-center" ng-show="uploader.isHTML5">上传进度</th>-->
+                                                <th class="text-center">状态</th>
+                                                <th class="text-center">操作</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr ng-repeat="item in uploader.queue">
+                                                <td><span class="file-name">{{ item.file.name }}</span></td>
+                                                <td ng-show="uploader.isHTML5" nowrap>{{ item.file.size/1024/1024|number:2 }} MB</td>
+                                               <!-- <td ng-show="uploader.isHTML5">
+                                                    <div class="progress" style="margin-bottom: 0;">
+                                                        <div class="progress-bar" role="progressbar" ng-style="{ 'width': item.progress + '%' }"></div>
+                                                    </div>
+                                                </td>-->
+                                                <td class="text-center">
+                                                    <span ng-show="item.isSuccess"><i class="glyphicon glyphicon-ok"></i></span>
+                                                    <span ng-show="item.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span>
+                                                    <span ng-show="item.isError"><i class="glyphicon glyphicon-remove"></i></span>
+                                                </td>
+                                                <td nowrap class="text-center">
+                                                    <button type="button" class="btn btn-success btn-xs" ng-click="item.upload()" ng-disabled="item.isReady || item.isUploading || item.isSuccess">
+                                                        <span class="glyphicon glyphicon-upload"></span> 上传
+                                                    </button>
+                                                    <button type="button" class="btn btn-warning btn-xs" ng-click="item.cancel()" ng-disabled="!item.isUploading">
+                                                        <span class="glyphicon glyphicon-ban-circle"></span> 取消
+                                                    </button>
+                                                    <button type="button" class="btn btn-danger btn-xs" ng-click="item.remove()">
+                                                        <span class="glyphicon glyphicon-trash"></span> 删除
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+
+                                        <div style="text-align:right;">
+                                            <div>
+                                                <em class="upload-main-process">上传进度:</em>
+                                                <div class="progress" style="">
+                                                    <div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
+                                                </div>
+                                            </div>
+                                           <!-- <button type="button" class="btn btn-success btn-s" ng-click="uploader.uploadAll()" ng-disabled="!uploader.getNotUploadedItems().length">
+                                                <span class="glyphicon glyphicon-upload"></span> 全部上传
+                                            </button>
+                                            <button type="button" class="btn btn-warning btn-s" ng-click="uploader.cancelAll()" ng-disabled="!uploader.isUploading">
+                                                <span class="glyphicon glyphicon-ban-circle"></span> 取消上传
+                                            </button>
+                                            <button type="button" class="btn btn-danger btn-s" ng-click="uploader.clearQueue()" ng-disabled="!uploader.queue.length">
+                                                <span class="glyphicon glyphicon-trash"></span> 全部删除
+                                            </button>-->
+                                        </div>
+
+                                    </div>
+
                                 </div>
                             </div>
                         </td>
@@ -168,7 +238,7 @@
                     <tr ng-if="rCtrl.formData.finishOnTime==''">
                         <th>是否按期完成:</th>
                         <td>
-                            <div class="td-wrapper clearfix" ng-if="rCtrl.formData.finishOnTime!=''">
+                            <div class="td-wrapper clearfix">
                                 <div class="input-addon input-radio-addon pull-left">
                                     <input type="radio" name="schedule" id="on-schedule-fd" ng-disabled="true" ng-value="3" ng-model="rCtrl.formData.finishOnTime">
                                     <label for="on-schedule-fd">是</label>
@@ -178,13 +248,12 @@
                                     <label for="out-schedule-fd">否</label>
                                 </div>
                             </div>
-                            <span ng-if="rCtrl.formData.finishOnTime==''">-</span>
                         </td>
                     </tr><!--tr-->
                     <tr ng-if="rCtrl.formData.influenceMainNode==''">
                         <th>是否影响里程碑节点:</th>
                         <td>
-                            <div class="td-wrapper clearfix" ng-if="rCtrl.formData.influenceMainNode!=''">
+                            <div class="td-wrapper clearfix">
 
                                 <div class="input-addon input-radio-addon pull-left">
                                     <input type="radio" name="effective" id="marker-effect-fd" ng-disabled="true" ng-value="3" ng-model="rCtrl.formData.influenceMainNode">
@@ -195,17 +264,15 @@
                                     <label for="marker-no-effect-fd">否</label>
                                 </div>
                             </div>
-                            <span ng-if="rCtrl.formData.influenceMainNode==''">-</span>
                         </td>
                     </tr><!--tr-->
 
                     <tr>
                         <th style="vertical-align: top;">风险及具体原因:</th>
                         <td>
-                            <div class="td-wrapper" ng-if="rCtrl.formData.delayReason!=''">
+                            <div class="td-wrapper">
                                 <textarea ng-disabled="true" >{{rCtrl.formData.delayReason}}</textarea>
                             </div>
-                            <span  ng-if="rCtrl.formData.delayReason==''">-</span>
                         </td>
                     </tr><!--tr-->
                     </tbody>
@@ -271,19 +338,14 @@
                         </colgroup>
                         <tbody>
                         <tr ng-repeat="message in rCtrl.formData.messages">
-                            <th ng-if="message.type==1">{{message.creatorName}} <i>（{{rCtrl.toDateStr(message.messageDate)}}）</i> 留言:</th>
-                            <th ng-if="message.type==2">{{message.creatorName}} <i>（{{rCtrl.toDateStr(message.messageDate)}}）</i> 共享给 <em>{{message.messageUserName}}</em>:</th>
-                            <th ng-if="message.type==3">{{message.creatorName}} <i>（{{rCtrl.toDateStr(message.messageDate)}}）</i> 回复 <em>{{message.messageUserName}}</em>:</th>
-                            <td>{{message.content}}
-                                <a ng-click="rCtrl.reply($event)" ng-show="(message.type==2 || message.type==3)&& rCtrl.canReply(message.shareds)" class="ys-btn-reply">回复</a>
-                            </td>
-
+                            <th>王永周 <i>（07-27  18:50）</i></th>
+                            <td>同意崔工意见</td>
                         </tr>
                         </tbody>
                     </table>
 
                     <div class="ys-comment-opt-comment">
-                        <textarea width="100%" style="" placeholder="发表留言(留言内容不具有审批效力)" id="message-textarea">{{rCtrl.message}}</textarea>
+                        <textarea width="100%" style="" placeholder="发表留言(留言内容不具有审批效力)">{{rCtrl.message}}</textarea>
                         <button ng-click="rCtrl.sentMessage($event)">留言</button>
                     </div>
                 </div><!--end ys-comment-opt-->
