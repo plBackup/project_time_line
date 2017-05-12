@@ -16,6 +16,8 @@ define(["angular","./app.services"],function(angular,services){
                         return res.data;
                     }
 
+                },function(errr){
+                    location.href=$rootScope.plink;
                 });
             },
         };

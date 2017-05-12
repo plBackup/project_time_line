@@ -14,16 +14,13 @@ define(["angular","./app.directives"],function(angular,directives){
                 },
                 require:"ngModel",
 
-                template:'<div class="toolbar-item item-date-filter" style="padding:0;">' +
-                '<label for="date-filter">日期</label>' +
-                '<div class="input-group date ys-datepicker">'+
-                '<input size="16" type="text" value="" data-provide="datepicker" name="date-'+
-                $scope.dateDirectiveName+
-                '" id="date-'+
-                $scope.dateDirectiveName+
-                '">' +
-                '</div>' +
-                '</div>',
+                template: '<div class="input-group date ys-datepicker">'+
+                            '<input size="16" type="text" value="" data-provide="datepicker" name="date-'+
+                            $scope.dateDirectiveName+
+                            '" id="date-'+
+                            $scope.dateDirectiveName+
+                            '">' +
+                            '</div>',
                 link: function($scope, $element,attrs,ngModelCtrl) {
                     function gd(year, month, day) {
                         return new Date(year, month, day).getTime();
@@ -85,9 +82,7 @@ define(["angular","./app.directives"],function(angular,directives){
                     };
 
                     var updateModel=function(dateText){
-
                         $scope.$apply(function(){
-
                             ngModelCtrl.$setViewValue(dateText);
                         });
                     };
@@ -117,10 +112,10 @@ define(["angular","./app.directives"],function(angular,directives){
 
                             var dateStr=$element.find("input").val();
                             updateModel(dateStr);
-                            if($scope.monthSelect){
+                            if($scope.dateSelect){
                                 //如果作用域有处理函数，
                                 $scope.$apply(function(){
-                                    $scope.monthSelect({date:dateStr});
+                                    $scope.dateSelect({date:dateStr});
                                 });
                             }
 

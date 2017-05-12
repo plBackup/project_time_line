@@ -17,136 +17,65 @@
                     <tbody>
 
                         <tr>
-                            <th>状态:</th>
+                            <th>计划开始:</th>
                             <td>
-
-                                <div class="td-wrappr clearfix" ng-if="rCtrl.nodeInfo.status==2">
-                                    <span>已完成</span>
-                                </div>
-                                <div class="td-wrappr clearfix" ng-if="rCtrl.nodeInfo.status!=2&&rCtrl.nodeInfo.confirmStatus==1 && (rCtrl.nodeInfo.resStatus==1 ||rCtrl.nodeInfo.resStatus==3)">
-                                    <span>未启动</span>
-                                </div>
-                                <div class="td-wrappr clearfix" ng-if="rCtrl.nodeInfo.status!=2&&rCtrl.nodeInfo.confirmStatus==1 && (rCtrl.nodeInfo.resStatus==2)">
-                                    <span>确认中</span>
-                                </div>
-                                <div class="td-wrapper clearfix " ng-if="rCtrl.nodeInfo.status!=2&&rCtrl.nodeInfo.confirmStatus==2 && (rCtrl.nodeInfo.resStatus==1 ||rCtrl.nodeInfo.resStatus==3)">
-                                    <span ng-if="rCtrl.nodeInfo.isWarning ==true" class="alert-warning">该计划处于预警状态，须重点关注。请点击“预计按期完成”、“预计延期完成”、“已完成”实时知会相关人员计划当前状态。</span>
-
-                                    <span ng-if="rCtrl.nodeInfo.isWarning !=true" class="alert-warning">请按计划时间开展工作，点击“已完成”发起完成网批</span>
-                                </div>
-                                <div class="td-wrappr clearfix" ng-if="rCtrl.nodeInfo.status!==2&&rCtrl.nodeInfo.confirmStatus==2 && (rCtrl.nodeInfo.resStatus==2)">
-                                    <span class="alert-warning">该计划处于网批状态，点击“网批查询号”查询网批详情</span>
+                                <div class="ys-date-picker" date-picker="" date-select="rCtrl.setStartDate({date:date})"
+                                     ng-model="rCtrl.planStartDate" date-directive-name="rCtrl.dateDirectiveStartName" >
                                 </div>
                             </td>
                         </tr><!--tr-->
 
                        <!-- <tr ng-if="rCtrl.nodeInfo.isWarning==true " >-->
-                        <tr ng-if="rCtrl.nodeInfo.isChargeMan==true">
-                            <th>操作:</th>
+                        <tr>
+                            <th>计划完成:</th>
                             <td>
-                                <div class="td-wrapper clearfix">
-                                    <div class="input-addon input-radio-addon pull-left" ng-if="rCtrl.nodeInfo.confirmStatus==2 &&rCtrl.nodeInfo.resStatus!=2">
-                                        <input type="radio" name="warning-opt" id="warning-opt-complete" ng-value="" ng-model="rCtrl.statusOpt">
-                                        <label for="warning-opt-complete">已完成</label>
-                                    </div>
-                                    <div class="input-addon input-radio-addon pull-left" ng-if="rCtrl.nodeInfo.isWarning==1&&rCtrl.nodeInfo.confirmStatus==2 ">
-                                        <input type="radio" name="warning-opt" id="warning-opt-ondate" ng-value="complete" ng-model="rCtrl.statusOpt">
-                                        <label for="warning-opt-ondate">预计按期完成</label>
-                                    </div>
-                                    <div class="input-addon input-radio-addon pull-left" ng-if="rCtrl.nodeInfo.isWarning==1 &&rCtrl.nodeInfo.confirmStatus==2 ">
-                                        <input type="radio" name="warning-opt" id="warning-opt-delay" ng-value="complete" ng-model="rCtrl.statusOpt">
-                                        <label for="warning-opt-delay">预计延期完成</label>
-                                    </div>
-
-                                    <div class="input-addon input-radio-addon pull-left" ng-if="rCtrl.nodeInfo.confirmStatus==2 &&rCtrl.nodeInfo.resStatus!=2">
-                                        <input type="radio" name="warning-opt" id="warning-opt-cancel" ng-value="complete" ng-model="rCtrl.statusOpt">
-                                        <label for="warning-opt-delay">申请延期或撤销</label>
-                                    </div>
+                                <div class="ys-date-picker" date-picker="" date-select="rCtrl.setEndDate({date:date})"
+                                     ng-model="rCtrl.planEndDate" date-directive-name="rCtrl.dateDirectiveEndName" >
                                 </div>
                             </td>
                         </tr><!--tr-->
 
                         <tr>
-                            <th>成果判定:</th>
+                            <th>中心负责人:</th>
                             <td>
                                 <div class="td-wrapper clearfix">
-                                  <div class="clearfix">
-                                      <span class="pull-left">{{rCtrl.formData.outputDesc}}</span>
-                                  </div>
-                                  <div class="td-attachment clearfix">
-                                      <span class="pull-left">附件接口待定</span>
-                                      <div class="td-opt-group pull-left" ng-if="rCtrl.nodeInfo.isChargeMan==true">
-                                          <a class="td-opt td-opt-del">删除</a>
-                                          <label class="td-opt td-opt-upload" ng-click="rCtrl.uploadFile($event)" for="file-upload">上传
-                                              <input type="file" id="file-upload">
-                                          </label>
-                                      </div>
-                                  </div>
+                                    <input type="text" ng-model="rCtrl.formData.centerManagerName" ng-required="true" ng-focus="rCtrl.setCharger('centerManger')">
                                 </div>
                             </td>
                         </tr><!--tr-->
 
                         <tr>
-                            <th>网批号查询:</th>
+                            <th>部门负责人:</th>
                             <td>
                                 <div class="td-wrapper clearfix">
-                                    <a class="td-link" ng-repeat="resId in rCtrl.nodeInfo.resIds" href="{{rCtrl.baseLink}}/res/res-approve-info.action?id={{resId}}" target="_blank">
-                                        {{rCtrl.nodeInfo.resNumbers[$index]}}
-                                    </a>
+                                    <input type="text" ng-model="rCtrl.formData.departmentHeadName" ng-required="true" ng-focus="rCtrl.setCharger('departmentHead')">
+                                </div>
+                            </td>
+                        </tr><!--tr-->
+
+                        <tr>
+                            <th>负责人:</th>
+                            <td>
+                                <div class="td-wrapper clearfix">
+                                    <input type="text" ng-model="rCtrl.formData.chargerName" ng-required="true" ng-focus="rCtrl.setCharger('charger')">
+                                </div>
+                            </td>
+                        </tr><!--tr-->
+
+                        <tr>
+                            <th></th>
+                            <td>
+                                <div class="td-wrapper">
+                                    <div class="td-btn-group clearfix">
+                                        <a class="btn btn-primary" ng-click="rCtrl.chargerCommit($event)">确定</a>
+                                        <a class="btn btn-default" ng-click="rCtrl.resetCommit($event)">取消</a>
+                                    </div>
                                 </div>
                             </td>
                         </tr><!--tr-->
 
                     </tbody><!--tbody-->
 
-                    <!--非责任人反馈信息-->
-                    <tbody class="rpanel-opt-table" ng-if="rCtrl.nodeInfo.isChargeMan!=true">
-                        <tr>
-                            <th colspan="2">
-                                <h3>责任人反馈信息</h3>
-                            </th>
-                        </tr><!--tr-->
-                        <tr ng-if="rCtrl.formData.finishOnTime==''">
-                            <th>是否按期完成:</th>
-                            <td>
-                                <div class="td-wrapper clearfix">
-                                    <div class="input-addon input-radio-addon pull-left">
-                                        <input type="radio" name="schedule" id="on-schedule-fd" ng-disabled="true" ng-value="3" ng-model="rCtrl.formData.finishOnTime">
-                                        <label for="on-schedule-fd">是</label>
-                                    </div>
-                                    <div class="input-addon input-radio-addon pull-left">
-                                        <input type="radio" name="schedule" id="out-schedule-fd" ng-disabled="true" ng-value="2" ng-model="rCtrl.formData.finishOnTime">
-                                        <label for="out-schedule-fd">否</label>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr><!--tr-->
-                        <tr ng-if="rCtrl.formData.influenceMainNode==''">
-                            <th>是否影响里程碑节点:</th>
-                            <td>
-                                <div class="td-wrapper clearfix">
-
-                                    <div class="input-addon input-radio-addon pull-left">
-                                        <input type="radio" name="effective" id="marker-effect-fd" ng-disabled="true" ng-value="3" ng-model="rCtrl.formData.influenceMainNode">
-                                        <label for="marker-effect-fd">是</label>
-                                    </div>
-                                    <div class="input-addon input-radio-addon pull-left">
-                                        <input type="radio" name="effective" id="marker-no-effect-fd" ng-disabled="true" ng-value="2" ng-model="rCtrl.formData.influenceMainNode">
-                                        <label for="marker-no-effect-fd">否</label>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr><!--tr-->
-
-                        <tr>
-                            <th style="vertical-align: top;">风险及具体原因:</th>
-                            <td>
-                                <div class="td-wrapper">
-                                    <textarea ng-disabled="true" >{{rCtrl.formData.delayReason}}</textarea>
-                                </div>
-                            </td>
-                        </tr><!--tr-->
-                    </tbody>
                 </table>
 
 

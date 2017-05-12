@@ -17,53 +17,40 @@ define(["jquery","angular","zrender/zrender","./app.controllers",],function($,an
             //temp 纪录之前的责任人操作数据
             self.chargerInfo={};
             //完成状态的选择
-            self.statusOpt=''
+            self.statusOpt='';
+
+            self.planStartDate='';
+            self.planEndDate='';
+            self.dateDirectiveStartName="start";
+            self.dateDirectiveEndName='end';
 
             self.close=function(){
                 _panel_hide();
             };
 
-            self.uploadFile=function($event){
+           self.setStartDate=function(dateObj){
+               var date=dateObj.date;
+               self.planStartDate=date;
+           };
 
-            };
+           self.setEndDate=function(dateObj){
+               var date=dateObj.date;
+               self.planEndDate=date;
+           };
 
-            self.chargerCommit=function($event){
-                $event.preventDefault();
-            };
-            self.resetCommit=function($event){
-                $event.preventDefault();
-                $scope.$apply(function(){
-                    self.formData.delayReason=self.chargerInfo.delayReason;
-                    self.formData.influenceMainNode=self.chargerInfo.influenceMainNode;
-                    self.formData.delayReason=self.chargerInfo.delayReason;
-                });
-            };
+           self.setCharger=function(type){
+               switch(type){
+                   case "centerManger":
+                       break;
+                   case "departmentHead":
+                       break;
+                   case "charger":
+                       break;
+               }
 
-            self.sendMessage=function($event){
-                $event.preventDefault();
-            };
+           };
 
-            self.canReply=function(shareds){
-                $.each(shareds,function(i,e){
-                    if(self.curUser==e.sharedUserCd){
-                        return true;
-                    }
-                });
 
-                return false;
-            };
-
-            self.toDateStr=function(messageDateObj){
-                var d=new Date(messageDateObj.time);
-                return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate()+"  "+messageDateObj.hours+":"+messageDateObj.minutes+":"+messageDateObj.seconds;
-            };
-            self.reply=function($event){
-                $event.preventDefault();
-                $("#message-textarea").focus();
-            };
-           /* self.deleteAttach=function($event,attach){
-
-            }*/
             $scope.$on("showDetail",function(e,data){
                 //get node data
                 console.log(data)
