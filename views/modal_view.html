@@ -1,0 +1,85 @@
+<div class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">请选择人员</h4>
+            </div>
+            <div class="modal-body">
+                <div class="modal-search-wrapper">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search for...">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button">搜索</button>
+                        </span>
+                    </div><!-- /input-group -->
+                </div><!--modal-search-wrapper  -->
+                <div class="modal-opt-wrapper clearfix">
+                    <div class="col-xs-4">
+                        <div class="modal-btn-group" role="group">
+                            <button type="button" class="btn btn-default">按部门</button>
+                            <button type="button" class="btn btn-default">按职级</button>
+                            <button type="button" class="btn btn-default">自定义</button>
+                        </div>
+
+                    </div>
+                    <div class="col-xs-4 col-xs-offset-4">
+                        <div class="modal-btn-group" role="group">
+                            <button type="button" class="btn btn-default">全选</button>
+                            <button type="button" class="btn btn-default">反选</button>
+                            <button type="button" class="btn btn-default">全删</button>
+                        </div>
+                    </div>
+                </div><!--modal opt wrapper-->
+                <div class="col-xs-4 modal-department-list">
+                    <h5>按部门选择：</h5>
+                    <h6 class="ys-list-tree-root">宝龙集团</h6>
+                    <ul class="ys-list-tree">
+                        <li class="ys-tree-item open">
+                            <span>宝龙集团</span>
+                            <ul class="ys-list-tree">
+                                <li class="ys-tree-item">
+                                    <span>xx部门</span>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="ys-tree-item open">
+                            <span>宝龙地产</span>
+                            <ul class="ys-list-tree">
+                                <li class="ys-tree-item open">
+                                    <span>xx部门</span>
+
+                                    <ul class="ys-list-tree">
+                                        <li class="ys-tree-item">
+                                            <span>xx部门</span>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div><!--modal-department-list-->
+                <div class="col-xs-4 modal-department-member">
+                    <h5>部门人员：</h5>
+                    <h6 class="ys-list-tree-root">xx部门</h6>
+                    <ul class="ys-member-list">
+                        <li data-id="user-id" ng-click="">成员姓名</li>
+                    </ul>
+                </div><!--modal-department-list-->
+
+                <div class="col-xs-4 modal-selected-member">
+                    <h5>已选人员：</h5>
+                    <h6 class="ys-list-tree-root"></h6>
+                    <ul class="ys-member-list ys-select-list">
+                        <li data-id="user-id" ng-click="">成员姓名</li>
+                    </ul>
+                </div><!--modal-department-list-->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">退出</button>
+                <button type="button" class="btn btn-primary">确定</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
