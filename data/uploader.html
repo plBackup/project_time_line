@@ -1,153 +1,71 @@
-<!DOCTYPE html>
-<html id="ng-app" ng-app="app"> <!-- id="ng-app" IE<8 -->
+<form id="fileupload" action="//jquery-file-upload.appspot.com/" method="POST" enctype="multipart/form-data" data-ng-app="demo" data-ng-controller="DemoFileUploadController" data-file-upload="options" data-ng-class="{'fileupload-processing': processing() || loadingFiles}">
 
-<head>
-    <title>Simple example</title>
-    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" />
-
-    <!-- Fix for old browsers -->
-    <script src="http://nervgh.github.io/js/es5-shim.min.js"></script>
-    <script src="http://nervgh.github.io/js/es5-sham.min.js"></script>
-    <script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
-    <script src="../console-sham.js"></script>
-
-    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-
-    <!--<script src="../bower_components/angular/angular.js"></script>-->
-    <script src="http://code.angularjs.org/1.2.0/angular.min.js"></script>
-    <script src="../../dist/angular-file-upload.min.js"></script>
-    <script src="controllers.js"></script>
-
-    <style>
-        .my-drop-zone { border: dotted 3px lightgray; }
-        .nv-file-over { border: dotted 3px red; } /* Default class applied to drop zones on over */
-        .another-file-over-class { border: dotted 3px green; }
-
-        html, body { height: 100%; }
-    </style>
-
-</head>
-
-<!-- 1. nv-file-drop="" uploader="{Object}" options="{Object}" filters="{String}" -->
-<body ng-controller="AppController" nv-file-drop="" uploader="uploader" filters="queueLimit, customFilter">
-
-<div class="container">
-
-    <div class="navbar navbar-default">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="https://github.com/nervgh/angular-file-upload">Angular File Upload</a>
+    <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
+    <div class="row fileupload-buttonbar">
+        <div class="col-xs-7">
+            <!-- The fileinput-button span is used to style the file input field as button -->
+            <span class="btn btn-success fileinput-button" ng-class="{disabled: disabled}">
+                    <i class="glyphicon glyphicon-plus"></i>
+                    <span>添加文件</span>
+                    <input type="file" name="files[]" multiple ng-disabled="disabled">
+                </span>
+            <button type="button" class="btn btn-primary start" data-ng-click="submit()">
+                <i class="glyphicon glyphicon-upload"></i>
+                <span>开始上传</span>
+            </button>
+            <button type="button" class="btn btn-warning cancel" data-ng-click="cancel()">
+                <i class="glyphicon glyphicon-ban-circle"></i>
+                <span>取消上传</span>
+            </button>
+            <!-- The global file processing state -->
+            <span class="fileupload-process"></span>
         </div>
-        <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-                <li class="active dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Demos <b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li class="active"><a href="#">Simple example</a></li>
-                        <li><a href="../image-preview">Uploads only images (with canvas preview)</a></li>
-                        <li><a href="../without-bootstrap">Without bootstrap example</a></li>
-                    </ul>
-                </li>
-                <li><a href="https://github.com/nervgh/angular-file-upload">View on Github</a></li>
-                <li><a href="https://raw.githubusercontent.com/nervgh/angular-file-upload/master/dist/angular-file-upload.min.js">Download</a></li>
-            </ul>
+        <!-- The global progress state -->
+        <div class="col-lg-5 fade" data-ng-class="{in: active()}">
+            <!-- The global progress bar -->
+            <div class="progress progress-striped active" data-file-upload-progress="progress()"><div class="progress-bar progress-bar-success" data-ng-style="{width: num + '%'}"></div></div>
+            <!-- The extended global progress state -->
+            <div class="progress-extended">&nbsp;</div>
         </div>
     </div>
-
-    <div class="row">
-
-        <div class="col-md-3">
-
-            <h3>Select files</h3>
-
-            <div ng-show="uploader.isHTML5">
-                <!-- 3. nv-file-over uploader="link" over-class="className" -->
-                <div class="well my-drop-zone" nv-file-over="" uploader="uploader">
-                    Base drop zone
+    <!-- The table listing the files available for upload/download -->
+    <table class="table table-striped files ng-cloak">
+        <tr data-ng-repeat="file in queue" data-ng-class="{'processing': file.$processing()}">
+           <!-- <td data-ng-switch data-on="!!file.thumbnailUrl">
+                <div class="preview" data-ng-switch-when="true">
+                    <a data-ng-href="{{file.url}}" title="{{file.name}}" download="{{file.name}}" data-gallery><img data-ng-src="{{file.thumbnailUrl}}" alt=""></a>
                 </div>
-
-                <!-- Example: nv-file-drop="" uploader="{Object}" options="{Object}" filters="{String}" -->
-                <div nv-file-drop="" uploader="uploader" options="{ url: '/foo' }">
-                    <div nv-file-over="" uploader="uploader" over-class="another-file-over-class" class="well my-drop-zone">
-                        Another drop zone with its own settings
-                    </div>
-                </div>
-            </div>
-
-            <!-- Example: nv-file-select="" uploader="{Object}" options="{Object}" filters="{String}" -->
-            Multiple
-            <input type="file" nv-file-select="" uploader="uploader" multiple  /><br/>
-
-            Single
-            <input type="file" nv-file-select="" uploader="uploader" />
-        </div>
-
-        <div class="col-md-9" style="margin-bottom: 40px">
-
-            <h3>Upload queue</h3>
-            <p>Queue length: {{ uploader.queue.length }}</p>
-
-            <table class="table">
-                <thead>
-                <tr>
-                    <th width="50%">Name</th>
-                    <th ng-show="uploader.isHTML5">Size</th>
-                    <th ng-show="uploader.isHTML5">Progress</th>
-                    <th>Status</th>
-                    <th>Actions</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr ng-repeat="item in uploader.queue">
-                    <td><strong>{{ item.file.name }}</strong></td>
-                    <td ng-show="uploader.isHTML5" nowrap>{{ item.file.size/1024/1024|number:2 }} MB</td>
-                    <td ng-show="uploader.isHTML5">
-                        <div class="progress" style="margin-bottom: 0;">
-                            <div class="progress-bar" role="progressbar" ng-style="{ 'width': item.progress + '%' }"></div>
-                        </div>
-                    </td>
-                    <td class="text-center">
-                        <span ng-show="item.isSuccess"><i class="glyphicon glyphicon-ok"></i></span>
-                        <span ng-show="item.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span>
-                        <span ng-show="item.isError"><i class="glyphicon glyphicon-remove"></i></span>
-                    </td>
-                    <td nowrap>
-                        <button type="button" class="btn btn-success btn-xs" ng-click="item.upload()" ng-disabled="item.isReady || item.isUploading || item.isSuccess">
-                            <span class="glyphicon glyphicon-upload"></span> Upload
-                        </button>
-                        <button type="button" class="btn btn-warning btn-xs" ng-click="item.cancel()" ng-disabled="!item.isUploading">
-                            <span class="glyphicon glyphicon-ban-circle"></span> Cancel
-                        </button>
-                        <button type="button" class="btn btn-danger btn-xs" ng-click="item.remove()">
-                            <span class="glyphicon glyphicon-trash"></span> Remove
-                        </button>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-
-            <div>
-                <div>
-                    Queue progress:
-                    <div class="progress" style="">
-                        <div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
-                    </div>
-                </div>
-                <button type="button" class="btn btn-success btn-s" ng-click="uploader.uploadAll()" ng-disabled="!uploader.getNotUploadedItems().length">
-                    <span class="glyphicon glyphicon-upload"></span> Upload all
+                <div class="preview" data-ng-switch-default data-file-upload-preview="file"></div>
+            </td>-->
+            <td>
+                <p class="name" data-ng-switch data-on="!!file.url">
+                        <span data-ng-switch-when="true" data-ng-switch data-on="!!file.thumbnailUrl">
+                            <a data-ng-switch-when="true" data-ng-href="{{file.url}}" title="{{file.name}}" download="{{file.name}}" data-gallery>{{file.name}}</a>
+                            <a data-ng-switch-default data-ng-href="{{file.url}}" title="{{file.name}}" download="{{file.name}}">{{file.name}}</a>
+                        </span>
+                    <span data-ng-switch-default>{{file.name}}</span>
+                </p>
+                <strong data-ng-show="file.error" class="error text-danger">{{file.error}}</strong>
+            </td>
+            <td>
+                <p class="size">{{file.size | formatFileSize}}</p>
+                <div class="progress progress-striped active fade" data-ng-class="{pending: 'in'}[file.$state()]" data-file-upload-progress="file.$progress()"><div class="progress-bar progress-bar-success" data-ng-style="{width: num + '%'}"></div></div>
+            </td>
+            <td>
+                <button type="button" class="btn btn-primary start" data-ng-click="file.$submit()" data-ng-hide="!file.$submit || options.autoUpload" data-ng-disabled="file.$state() == 'pending' || file.$state() == 'rejected'">
+                    <i class="glyphicon glyphicon-upload"></i>
+                    <span>上传</span>
                 </button>
-                <button type="button" class="btn btn-warning btn-s" ng-click="uploader.cancelAll()" ng-disabled="!uploader.isUploading">
-                    <span class="glyphicon glyphicon-ban-circle"></span> Cancel all
+                <button type="button" class="btn btn-warning cancel" data-ng-click="file.$cancel()" data-ng-hide="!file.$cancel">
+                    <i class="glyphicon glyphicon-ban-circle"></i>
+                    <span>停止</span>
                 </button>
-                <button type="button" class="btn btn-danger btn-s" ng-click="uploader.clearQueue()" ng-disabled="!uploader.queue.length">
-                    <span class="glyphicon glyphicon-trash"></span> Remove all
+                <button data-ng-controller="FileDestroyController" type="button" class="btn btn-danger destroy" data-ng-click="file.$destroy()" data-ng-hide="!file.$destroy">
+                    <i class="glyphicon glyphicon-trash"></i>
+                    <span>删除</span>
                 </button>
-            </div>
-
-        </div>
-
-    </div>
-
-</div>
-
-</body>
-</html>
+            </td>
+        </tr>
+    </table>
+</form>
+   

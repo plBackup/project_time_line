@@ -8,7 +8,7 @@ requirejs.config({
         jquery:"dist/js/jquery",
         "jquery.bootstrap": "dist/js/bootstrap.min",
         "angular":"dist/js/angular.min",
-
+        "angularFileUpload":"dist/js/angular-file-upload.min",
         "uiRouter":"dist/js/angular-ui-router",
         zrender: 'dist/js/zrender',
         domReady:"dist/js/domReady",
@@ -20,6 +20,7 @@ requirejs.config({
         'angular':{
             exports:'angular'
         },
+
         "angular-animate":{
             deps:['angular'],
             exports:"angular-animate",
@@ -40,7 +41,6 @@ define(['require',
     "jquery.bootstrap",
     //'angular-animate',
     'js/app',
-
     'js/route',
     //"js/controllers/app.controllers",
 

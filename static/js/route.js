@@ -14,6 +14,8 @@ define(["js/app"],
                 $rootScope.plink="http://192.168.121.24:7900/PowerDesk/plan7";
             }
         ]).config(function ($stateProvider, $urlRouterProvider, $locationProvider, $uiViewScrollProvider) {
+
+
                 //用于改变state时跳至顶部
                 $uiViewScrollProvider.useAnchorScroll();
                 // 默认进入先重定向
