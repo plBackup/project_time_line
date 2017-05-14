@@ -625,5 +625,10 @@ a#level-selected.level_all:before{background-color: #fff;}
 .ys-comment-opt em,.ys-comment-opt i{font-style: normal;}
 .ys-comment-opt a.ys-btn-reply{cursor: pointer;color: #3da0db;}
 
-
-
+.datetimepicker {
+    min-width:220px;
+}
+.datetimepicker table {
+    margin: 0;
+    width: 100%;
+}

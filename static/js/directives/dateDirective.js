@@ -15,10 +15,8 @@ define(["angular","./app.directives"],function(angular,directives){
                 require:"ngModel",
 
                 template: '<div class="input-group date ys-datepicker">'+
-                            '<input size="16" type="text" value="" data-provide="datepicker" name="date-'+
-                            $scope.dateDirectiveName+
-                            '" id="date-'+
-                            $scope.dateDirectiveName+
+                            '<input size="16" type="text" value="" data-provide="datepicker" name="date- {{dateDirectiveName}}'+
+                            '" id="date-{{dateDirectiveName}}'+
                             '">' +
                             '</div>',
                 link: function($scope, $element,attrs,ngModelCtrl) {
@@ -105,7 +103,7 @@ define(["angular","./app.directives"],function(angular,directives){
                             format:"yyyy-mm-dd",
                             todayBtn:"linked",
                             startView:3,
-                            minView:3,
+                            minView:2,
                             autoclose: true,
                             language:"zh-CN",
                         }).on('changeDate', function(e){

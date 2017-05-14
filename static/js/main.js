@@ -7,6 +7,8 @@ requirejs.config({
     paths: {
         jquery:"dist/js/jquery",
         "jquery.bootstrap": "dist/js/bootstrap.min",
+        "jquery.datetimepicker": "dist/js/bootstrap-datetimepicker",
+        "jquery.datetimepicker.zh": "dist/js/locales/bootstrap-datetimepicker.zh-CN",
         "angular":"dist/js/angular.min",
         "angularFileUpload":"dist/js/angular-file-upload.min",
         "uiRouter":"dist/js/angular-ui-router",
@@ -16,6 +18,12 @@ requirejs.config({
     shim: {
         "jquery.bootstrap": {
             deps: ["jquery"]
+        },
+        "jquery.datetimepicker":{
+            deps: ["jquery"]
+        },
+        "jquery.datetimepicker.zh":{
+            deps: ["jquery","jquery.datetimepicker"]
         },
         'angular':{
             exports:'angular'
@@ -39,6 +47,8 @@ define(['require',
     'angular',
     'uiRouter',
     "jquery.bootstrap",
+    "jquery.datetimepicker",
+    "jquery.datetimepicker.zh",
     //'angular-animate',
     'js/app',
     'js/route',

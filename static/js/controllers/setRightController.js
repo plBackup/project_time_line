@@ -30,11 +30,15 @@ define(["jquery","angular","zrender/zrender","./app.controllers",],function($,an
 
            self.setStartDate=function(dateObj){
                var date=dateObj.date;
+               console.log("start-------------------");
+               console.log(date);
                self.planStartDate=date;
            };
 
            self.setEndDate=function(dateObj){
                var date=dateObj.date;
+               console.log("end-------------------");
+               console.log(date);
                self.planEndDate=date;
            };
 
