@@ -3,11 +3,17 @@
  */
 define(["jquery","angular","zrender/zrender","./app.controllers",],function($,angular,zrender,controllers){
 
-    controllers.controller("modalCtrl",["$rootScope","$scope","$http",function($rootScope,$scope,$http){
+    controllers.controller("modalCtrl",["$rootScope","$scope","$http","modalData",function($rootScope,$scope,$http,modalData){
 
             var self=this;
             self.baseLink=$rootScope.plink;
             self.domain=$rootScope.domain;
+            console.log("modal-data================================");
+            console.log(modalData);
+            console.log(self.baseLink);
+            console.log(self.domain);
+            console.log("modal-data================================");
+            self.modalData=modalData;
 
             $scope.$on("shareMessage",function(e,data){
                 _modal_show();

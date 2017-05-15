@@ -275,17 +275,25 @@
                             <th ng-if="message.type==2">{{message.creatorName}} <i>（{{rCtrl.toDateStr(message.messageDate)}}）</i> 共享给 <em>{{message.messageUserName}}</em>:</th>
                             <th ng-if="message.type==3">{{message.creatorName}} <i>（{{rCtrl.toDateStr(message.messageDate)}}）</i> 回复 <em>{{message.messageUserName}}</em>:</th>
                             <td>{{message.content}}
-                                <a ng-click="rCtrl.reply($event)" ng-show="(message.type==2 || message.type==3)&& rCtrl.canReply(message.shareds)" class="ys-btn-reply">回复</a>
+                                <a ng-click="rCtrl.reply($event,message.creator)" ng-show="(message.type==2 || message.type==3)&& rCtrl.canReply(message.shareds)" class="ys-btn-reply">回复</a>
                             </td>
 
                         </tr>
                         </tbody>
                     </table>
 
+                    <div class="reply-wrapper" ng-show="self.isReply==true">
+                        <span>回复：{{self.replyMessager}}<a ng-click="rCtrl.resetReply()"><em class="glyphicon glyphicon-remove"></em></a></span>
+                    </div>
                     <div class="ys-comment-opt-comment">
-                        <textarea width="100%" style="" placeholder="发表留言(留言内容不具有审批效力)" id="message-textarea">{{rCtrl.message}}</textarea>
-                        <button ng-click="rCtrl.sendMessage($event)" style="right:94px;">留言</button>
-                        <button ng-click="rCtrl.shareMessage($event)">分享</button>
+
+                        <textarea width="100%" style="" placeholder="发表留言(留言内容不具有审批效力)" id="message-textarea" ng-model="rCtrl.message">{{rCtrl.message}}</textarea>
+                        <button ng-click="rCtrl.sendMessage($event)">留言</button>
+                       <!-- <button ng-click="rCtrl.shareMessage($event)">分享</button>-->
+                    </div>
+                    <div class="alert-wrapper">
+                        <div class="alert alert-success" role="alert">提交成功</div>
+                        <div class="alert alert-danger" role="alert">网络错误，请稍后再试</div>
                     </div>
                 </div><!--end ys-comment-opt-->
 

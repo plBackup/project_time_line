@@ -599,7 +599,8 @@ a#level-selected.level_all:before{background-color: #fff;}
     resize: none;
     width: 100%;
     height: 90px;
-    padding-right: 188px;
+    /*padding-right: 188px;*/
+    padding-right: 96px;
     border: 0;
 }
 .ys-comment-opt-comment button {
@@ -637,7 +638,7 @@ a#level-selected.level_all:before{background-color: #fff;}
 #project-line .modal-backdrop{z-index:3998;}
 #project-line .modal{z-index:3999;}
 
-#shareModal .modal-dialog{width:760px;height:350px;overflow: hidden;}
+#shareModal .modal-dialog{width:760px;overflow: hidden;}
 
 .modal-search-wrapper{
     width: 260px;
@@ -648,9 +649,24 @@ a#level-selected.level_all:before{background-color: #fff;}
 
 #shareModal .col-xs-4{padding-left:0;}
 
+.modal-list-wrapper>div {height:300px;overflow: hidden;overflow-y: auto;}
+
+.ys-list-tree{list-style: none;padding-left:0;}
+.ys-list-tree>li.ys-tree-item{padding-left:16px;position: relative;font-size:14px;line-height: 22px;}
+.ys-list-tree>li.ys-tree-item:before{display: block;content:" ";width:6px;height:6px;border-radius: 6px;
+    background-color:#d2d2d2;position: absolute;top:8px;left:5px;}
+
+.ys-list-tree>li.ys-tree-item.parent:before{display: block;content:"\002b";font-size:14px;color:#9f9f9f;
+    position: absolute;width:16px;height:16px;left:0;line-height: 16px;top:3px;text-align: center;}
+.ys-list-tree>li.ys-tree-item.parent:before{display: block;content:"\002b";font-size:14px;color:#9f9f9f;
+    position: absolute;width:16px;height:16px;left:0;line-height: 16px;top:3px;text-align: center;}
+.ys-list-tree>li.ys-tree-item.parent.open:before{content:"\2212";}
 
 
+.alert-wrapper>.alert{display:none;padding:0 15px;line-height: 38px;height:38px;margin-top:15px;margin-bottom:15px;font-size:14px;}
 
+.reply-wrapper{font-size:14px;line-height: 22px;margin-bottom:-10px;}
+.reply-wrapper a{display:inline-block;padding:0 6px;cursor: pointer;}
 
 
 

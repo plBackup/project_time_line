@@ -107,9 +107,10 @@ define(["js/app"],
                                 controllerAs:"rCtrl"
                             },
                             "modal":{
-                                templateUrl:"../views/modal_view.html",
+                                /*templateUrl:"../views/modal_view.html",
                                 controller:"modalCtrl",
-                                controllerAs:"mCtrl"
+                                controllerAs:"mCtrl"*/
+                                templateUrl:"../views/blank_modal.html"
                             }
                         },
                         resolve: {
@@ -127,6 +128,10 @@ define(["js/app"],
                                 //"planId=4028347044bace9c0144d47419151028&level=1&status=all&all=1"
                                 var search="?planId="+plan+"&level=all&status=all&all=1";
                                 return dataNodeService.getData(search);
+                            },
+                            modalData: function(dataModalService,$stateParams,$rootScope) {
+
+                                return dataModalService.getData();
                             },
                         }
             })

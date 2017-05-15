@@ -3,6 +3,6 @@
  */
 //index起作用是导入器的作用，
 
-define(["./app.services","./menuDataService","./nodeDataService"],function(){
+define(["./app.services","./menuDataService","./nodeDataService","./modalDataService"],function(){
 
 });

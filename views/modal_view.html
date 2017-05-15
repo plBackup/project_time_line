@@ -6,9 +6,12 @@
                 <h4 class="modal-title pull-left">请选择人员</h4>
                 <div class="modal-search-wrapper pull-left">
                     <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search for...">
+                        <input type="text" class="form-control" placeholder="快速搜索">
                         <span class="input-group-btn">
-                            <button class="btn btn-default" type="button">搜索</button>
+                            <button class="btn btn-default" type="button">
+                                <em class="glyphicon glyphicon-search"></em>
+                                <em class="glyphicon glyphicon-search"></em>
+                            </button>
                         </span>
                     </div><!-- /input-group -->
                 </div><!--modal-search-wrapper  -->
@@ -31,7 +34,7 @@
                         </ul>
                     </div><!--breadcrumb-->
 
-                    <div class="col-xs-4 col-xs-offset-4">
+                    <div class="col-xs-4">
                         <div class="modal-btn-group" role="group">
                             <button type="button" class="btn btn-default">全选</button>
                             <button type="button" class="btn btn-default">反选</button>
@@ -39,12 +42,27 @@
                         </div>
                     </div>
                 </div><!--modal opt wrapper-->
-                <div class="clearfix">
+                <div class="modal-list-wrapper clearfix">
                     <div class="col-xs-4 modal-department-list">
-                        <h5>按部门选择：</h5>
-                        <h6 class="ys-list-tree-root">宝龙集团</h6>
                         <ul class="ys-list-tree">
-                            <li class="ys-tree-item open">
+                            <li ng-repeat="item in mCtrl.modalData">
+                                <span>{{item.name}}</span>
+                                <ul ng-if="item.children.length!==0">
+                                    <li ng-repeat="item in item.children">
+                                        <span>{{item.name}}</span>
+                                        <ul ng-if="item.children.length!==0">
+                                            <li ng-repeat="item in item.children">
+                                                <span>{{item.name}}</span>
+                                                <ul ng-if="item.children.length!==0">
+
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+
+                           <!-- <li class="ys-tree-item open">
                                 <span>宝龙集团</span>
                                 <ul class="ys-list-tree">
                                     <li class="ys-tree-item">
@@ -66,20 +84,16 @@
                                         </ul>
                                     </li>
                                 </ul>
-                            </li>
+                            </li>-->
                         </ul>
                     </div><!--modal-department-list-->
                     <div class="col-xs-4 modal-department-member">
-                        <h5>部门人员：</h5>
-                        <h6 class="ys-list-tree-root">xx部门</h6>
                         <ul class="ys-member-list">
                             <li data-id="user-id" ng-click="">成员姓名</li>
                         </ul>
                     </div><!--modal-department-list-->
 
                     <div class="col-xs-4 modal-selected-member">
-                        <h5>已选人员：</h5>
-                        <h6 class="ys-list-tree-root"></h6>
                         <ul class="ys-member-list ys-select-list">
                             <li data-id="user-id" ng-click="">成员姓名</li>
                         </ul>
