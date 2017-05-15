@@ -123,7 +123,7 @@ define(["angular","zrender/zrender","./app.controllers","../graph/graph","../gra
             //清除页面上的时间线和弹出层,利用页面事件的方式处理
             //因为curdateNodes用于处理点击节点时突出显示的当前时间线跨模块处理会比较冗余
             var $nodeInfo=$(".node-info");
-            $nodeInfo.removeClass("active").fadeOut();
+            $nodeInfo.removeClass("active").fadeOut(300);
             $(".canvas-wrapper").trigger("removeDateLine");
 
             //如果查询节点为空，恢复所有节点显示
@@ -241,7 +241,7 @@ define(["angular","zrender/zrender","./app.controllers","../graph/graph","../gra
 
             /*事件处理要先清除，再重新绑定*/
             var $nodeInfo=$(".node-info");
-            $nodeInfo.removeClass("active").fadeOut();
+            $nodeInfo.removeClass("active").fadeOut(300);
 
             $('body').off().on("nodeclick",function(e,params){
 
@@ -310,25 +310,25 @@ define(["angular","zrender/zrender","./app.controllers","../graph/graph","../gra
 
                 if($nodeInfo.data("node")===params.id){
                     if($nodeInfo.hasClass("active")){
-                        $nodeInfo.removeClass("active").fadeOut();
+                        $nodeInfo.removeClass("active").fadeOut(300);
                     }else{
                         $nodeInfo.addClass("active").css({
                             top:top+"px",
                             left:left+"px"
-                        }).fadeIn();
+                        }).fadeIn(300);
                     }
                 }else{
 
                     $nodeInfo.removeClass("active").data("node",params.id).hide().css({
                         top:top+"px",
                         left:left+"px"
-                    }).addClass("active").fadeIn();
+                    }).addClass("active").fadeIn(300);
                 }
 
 
             }).on("zrEvent",function(e){
                 var $nodeInfo=$(".node-info");
-                $nodeInfo.data("node","").removeClass("active").fadeOut();
+                $nodeInfo.data("node","").removeClass("active").fadeOut(300);
             });
 
             $rootScope.loading_hide();
