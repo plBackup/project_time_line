@@ -58,10 +58,8 @@ define(["jquery","angular","zrender/zrender","./app.controllers",],function($,an
                 }
 
                 var search="?action="+actionCd+"&nodeId="+nodeId+"&content="+content+"&userCds="+userCds;
-                console.log("==============");
-                console.log(search);
+
                 $http.get($rootScope.plink+'/sdk!comment.action'+search, {cache: false,'Content-Type':'application/x-www-form-urlencoded',withCredentials:true}).then(function (res) {
-                    console.log(res.data);
                     if(res.data.code==200){
                         $(".alert-wrapper").find(".alert-success").fadeIn();
                         _loadNodeData();
@@ -113,7 +111,7 @@ define(["jquery","angular","zrender/zrender","./app.controllers",],function($,an
                 self.isReply=false;
                 self.replyMessager=null;
                 //self.replyMessager=null;
-                console.log("self.isReply"+self.isReply);
+
             };
            /* self.deleteAttach=function($event,attach){
 
@@ -125,7 +123,6 @@ define(["jquery","angular","zrender/zrender","./app.controllers",],function($,an
                $http.get($rootScope.plink+"/sdk!detail.action"+search,{cache:false,'Content-Type':'application/x-www-form-urlencoded',withCredentials:true}).then(function successCallback(res) {
                    //todo：根据status做判断
                    var data=res.data.data;
-                   console.log(data)
                    self.formData=angular.copy(data);
 
                    self.chargerInfo.delayReason=angular.copy(self.formData.delayReason);
@@ -143,7 +140,6 @@ define(["jquery","angular","zrender/zrender","./app.controllers",],function($,an
            }
             $scope.$on("showDetail",function(e,data){
                 //get node data
-                console.log(data)
                 self.nodeInfo=angular.copy(data);
                 _loadNodeData();
             });

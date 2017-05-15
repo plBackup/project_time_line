@@ -12,10 +12,7 @@ define(["angular","./app.controllers"],function(angular,controllers){
             location.href=$rootScope.plink;
         }
         $rootScope.curUser=menuData.data.uuid;
-        
-        console.log("curUser===============")
-        console.log($rootScope.curUser);
-        console.log("curUser===============")
+
 
         self.data=angular.copy(menuData.data);
         self.menuFilter={

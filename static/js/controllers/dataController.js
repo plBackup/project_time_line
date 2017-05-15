@@ -253,9 +253,9 @@ define(["angular","zrender/zrender","./app.controllers","../graph/graph","../gra
                 * 还有一种情况，当非node点击，需要清除当前focus数据， render_nodes.js触发一个zrEvent事件
                 * 在zrEvent事件中，清空当前nodeinfo数据，并隐藏；
                 * */
-                console.log("params==========================================");
+              /*  console.log("params==========================================");
                 console.log(params);
-                console.log("params==========================================");
+                console.log("params==========================================");*/
 
                 /*self.curSelectNode={
                     name:"",
@@ -276,7 +276,7 @@ define(["angular","zrender/zrender","./app.controllers","../graph/graph","../gra
                     self.curSelectNode.status=params._status;
                     self.curSelectNode.resNumbers=params._resNumbers;
                     self.curSelectNode.resIds=params._resIds;
-                    console.log($rootScope.plan.name);
+
                     self.curSelectNode.plan=$rootScope.plan.name;
                     //isWarning来判断责任人操作的显示和状态操作和提示信息
                     self.curSelectNode.isWarning=params._isWarning;

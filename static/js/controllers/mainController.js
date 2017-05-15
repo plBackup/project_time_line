@@ -10,7 +10,6 @@ define(["angular","./app.controllers",],function(angular,controllers){
         self.loadingShow=false;
 
         $rootScope.loading_show=function(){
-            console.log("loading show-----------------");
             self.loadingShow=true;
         };
         $rootScope.loading_hide=function(){

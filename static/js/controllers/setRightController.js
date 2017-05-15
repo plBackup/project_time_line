@@ -30,15 +30,13 @@ define(["jquery","angular","zrender/zrender","./app.controllers",],function($,an
 
            self.setStartDate=function(dateObj){
                var date=dateObj.date;
-               console.log("start-------------------");
-               console.log(date);
+
                self.planStartDate=date;
            };
 
            self.setEndDate=function(dateObj){
                var date=dateObj.date;
-               console.log("end-------------------");
-               console.log(date);
+
                self.planEndDate=date;
            };
 
@@ -57,7 +55,7 @@ define(["jquery","angular","zrender/zrender","./app.controllers",],function($,an
 
             $scope.$on("showDetail",function(e,data){
                 //get node data
-                console.log(data)
+                 
                 self.nodeInfo=angular.copy(data);
                 $rootScope.loading_show();
                 ///plan6/sdk!detail.action?nodeId=402834e53c6c48ab013c7afb7f8827ab
@@ -65,7 +63,6 @@ define(["jquery","angular","zrender/zrender","./app.controllers",],function($,an
                 $http.get($rootScope.plink+"/sdk!detail.action"+search,{cache:false,'Content-Type':'application/x-www-form-urlencoded',withCredentials:true}).then(function successCallback(res) {
                     //todo：根据status做判断
                     var data=res.data.data;
-                    console.log(data)
                     self.formData=angular.copy(data);
 
                     self.chargerInfo.delayReason=angular.copy(self.formData.delayReason);
