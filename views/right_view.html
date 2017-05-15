@@ -284,7 +284,8 @@
 
                     <div class="ys-comment-opt-comment">
                         <textarea width="100%" style="" placeholder="发表留言(留言内容不具有审批效力)" id="message-textarea">{{rCtrl.message}}</textarea>
-                        <button ng-click="rCtrl.sentMessage($event)">留言</button>
+                        <button ng-click="rCtrl.sendMessage($event)" style="right:94px;">留言</button>
+                        <button ng-click="rCtrl.shareMessage($event)">分享</button>
                     </div>
                 </div><!--end ys-comment-opt-->
 

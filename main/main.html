@@ -22,7 +22,7 @@
     <link href="../static/css/main.css" rel="stylesheet">
 
 </head>
-<body>
+<body id="project-line">
 
 <!--[if lt IE 9]>
 <p class="updateBrowser">您的浏览器太旧了，请更新最新浏览器，以获得最佳效果.</p>
@@ -46,9 +46,9 @@
         <ui-view name="right"></ui-view>
     </div>
     <!--modal parts-->
-    <div class="modalpanel">
-        <ui-view name="modal"></ui-view>
-    </div>
+    <ui-view name="modal"></ui-view>
+    <!--<div class="modalpanel">
+    </div>-->
 
 
     <!--end modal parts-->

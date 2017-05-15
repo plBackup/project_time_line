@@ -39,6 +39,9 @@ define(["js/app"],
                             },
                             "right":{
                                 templateUrl: '../views/blank_right.html',
+                            },
+                            "modal":{
+                                templateUrl:"../views/blank_modal.html"
                             }
                         },
                         resolve: {
@@ -67,6 +70,9 @@ define(["js/app"],
                             },
                             "right":{
                                 templateUrl: '../views/blank_right.html',
+                            },
+                            "modal":{
+                                templateUrl:"../views/blank_modal.html"
                             }
                         },
                         resolve: {
@@ -99,6 +105,11 @@ define(["js/app"],
                                 templateUrl: '../views/right_view.html',
                                 controller:"rightCtrl",
                                 controllerAs:"rCtrl"
+                            },
+                            "modal":{
+                                templateUrl:"../views/modal_view.html",
+                                controller:"modalCtrl",
+                                controllerAs:"mCtrl"
                             }
                         },
                         resolve: {
@@ -135,6 +146,9 @@ define(["js/app"],
                             },
                             "right":{
                                 templateUrl: '../views/blank_right.html',
+                            },
+                            "modal":{
+                                templateUrl:"../views/blank_modal.html"
                             }
                         },
                         resolve: {
@@ -162,6 +176,9 @@ define(["js/app"],
                             },
                             "right":{
                                 templateUrl: '../views/blank_right.html',
+                            },
+                            "modal":{
+                                templateUrl:"../views/blank_modal.html"
                             }
                         },
                         resolve: {
@@ -193,6 +210,9 @@ define(["js/app"],
                                 templateUrl: '../views/right_view_set.html',
                                 controller:"setRightCtrl",
                                 controllerAs:"rCtrl"
+                            },
+                            "modal":{
+                                templateUrl:"../views/blank_modal.html"
                             }
                         },
                         resolve: {

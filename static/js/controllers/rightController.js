@@ -42,6 +42,10 @@ define(["jquery","angular","zrender/zrender","./app.controllers",],function($,an
             self.sendMessage=function($event){
                 $event.preventDefault();
             };
+            self.shareMessage=function($event){
+                $event.preventDefault();
+                $rootScope.$broadcast("shareMessage");
+            };
 
             self.canReply=function(shareds){
                 $.each(shareds,function(i,e){
@@ -49,7 +53,6 @@ define(["jquery","angular","zrender/zrender","./app.controllers",],function($,an
                         return true;
                     }
                 });
-
                 return false;
             };
 

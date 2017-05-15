@@ -599,7 +599,7 @@ a#level-selected.level_all:before{background-color: #fff;}
     resize: none;
     width: 100%;
     height: 90px;
-    padding-right: 90px;
+    padding-right: 188px;
     border: 0;
 }
 .ys-comment-opt-comment button {
@@ -620,7 +620,6 @@ a#level-selected.level_all:before{background-color: #fff;}
 .span-note-grey{font-size:14px;color:#8491a2;}
 
 .ys-comment-opt{margin-top:15px;}
-.ys-comment-opt textarea{padding:6px;}
 
 .ys-comment-opt em,.ys-comment-opt i{font-style: normal;}
 .ys-comment-opt a.ys-btn-reply{cursor: pointer;color: #3da0db;}
@@ -632,3 +631,39 @@ a#level-selected.level_all:before{background-color: #fff;}
     margin: 0;
     width: 100%;
 }
+
+/*modal*/
+#project-line{}
+#project-line .modal-backdrop{z-index:3998;}
+#project-line .modal{z-index:3999;}
+
+#shareModal .modal-dialog{width:760px;height:350px;overflow: hidden;}
+
+.modal-search-wrapper{
+    width: 260px;
+    margin-left: 20px;
+}
+#shareModal .modal-header{padding:8px 15px;}
+#shareModal .modal-header .modal-title{line-height: 34px;}
+
+#shareModal .col-xs-4{padding-left:0;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
