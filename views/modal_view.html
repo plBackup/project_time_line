@@ -10,7 +10,6 @@
                         <span class="input-group-btn">
                             <button class="btn btn-default" type="button">
                                 <em class="glyphicon glyphicon-search"></em>
-                                <em class="glyphicon glyphicon-search"></em>
                             </button>
                         </span>
                     </div><!-- /input-group -->
@@ -28,10 +27,10 @@
 
                     </div>
                     <div class="col-xs-4">
-                        <ul class="breadcrumb">
-                            <li>集团</li>
-                            <li>总部</li>
-                        </ul>
+                       <span class="ys-breadcrumb">
+                           <em>当前部门：</em>
+                           <em>总部</em>
+                       </span>
                     </div><!--breadcrumb-->
 
                     <div class="col-xs-4">
@@ -44,48 +43,9 @@
                 </div><!--modal opt wrapper-->
                 <div class="modal-list-wrapper clearfix">
                     <div class="col-xs-4 modal-department-list">
-                        <ul class="ys-list-tree">
-                            <li ng-repeat="item in mCtrl.modalData">
-                                <span>{{item.name}}</span>
-                                <ul ng-if="item.children.length!==0">
-                                    <li ng-repeat="item in item.children">
-                                        <span>{{item.name}}</span>
-                                        <ul ng-if="item.children.length!==0">
-                                            <li ng-repeat="item in item.children">
-                                                <span>{{item.name}}</span>
-                                                <ul ng-if="item.children.length!==0">
+                        <div list-tree list-data="mCtrl.modalData" item-select="mCtrl.itemSelect(id)">
 
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </li>
-
-                           <!-- <li class="ys-tree-item open">
-                                <span>宝龙集团</span>
-                                <ul class="ys-list-tree">
-                                    <li class="ys-tree-item">
-                                        <span>xx部门</span>
-                                    </li>
-                                </ul>
-                            </li>
-
-                            <li class="ys-tree-item open">
-                                <span>宝龙地产</span>
-                                <ul class="ys-list-tree">
-                                    <li class="ys-tree-item open">
-                                        <span>xx部门</span>
-
-                                        <ul class="ys-list-tree">
-                                            <li class="ys-tree-item">
-                                                <span>xx部门</span>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </li>-->
-                        </ul>
+                        </div>
                     </div><!--modal-department-list-->
                     <div class="col-xs-4 modal-department-member">
                         <ul class="ys-member-list">
@@ -100,9 +60,9 @@
                     </div><!--modal-department-list-->
                 </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">退出</button>
-                <button type="button" class="btn btn-primary">确定</button>
+            <div class="modal-footer ">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" ng-click="mCtrl.setShare()">确定</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->

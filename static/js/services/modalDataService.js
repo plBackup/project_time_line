@@ -17,7 +17,7 @@ define(["angular","./app.services"],function(angular,services){
                         return res.data;
                     }
                 });*/
-                return $http.get("../data/department_data.js",{cache: false,'Content-Type':'application/x-www-form-urlencoded',withCredentials:true}).then(function(res){
+                return $http.get("../data/department_data.json",{cache: false,'Content-Type':'application/x-www-form-urlencoded',withCredentials:true}).then(function(res){
                     if(typeof cb!=="undefined"){
                         cb(res.data);
                     }else{

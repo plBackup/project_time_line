@@ -288,13 +288,14 @@
                     <div class="ys-comment-opt-comment">
 
                         <textarea width="100%" style="" placeholder="发表留言(留言内容不具有审批效力)" id="message-textarea" ng-model="rCtrl.message">{{rCtrl.message}}</textarea>
-                        <button ng-click="rCtrl.sendMessage($event)">留言</button>
-                       <!-- <button ng-click="rCtrl.shareMessage($event)">分享</button>-->
+                        <button ng-click="rCtrl.sendMessage($event)" style="right:94px;">留言</button>
+                        <button ng-click="rCtrl.shareMessage($event)">分享</button>
+                        <div class="alert-wrapper">
+                            <div class="alert alert-success" role="alert">提交成功</div>
+                            <div class="alert alert-danger" role="alert">网络错误，请稍后再试</div>
+                        </div>
                     </div>
-                    <div class="alert-wrapper">
-                        <div class="alert alert-success" role="alert">提交成功</div>
-                        <div class="alert alert-danger" role="alert">网络错误，请稍后再试</div>
-                    </div>
+
                 </div><!--end ys-comment-opt-->
 
             </div><!--rpanel-content-detail-->

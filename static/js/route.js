@@ -107,10 +107,10 @@ define(["js/app"],
                                 controllerAs:"rCtrl"
                             },
                             "modal":{
-                                /*templateUrl:"../views/modal_view.html",
+                                templateUrl:"../views/modal_view.html",
                                 controller:"modalCtrl",
-                                controllerAs:"mCtrl"*/
-                                templateUrl:"../views/blank_modal.html"
+                                controllerAs:"mCtrl"
+                               // templateUrl:"../views/blank_modal.html"
                             }
                         },
                         resolve: {

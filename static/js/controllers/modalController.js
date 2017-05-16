@@ -8,8 +8,17 @@ define(["jquery","angular","zrender/zrender","./app.controllers",],function($,an
             var self=this;
             self.baseLink=$rootScope.plink;
             self.domain=$rootScope.domain;
-
+            console.log("modal data======================")
+            console.log(modalData);
             self.modalData=modalData;
+
+            self.itemSelect=function(id){
+                 console.log(id)
+            };
+
+            self.setShare=function(){
+                _modal_hide();
+            };
 
             $scope.$on("shareMessage",function(e,data){
                 _modal_show();

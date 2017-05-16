@@ -59,3 +59,46 @@
                     </li>
                 </ul>
             </s:if>
+
+
+
+                                    <ul class="ys-list-tree">
+                                        <li ng-repeat="item in mCtrl.modalData">
+                                            <span>{{item.name}}</span>
+                                            <ul ng-if="item.children.length!==0">
+                                                <li ng-repeat="item in item.children">
+                                                    <span>{{item.name}}</span>
+                                                    <ul ng-if="item.children.length!==0">
+                                                        <li ng-repeat="item in item.children">
+                                                            <span>{{item.name}}</span>
+                                                            <ul ng-if="item.children.length!==0">
+
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </li>
+
+                                       <!-- <li class="ys-tree-item open">
+                                            <span>宝龙集团</span>
+                                            <ul class="ys-list-tree">
+                                                <li class="ys-tree-item">
+                                                    <span>xx部门</span>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li class="ys-tree-item open">
+                                            <span>宝龙地产</span>
+                                            <ul class="ys-list-tree">
+                                                <li class="ys-tree-item open">
+                                                    <span>xx部门</span>
+                                                    <ul class="ys-list-tree">
+                                                        <li class="ys-tree-item">
+                                                            <span>xx部门</span>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </li>-->
+                                    </ul>

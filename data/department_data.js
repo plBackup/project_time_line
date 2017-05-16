@@ -1,7 +1,4 @@
-/**
- * Created by whobird on 17/5/15.
- */
-var department=[
+var departments=[
     {
         id:0,
         name:"宝龙集团",
