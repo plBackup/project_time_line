@@ -659,10 +659,8 @@ a#level-selected.level_all:before{background-color: #fff;}
 .ys-list-tree>li.ys-tree-item:before{display: block;content:" ";width:6px;height:6px;border-radius: 6px;
     background-color:#d2d2d2;position: absolute;top:8px;left:5px;}
 
-.ys-list-tree>li.ys-tree-item.parent:before{display: block;content:"\002b";font-size:14px;color:#9f9f9f;
-    position: absolute;width:16px;height:16px;left:0;line-height: 16px;top:2px;text-align: center;}
 .ys-list-tree>li.ys-tree-item.parent:before{display: block;content:"\002b";font-size:14px;color:#9f9f9f;background-color: transparent;
-    position: absolute;width:16px;height:16px;left:0;line-height: 16px;top:2px;text-align: center;}
+    position: absolute;width:16px;height:16px;left:0;line-height: 16px;top:6px;text-align: center;}
 .ys-list-tree>li.ys-tree-item.parent.open:before{content:"\2212";}
 
 
@@ -674,8 +672,8 @@ a#level-selected.level_all:before{background-color: #fff;}
 
     position: absolute;top:0;left:0;}
 
-.reply-wrapper{font-size:14px;line-height: 22px;margin-bottom:-10px;}
-.reply-wrapper a{display:inline-block;padding:0 6px;cursor: pointer;}
+.reply-wrapper,.share-wrapper{font-size:14px;line-height: 22px;margin-bottom:-10px;}
+.reply-wrapper a,.share-wrapper a{display:inline-block;padding:0 6px;cursor: pointer;}
 
 li.ys-tree-item.parent>.ys-list-tree{display: none;}
 li.ys-tree-item.parent.open>.ys-list-tree{display: block;}

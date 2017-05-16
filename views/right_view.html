@@ -285,6 +285,13 @@
                     <div class="reply-wrapper" ng-show="self.isReply==true">
                         <span>回复：{{self.replyMessager}}<a ng-click="rCtrl.resetReply()"><em class="glyphicon glyphicon-remove"></em></a></span>
                     </div>
+
+                    <div class="share-wrapper" ng-show="self.isShare==true">
+                        <span>分享：
+                            <em  ng-repeat="shareMember in shareMembers">{{shareMember.name}}<a ng-click="rCtrl.popShareMember(shareMember)"><em class="glyphicon glyphicon-remove"></em></a></em>
+                        </span>
+                    </div>
+
                     <div class="ys-comment-opt-comment">
 
                         <textarea width="100%" style="" placeholder="发表留言(留言内容不具有审批效力)" id="message-textarea" ng-model="rCtrl.message">{{rCtrl.message}}</textarea>

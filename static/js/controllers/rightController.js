@@ -17,7 +17,11 @@ define(["jquery","angular","zrender/zrender","./app.controllers",],function($,an
             //temp 纪录之前的责任人操作数据
             self.chargerInfo={};
             //完成状态的选择
-            self.statusOpt=''
+            self.statusOpt='';
+
+            self.isReply=false;
+            self.isShare=false;
+            self.shareMembers=[];
 
             self.close=function(){
                 _panel_hide();
@@ -111,6 +115,10 @@ define(["jquery","angular","zrender/zrender","./app.controllers",],function($,an
                 self.isReply=false;
                 self.replyMessager=null;
                 //self.replyMessager=null;
+
+            };
+
+            self.popShareMember=function(shareMember){
 
             };
            /* self.deleteAttach=function($event,attach){
