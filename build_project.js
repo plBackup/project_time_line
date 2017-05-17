@@ -10,9 +10,9 @@
         }
     ],
 
-    fileExclusionRegExp: /^(r|build)\.js$/,
+    //fileExclusionRegExp: /^(r|build)\.js$/,
     optimizeCss: 'standard',
-    removeCombined: true,
+    removeCombined: false,
     paths: {
         jquery:"dist/js/jquery",
         "jquery.bootstrap": "dist/js/bootstrap.min",
