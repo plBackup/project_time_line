@@ -6,6 +6,7 @@
     optimizeCss: 'standard',
     removeCombined: false,
     paths: {
+        requireLib: 'dist/js/require',
         jquery:"dist/js/jquery",
         "jquery.bootstrap": "dist/js/bootstrap.min",
         "jquery.datetimepicker": "dist/js/bootstrap-datetimepicker",
@@ -16,6 +17,10 @@
         zrender: 'dist/js/zrender',
         domReady:"dist/js/domReady",
     },
+
+    name: "js/main",
+    out: "main-built.js",
+    include: ["requireLib"],
     shim: {
         "jquery.bootstrap": {
             deps: ["jquery"]
