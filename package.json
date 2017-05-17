@@ -18,5 +18,8 @@
   "homepage": "https://github.com/plBackup/project_time_line#readme",
   "devDependencies": {
     "gulp": "^3.9.1"
+  },
+  "dependencies": {
+    "requirejs": "^2.3.3"
   }
 }
