@@ -259,6 +259,7 @@ define(["angular","zrender/zrender","./app.controllers","../graph/graph","../gra
             }
 
             zr.render();
+            zrfake.render();
             $rootScope.loading_hide();
         }
 
