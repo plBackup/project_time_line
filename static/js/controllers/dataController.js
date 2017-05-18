@@ -215,7 +215,7 @@ define(["angular","zrender/zrender","./app.controllers","../graph/graph","../gra
                     if(fakenode){
                         fakenode.eachChild(function (e) {
                             e.style.opacity = 1;
-                            e.ignore=true;
+                            e.ignore=false;
                             e.z=9;
                         });
                     }
