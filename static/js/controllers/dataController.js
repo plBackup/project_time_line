@@ -1,7 +1,7 @@
 /**
  * Created by whobird on 17/4/24.
  */
-define(["angular","zrender/zrender","./app.controllers","../graph/graph","../graph/render_project","../graph/render_nodes","../graph/render_eagle"],function(angular,zrender,controllers,graph,projectRender,nodesRender,eagleRender){
+define(["angular","zrender/zrender","./app.controllers","../graph/graph","../graph/render_project","../graph/render_nodes","../graph/render_project_eagle",'../graph/render_nodes_eagle',"../graph/render_eagle"],function(angular,zrender,controllers,graph,projectRender,nodesRender,projectRenderEagle,nodeRenderEagle,eagleRender){
 
     controllers.controller("dataCtrl",["$rootScope","$scope","$http","dataNodeService","nodeData","$timeout",function($rootScope,$scope,$http,dataMenuService,nodeData,$timeout){
 
@@ -119,7 +119,7 @@ define(["angular","zrender/zrender","./app.controllers","../graph/graph","../gra
 
             var searchStr=data.node;
             zr = zrender.getInstance(localStorage.zr);
-
+            zrfake = zrender.getInstance(localStorage.zrfake);
             //清除页面上的时间线和弹出层,利用页面事件的方式处理
             //因为curdateNodes用于处理点击节点时突出显示的当前时间线跨模块处理会比较冗余
             var $nodeInfo=$(".node-info");
@@ -143,15 +143,34 @@ define(["angular","zrender/zrender","./app.controllers","../graph/graph","../gra
                            console.log(i);
                            console.log(e['name'])
                        }
-                });
 
-                var imageData=zr.toDataURL();
-                zr.modShape("eagle_bg",{
-                    style:{
-                        image: imageData,
+                    var fakenode = zrfake.storage.get("node_"+e['sequence']+"_group");
+                    if(fakenode){
+                        fakenode.eachChild(function (e) {
+                            e.style.opacity = 1;
+                            e.ignore=false;
+                            e.z=0;
+                        });
+                    }else{
+                        console.log(i);
+                        console.log(e['name'])
                     }
-
                 });
+
+                var imageData=zrfake.toDataURL();
+
+                _renderEagleBg(imageData,zrfake);
+
+                requestAnimationFrame(function() {
+
+                    var bgData=$("#fake-img").attr("src");
+                    zr.modShape("eagle_bg",{
+                        style:{
+                            image: bgData,
+                        }
+                    });
+                });
+
             }else{
                 var zrWidth=parseInt($(".canvas-wrapper").css("width"));
                 var zrHeight=parseInt($(".canvas-wrapper").css("height"));
@@ -167,7 +186,7 @@ define(["angular","zrender/zrender","./app.controllers","../graph/graph","../gra
                 $.each(self.nodes, function (i, e) {
                     //node.style.opacity=0.3;
                     var node = zr.storage.get("node_"+e['sequence']+"_group");
-
+                    var fakenode=zrfake.storage.get("node_"+e['sequence']+"_group");
                     if(node){
                         node.eachChild(function (e) {
                             e.style.opacity = 0;
@@ -175,14 +194,28 @@ define(["angular","zrender/zrender","./app.controllers","../graph/graph","../gra
                             e.z=0;
                         });
                     }
-
+                    if(fakenode){
+                        fakenode.eachChild(function (e) {
+                            e.style.opacity = 0;
+                            e.ignore=true;
+                            e.z=0;
+                        });
+                    }
                 });
                 $.each(nodesArr,function(i,e){
                     var node = zr.storage.get("node_"+e['sequence']+"_group");
+                    var fakenode=zrfake.storage.get("node_"+e['sequence']+"_group");
                     if(node){
                         node.eachChild(function (e) {
                             e.style.opacity = 1;
                             e.ignore=false;
+                            e.z=9;
+                        });
+                    }
+                    if(fakenode){
+                        fakenode.eachChild(function (e) {
+                            e.style.opacity = 1;
+                            e.ignore=true;
                             e.z=9;
                         });
                     }
@@ -205,13 +238,21 @@ define(["angular","zrender/zrender","./app.controllers","../graph/graph","../gra
                 $("#project-index").css('top',(-1)*topOffset);
 
                 zr.modLayer('0',{position:[(-1)*leftOffset,(-1)*topOffset]});
-                var imageData=zr.toDataURL();
-                zr.modShape("eagle_bg",{
-                    style:{
-                        image: imageData,
-                    }
 
+                var imageData=zrfake.toDataURL();
+                _renderEagleBg(imageData,zrfake);
+
+                requestAnimationFrame(function() {
+
+                    var bgData=$("#fake-img").attr("src");
+                    zr.modShape("eagle_bg",{
+                        style:{
+                            image: bgData,
+                        }
+
+                    });
                 });
+
 
                 eagleRender.setPosition(zr,leftOffset,topOffset);
 
@@ -221,7 +262,41 @@ define(["angular","zrender/zrender","./app.controllers","../graph/graph","../gra
             $rootScope.loading_hide();
         }
 
+        function _renderEagleBg(imageData,zrfake){
 
+            var $image=$("#fake-img");
+            $image.attr("src",imageData);
+
+            var cWidth=zrfake.getWidth();
+            var cHeight=zrfake.getHeight();
+
+            var canvas = document.createElement("canvas");
+            canvas.width=500;
+            canvas.height=(cHeight/cWidth)*(canvas.width);
+            console.log(zrfake.getWidth());
+            console.log(canvas.height);
+
+
+            var ctx = canvas.getContext('2d');
+
+
+            requestAnimationFrame(function() {
+                ctx.drawImage($image.get(0),
+                    0,//sourceX,
+                    0,//sourceY,
+                    cWidth,//sourceWidth,
+                    cHeight,//sourceHeight,
+                    0,//destX,
+                    0,//destY,
+                    canvas.width,//destWidth,
+                    canvas.height//destHeight
+                );
+
+                //--获取base64字符串及canvas对象传给success函数。
+                var base64str = canvas.toDataURL("image/png");
+                $image.attr("src", base64str);
+            });
+        }
         function _render(nodes,phase){
 
             var main_top=60;
@@ -230,14 +305,22 @@ define(["angular","zrender/zrender","./app.controllers","../graph/graph","../gra
             $(".canvas-wrapper").css("height",wrapperHeight+"px");
 
             var typeList=$rootScope.typeList;
-            projectRender.init(nodes,typeList,phase);
+            projectRender.init(nodes,typeList,phase,"main");
+
+            projectRenderEagle.init(nodes,typeList,phase,"fake");
+            var zrfake = zrender.getInstance(localStorage.zrfake);
+            var imageData=zrfake.toDataURL();
+            _renderEagleBg(imageData,zrfake);
+
             //todo:因为后面实例均需要zr实例，但在projectRender里需要做很多前期计算才能渲染，所以把zr实例放到projectRender里，
             //通过localStorage传递zr id,来传递zr；
             zr = zrender.getInstance(localStorage.zr);
             //nodesRender 用到ProjectRender数据，现在改到projectRender里处理
             //nodesRender.init(zr,nodes);
-            eagleRender.init(zr);
 
+                requestAnimationFrame(function(){
+                    eagleRender.init(zr);
+                });
 
             /*事件处理要先清除，再重新绑定*/
             var $nodeInfo=$(".node-info");

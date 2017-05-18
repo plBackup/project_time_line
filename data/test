@@ -1,0 +1,32 @@
+projectRender.init(nodes,typeList,phase,"fake");
+            var zrfake = zrender.getInstance(localStorage.zrfake);
+
+            //$("#fake").data("idata",zrfake.toDataURL());
+            var imageData=zrfake.toDataURL();
+            var $image=$("#fake-img");
+            $image.attr("src",imageData);
+            console.log("src==================");
+            console.log("src==================");
+            var canvas = document.createElement("canvas");
+            canvas.width=500;
+            //canvas.height=(image.naturalHeight/image.naturalWidth)*(canvas.width);
+            console.log($image.get(0).naturalWidth);
+            console.log(canvas.height);
+
+
+            var ctx = canvas.getContext('2d');
+            ctx.drawImage($image.get(0),
+                0,//sourceX,
+                0,//sourceY,
+                $image.get(0).naturalWidth,//sourceWidth,
+                $image.get(0).naturalHeight,//sourceHeight,
+                0,//destX,
+                0,//destY,
+                canvas.width,//destWidth,
+                canvas.height//destHeight
+            );
+
+
+            //--获取base64字符串及canvas对象传给success函数。
+            var base64str=canvas.toDataURL("image/png");
+            $("#fake").data("idata",base64str);

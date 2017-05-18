@@ -1,11 +1,11 @@
 /**
  * Created by whobird on 17/4/26.
  */
-define(["jquery","zrender/zrender","./graph","./data_init","./render_nodes","zrender/tool/color","zrender/tool/area","zrender/shape/Circle","zrender/shape/Rectangle",'zrender/shape/Isogon',"zrender/shape/Text","zrender/shape/Line","zrender/Group"],
-    function($,zrender,graph,data,nodesRender){
+define(["jquery","zrender/zrender","./graph","./data_init","./render_nodes_eagle","zrender/tool/color","zrender/tool/area","zrender/shape/Circle","zrender/shape/Rectangle",'zrender/shape/Isogon',"zrender/shape/Text","zrender/shape/Line","zrender/Group"],
+    function($,zrender,graph,data,nodesRenderEagle){
 
         var project_start=data.start_date;//todo:起始日期，视数据接口情况改成动态值--后面用phase的值重新赋给
-        var projectRender={};
+        var projectRenderEagle={};
 
         var color = require('zrender/tool/color');
         var RectangleShape = require('zrender/shape/Rectangle');
@@ -15,9 +15,7 @@ define(["jquery","zrender/zrender","./graph","./data_init","./render_nodes","zre
         var TextShape = require('zrender/shape/Text');
         var Layer=require('zrender/Layer');
 
-
         //简化变量
-
         var getDateOffset=graph.getDateOffset;
         var default_pix=graph.defaultPix;
         var start_offset=graph.startOffset;
@@ -32,10 +30,9 @@ define(["jquery","zrender/zrender","./graph","./data_init","./render_nodes","zre
             var startOffset=graph.startOffset;
 
             var projectStart,projectEnd;
-
             //todo: data init
             data.init(nodes);
-            nodesRender.init(zr);
+            nodesRenderEagle.init(zr);
 
 
             $.each(data.rows, function (i, e) {
@@ -78,22 +75,13 @@ define(["jquery","zrender/zrender","./graph","./data_init","./render_nodes","zre
 
 
                 //添加项目名称 --左侧--绝对定位，以便永远浮动在最上层
-
-                if(eId=="main"){
-                    $('<div class="project-name" id="' + id + '">' + project.name + '</div>').appendTo("#project-index").css({
-                        "top": startNode_y - project['height'] / 2 - 15,
-                        "left": -project['height'] / 2 + 15,
-                        "width": project['height'],
-                        "height": 30
-                    });
-                }
                 project.node_y = startNode_y - project['height'];//为顶部的高度30px;
 
                 //绘制nodes方法；
                 //init_nodes(zr,project);
                 //todo:nodesRender
 
-                nodesRender.render(zr,project);
+                nodesRenderEagle.render(zr,project);
 
                 project_count += 1;
             });
@@ -109,48 +97,6 @@ define(["jquery","zrender/zrender","./graph","./data_init","./render_nodes","zre
             var d=new Date(curDate);
             var curDate_String= d.getFullYear()+'-'+ (parseInt(d.getMonth())+1)+'-'+ d.getDate();
 
-            //正三角形 绘制指针
-            zr.addShape(new IsogonShape({
-                style : {
-                    x : getDateOffset(project_start,curDate_String)*default_pix+start_offset,
-                    y : 40,
-                    r : 10,
-                    n : 3,
-                    brushType : 'fill',
-                    color : '#ff8113'          // rgba supported
-                },
-
-                //rotation:[Math.PI/2,x_start+10,95],
-                draggable : false,
-                hoverable:false,
-                clickable:false
-            }));
-            //绘制日期
-            //矩形
-            zr.addShape(new RectangleShape({
-                style : {
-                    x :getDateOffset(project_start,curDate_String)*default_pix+start_offset-41,
-                    y : 38,
-                    width :82,
-                    height: 22,
-
-                    brushType : 'fill',
-                    color : '#ff8113',
-                    radius: 3,
-                    //strokeColor : color.getColor(colorIdx++),
-                    //lineWidth : 0
-                    // lineJoin : 'round',
-                    text : curDate_String,
-                    textFont:"10px verdana",
-                    textColor:"#fff",
-                    textPosition:"inside",
-                    textAlign:"center",
-                    textBaseline:"middle"
-                },
-                draggable : false,
-                hoverable:false,
-                clickable:false
-            }));
             //绘制纵向线
             zr.addShape(new LineShape({
                 style : {
@@ -172,7 +118,7 @@ define(["jquery","zrender/zrender","./graph","./data_init","./render_nodes","zre
             zr.render();
         }//end 绘制当前的时间点
 
-        projectRender.render=function(nodes,typeList,phase,eId){
+        projectRenderEagle.render=function(nodes,typeList,phase,eId){
             //根据日期设置 初始化画布和时间轴宽度
 
             //todo: x轴计算宽度加30是把左侧栏的宽度计算上,统一用graph.startOffset来设定
@@ -224,8 +170,8 @@ define(["jquery","zrender/zrender","./graph","./data_init","./render_nodes","zre
             });
 
 
-         /*   main.style.width = w+ 'px';
-            main.style.height = h + 'px';*/
+            /*   main.style.width = w+ 'px';
+             main.style.height = h + 'px';*/
             if(eId=="fake"){
                 var main = document.getElementById("fake");
                 main.style.width = w+ 'px';
@@ -301,14 +247,6 @@ define(["jquery","zrender/zrender","./graph","./data_init","./render_nodes","zre
                 var d_plus = 20;//每20天标注一个日期节点
                 var d_width = d_plus * default_pix;
                 var d_count = parseInt(rect_width / d_width);
-                if(eId=="main"){
-                    for (i = 0; i < d_count; i++) {
-                        //todo：原设想根据项目阶段，前期阶段以负值显示，目前按照日期偏移的50天来显示
-                        /* var d = v.x_start + d_plus * i;*/
-                        var d = v.x_start + d_plus * i+150;
-                        $('<span class="date-day" id="' + v.id + '-' + i + '">'+"<i>" + d+"</i>" + '</span>').appendTo("#date-index").css("width", d_width + "px");
-                    }
-                }
 
                 zr.addShape(new RectangleShape({
                     style: {
@@ -347,107 +285,10 @@ define(["jquery","zrender/zrender","./graph","./data_init","./render_nodes","zre
                     hoverable:false,
                     clickable:false
                 }));
-                //
-                //todo：取消文本背景
-               /* zr.addShape(new RectangleShape({
-                    style : {
-                        x : x_start ,
-                        y :1,
-                        width :rect_width+2,
-                        height: 30,
-                        //  radius: [20, 50],
-                        //brushType : "",
-                        color : '#dbeef3',
-                        strokeColor : '#333',
-                        lineWidth : 0,
-                        lineJoin : 'butt',
-                        text :  v.name,
-                        textColor:"#333",
-                        textPosition:'inside',
-                        textFont : 'bold 15px verdana',
-                        textAlign : 'center',
-                        textBaseline : 'middle'
-                    },
-                    draggable : false,
-                    hoverable:false,
-                    clickable:false
-                }));*/
+
                 //绘制 date 时间线
                 var dateline_plus = 20;
                 var dateline_width = dateline_plus * default_pix;
-                var  dateline_count = parseInt(rect_width /dateline_width);
-
-                for(i=0;i<dateline_count;i++){
-                    //正三角形 绘制指针
-                    var curDate_point=getDate(project_start,dateline_plus*i+day_offset+ v.x_start);
-                    curDate_array=curDate_point.split("-");
-                    var today=(new Date()).getTime();
-
-                    var curDate_timing=gd(parseInt(curDate_array[0]),parseInt(curDate_array[1])-1,parseInt(curDate_array[2]));
-
-                    var color_draw=(curDate_timing>today)?'#0072bb':"#ddd";
-                    zr.addShape(new IsogonShape({
-                        style : {
-                            x : getDateOffset(project_start,curDate_point)*default_pix+start_offset,
-                            y : 43,
-                            r : 10,
-                            n : 3,
-                            brushType : 'fill',
-                            color :color_draw        // rgba supported
-
-                        },
-
-                        draggable : false,
-                        hoverable:false,
-                        clickable:false
-                    }));
-                    //绘制日期
-                    zr.addShape(new RectangleShape({
-                        style : {
-                            x :getDateOffset(project_start,curDate_point)*default_pix+start_offset-41,
-                            y : 38,
-                            width :82,
-                            height: 22,
-
-                            brushType : 'fill',
-                            color : color_draw,
-                            radius: 3,
-                            //strokeColor : color.getColor(colorIdx++),
-                            //lineWidth : 0
-                            // lineJoin : 'round',
-                            text : curDate_point,
-                            textFont:"10px verdana",
-                            textColor:"#fff",
-                            textPosition:"inside",
-                            textAlign:"center",
-                            textBaseline:"middle"
-                        },
-                        draggable : false,
-                        hoverable:false,
-                        clickable:false
-                    }));
-                }
-
-                // 文本
-
-                zr.addShape(new TextShape({
-                    style : {
-                        x : x_start+rect_width / 2 ,
-                        y : 78,
-                        brushType : 'fill',
-                        color : '#9a9a9a',
-                        // shadowColor : 'yellow',
-                        //  shadowBlur : 10,
-                        lineWidth : 3,
-                        text : v.name,
-                        textFont : 'normal 15px verdana',
-                        textAlign : 'center',
-                        textBaseline : 'middle'
-                    },
-                    draggable : false,
-                    hoverable:false,
-                    clickable:false
-                }));
 
                 // 直线
                 zr.addShape(new LineShape({
@@ -505,16 +346,16 @@ define(["jquery","zrender/zrender","./graph","./data_init","./render_nodes","zre
 
             //绘画
             zr.render();
-    };
+        };
 
-        projectRender.init=function(nodes,typeList,phase,eId){
+        projectRenderEagle.init=function(nodes,typeList,phase,eId){
             //数据过滤
-           //渲染
-           projectRender.render(nodes,typeList,phase,eId);
+            //渲染
+            projectRenderEagle.render(nodes,typeList,phase,eId);
 
 
-    };
+        };
 
 
-        return projectRender;
-});
+        return projectRenderEagle;
+    });

@@ -25,8 +25,10 @@ define(["jquery","zrender/zrender","./graph","./data_init","zrender/tool/color",
             var h=30;
 
             //end nodesRender
-            var width = Math.ceil(zr.getWidth());
-            var height = Math.ceil(zr.getHeight());
+         /*   var width = Math.ceil(zr.getWidth());
+            var height = Math.ceil(zr.getHeight());*/
+            var width=Math.ceil($("#main").data("w"));
+            var height=Math.ceil($("#main").data("h"));
             var layer_move_x=0;
             var layer_move_y=0;
 
@@ -49,13 +51,17 @@ define(["jquery","zrender/zrender","./graph","./data_init","zrender/tool/color",
             eagle_y_boundary=eagle_height-eagle_eye_height;
 
             //获取缩略图
-            var imageData=zr.toDataURL();
+            //var zrfake = zrender.getInstance(localStorage.zrfake);
+            //var imageData=zrfake.toDataURL();
+            //zrfake.dispose();
+            var imageData=$("#fake-img").attr("src");
             //鹰眼绘图
             var eagle_group= new Group({
                     id: 'eagle_eye',
                     position: [eagle_positionX,eagle_positionY]
                 }
             );
+
 
             eagle_group.addChild(new ImageShape({
                 id:"eagle_bg",
@@ -175,12 +181,14 @@ define(["jquery","zrender/zrender","./graph","./data_init","zrender/tool/color",
             var canvas_w =parseInt( $(".canvas-wrapper").css("width"));
             var canvas_h = parseInt($(".canvas-wrapper").css("height"));
 
+            console.log(canvas_h);
+
             //end nodesRender
-            var width = Math.ceil(zr.getWidth());
-            var height = Math.ceil(zr.getHeight());
+            var width = Math.ceil($("#main").data("w"));
+            var height = Math.ceil($("#main").data("h"));
             var layer_move_x=leftOffset;
             var layer_move_y=topOffset;
-
+            console.log(height);
             var eagle_width,eagle_height,eagle_eye_width,eagle_eye_height,eagle_positionX,eagle_positionY;
 
             eagle_width=350;
@@ -188,6 +196,8 @@ define(["jquery","zrender/zrender","./graph","./data_init","zrender/tool/color",
 
             eagle_eye_width=(canvas_w/width)*eagle_width;
             eagle_eye_height=(canvas_h/height)*eagle_height;
+
+            console.log(eagle_height);
 
 
 
@@ -202,6 +212,9 @@ define(["jquery","zrender/zrender","./graph","./data_init","zrender/tool/color",
             eagle_positionX=canvas_w-eagle_width-20+layer_move_x;
             eagle_positionY=canvas_h-eagle_height-20+layer_move_y;
 
+            console.log(layer_move_y);
+            console.log(eagle_positionY);
+
             zr.modGroup("eagle_eye",{position:[eagle_positionX,eagle_positionY]});
             zr.modShape("eagle",{
                 position:[eagle_eye_x,eagle_eye_y]
@@ -211,7 +224,6 @@ define(["jquery","zrender/zrender","./graph","./data_init","zrender/tool/color",
         eagleRender.init=function(zr){
             //渲染
             eagleRender.render(zr);
-
         };
 
 

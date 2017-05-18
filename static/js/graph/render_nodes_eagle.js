@@ -13,7 +13,7 @@ define(["jquery","zrender/zrender","./graph","zrender/tool/color","zrender/tool/
         *
         * */
 
-        var nodesRender={};
+        var nodesRenderEagle={};
         var color = require('zrender/tool/color');
         var RectangleShape = require('zrender/shape/Rectangle');
         var CircleShape=require('zrender/shape/Circle');
@@ -39,7 +39,7 @@ define(["jquery","zrender/zrender","./graph","zrender/tool/color","zrender/tool/
 
         var yOffsetPlus=30;
 
-        nodesRender.render=function(zr,project){
+        nodesRenderEagle.render=function(zr,project){
             //end nodesRender
             //数据过滤
             //渲染
@@ -47,44 +47,14 @@ define(["jquery","zrender/zrender","./graph","zrender/tool/color","zrender/tool/
 
         };
 
-        nodesRender.init=function(zr){
+        nodesRenderEagle.init=function(zr){
             //todo:因为angular单页刷新的缘故，需要init重置数据，render 单独做渲染操作
             //数据重置
             //渲染
             zrGroup = [];
             //nodesRender.render(zr,project);
-            _zrEvent_init(zr);
-            $(".canvas-wrapper").off("removeDateLine").on("removeDateLine",function(){
-                $.each(curdateNodes, function (i, e) {
-                    zr.delShape(e);
-                });
-                //zr.update();
-                curdateNodes = [];
-            });
 
         };
-        nodesRender.focusNode=function(zr,nodeGroup){
-            _focusNode(zr,nodeGroup)
-        }
-        function _zrEvent_init(zr){
-
-            zr.on('click', function (params) {
-
-
-                if (params.target) {
-                    //如果有目标说明点击到节点，不处理，由节点事件处理
-                    //var node_id = params.target._group;
-                }
-                else {
-                    //恢复节点显示
-                    _resetNode(zr);
-                    curdateNodes = [];
-                    /*对node-info的处理统一放到dataController中以angular方式处理*/
-                   $("body").trigger("zrEvent");
-                }
-            });
-
-        }
 
         function _render_nodes(zr,projectObject) {
 
@@ -103,8 +73,8 @@ define(["jquery","zrender/zrender","./graph","zrender/tool/color","zrender/tool/
             //todo：这里数据是放到project[nodes]中，所以要在data.init中做一层过滤处理
             var nodes = project["nodes"];
 
-            var level1_radius = 3;
-            var level2_radius = 3;
+            var level1_radius = 0;
+            var level2_radius = 0;
 
             var normal_color = "#92cddc";
             var done_color = "#439139";
@@ -165,7 +135,7 @@ define(["jquery","zrender/zrender","./graph","zrender/tool/color","zrender/tool/
                     var zrNode = zrNode_group.childAt(0);
                     //这里根据真实数据会出现后面节点再时间轴前面显示的问题，所以做双倍距离来判断
                     var inside = zrArea.isInside(zrNode,
-                        {x: (zrNode_group.position[0] + zrNode.style.x - 88), y: (zrNode_group.position[1] + zrNode.style.y - 5), width: zrNode.style.width * 2, height: zrNode.style.height},
+                        {x: (zrNode_group.position[0] + zrNode.style.x - 8), y: (zrNode_group.position[1] + zrNode.style.y - 5), width: zrNode.style.width * 2, height: zrNode.style.height},
                         style_x, project.node_y + e.y_offset + y_plus + yOffsetPlus);
 
                     if (inside) {
@@ -205,43 +175,8 @@ define(["jquery","zrender/zrender","./graph","zrender/tool/color","zrender/tool/
                         _height: 45,
                         _nodeId: e['id'],
                         _sequence:e["sequence"],
-                        _name: e['name'],
-                        _status: e['status'],//节点状态
-                        _chargeOrgName: e['chargeOrgName'],//主责单位
-                        _chargeOrgCd:e['chargeOrgCd'],
-                        _type_name: e['type_name'],//这个数据目前没有提供
-                        _start_date: e['start_date'],
-                        _end_date: e['end_date'],
-                        _y_plus: y_plus,
-                        _expireStatus:e['expireStatus'], // 过期状态
-                        _resStatus:e['resStatus'],// 网批状态
-                        _confirmStatus:e['confirmStatus'],// 确认状态
-                        _isWarning:e["isWarning"],
 
-                        _index:i,
-
-                        _delayCompleteDate:e['delayCompleteDate'],
-                        _resNumbers:e["resNumbers"],
-                        _resIds:e["resIds"],
-                        _centerManagerCd:e["centerManagerCd"],
-                        _centerManagerName:e["centerManagerName"],
-                        _departmentHeadCd:e["departmentHeadCd"],
-                        _departmentHeadName:e["departmentHeadName"],
-                        _chargerCd:e["chargerCd"],
-                        _chargerName:e["chargerName"],
-                        _statusText:e["statusText"],
-                        onclick: function (params) {
-                            var nodeObj=params.target.parent;
-                            $('body').trigger("nodeclick",nodeObj);
-                            _render_curDate(zr,this);
-
-                            var curNodeGroup=zr.storage.get(params.target._group);
-                            _focusNode(zr,curNodeGroup);
-                            zr.refresh();
-                            //zr.update();
-                        },//end on click function
-
-                    }
+                        }
                 );
 
                 //var radius, color, style_x;
@@ -325,21 +260,14 @@ define(["jquery","zrender/zrender","./graph","zrender/tool/color","zrender/tool/
                             //y: project.node_y+ e.y_offset+yOffsetPlus,
                             y: e.y_offset + yOffsetPlus + y_plus,
                             width: 88,
-                            height: 25,
+                            height: 70,
 
                             radius: [radius, radius, 0, 0],
                             brushType: 'both',
                             color: color,          // rgba supported
                             strokeColor: stroke_color,
-                            lineWidth: 2,
+                            lineWidth: 6,
                             lineJoin: 'round',
-                            text: nodeTitle,
-
-                            textPosition: 'inside',
-                            textFont: 'bold 12px verdana',
-                            textAlign: 'center',
-                            textBaseline: 'middle',
-                            textColor: text_color
                         },
                         //  z: 9,
                         hoverable: false,   // default true
@@ -350,78 +278,7 @@ define(["jquery","zrender/zrender","./graph","zrender/tool/color","zrender/tool/
                         _group: 'node_'+e['sequence']+'_group',
                     }
                 ));//add cricle
-                g.addChild(new CircleShape(
-                    {
-                        id:'node_'+e['sequence']+"_level",
-                        style:{
-                            x: 18,
-                            //y: project.node_y+ e.y_offset+yOffsetPlus,
-                            y: e.y_offset + yOffsetPlus + y_plus+12,
 
-                            r: 6,
-                            brushType: 'stroke',
-                            color: text_color,          // rgba supported
-                            strokeColor: text_color,
-                            lineWidth: 2,
-
-                            text: e['level'],
-                            textPosition: 'inside',
-                            textFont: 'bold 8px verdana',
-                            textAlign: 'center',
-                            textBaseline: 'middle',
-                            textColor: text_color
-                        },
-                        //  z: 9,
-                        hoverable: false,   // default true
-                        draggable: false,   // default false
-                        clickable: false,   // default false
-
-                        _name: e['name'],
-                        _group: 'node_'+e['sequence']+'_group',
-                    }
-                ));
-                g.addChild(new RectangleShape(
-                    {
-                        id: 'node_'+e['sequence'],
-                        style: {
-                            // x: style_x,
-                            // y: project.node_y+e.y_offset+25+yOffsetPlus,
-                            x: 0,
-                            y: e.y_offset + 25 + yOffsetPlus + y_plus,
-                            width: 88,
-                            height: 45,
-                            radius: [0, 0, radius, radius],
-
-                            brushType: 'both',
-                            color: "#fff",          // rgba supported
-                            strokeColor: stroke_color,
-                            lineWidth: 1,
-                            lineJoin: 'round',
-                            // text : e['name'],
-                            // text:e['name'].length>6?(e['name'].substr(0,6)+'\n'+e['name'].substr(6,12)):e['name'],
-                            text: e['name'].length > 6 ? (e['name'].substr(0, 6) + '\n' + e['name'].substr(6, 6)) : e['name'],
-                            textPosition: 'inside',
-                            textFont: 'bold 12px verdana',
-                            textAlign: 'center',
-                            textBaseline: 'middle',
-                            textColor: text_name_color
-
-                            //strokeColor: color.getColor(colorIdx++),  // getColor from default palette
-                            // lineWidth: 5,
-                            //  text: 'circle',
-                            // textPosition: 'inside'
-
-                        },
-                        //z: 9,
-                        hoverable: false,   // default true
-                        draggable: false,   // default false
-                        clickable: true, // default false
-
-                        _name: e['name'],
-                        _group: 'node_'+e['sequence']+'_group',
-
-                    }
-                ));//add cricle
 
                 //把group加入到zr中
                 zr.addGroup(g);
@@ -429,82 +286,6 @@ define(["jquery","zrender/zrender","./graph","zrender/tool/color","zrender/tool/
             });//end each nodes
 
         };
-
-        function _render_curDate(zr,node){
-            //curDate 显示为单例显示，需要清除之前渲染
-            $.each(curdateNodes, function (i, e) {
-                zr.delShape(e);
-            });
-            //绘制当前的时间点
-            var curDate_String = node._start_date;
-            //todo:这里暂时不考虑节点会进行X轴偏移
-            var date_left=node._x;
-            var height = $("#main").data("h");
-            //var date_left = node._x + node.childAt(0).position[0];
-
-            //正三角形 绘制指针
-            zr.addShape(new IsogonShape({
-                id: node['id'] + '_date_tri',
-                style: {
-                    x: date_left,
-                    y: node._y+node._y_plus-25-10,
-                    r: 10,
-                    n: 3,
-                    brushType: 'fill',
-                    color: '#f01f42'          // rgba supported
-                },
-
-                rotation: [Math.PI, date_left, node._y+node._y_plus-25-10],
-                draggable: false,
-                hoverable: false,
-                clickable: false
-            }));
-            curdateNodes.push(node['id'] + '_date_tri');
-            //绘制日期
-            //矩形
-            zr.addShape(new RectangleShape({
-                id: node['id'] + '_date',
-                style: {
-                    x: date_left - 15,
-                    y: node._y+node._y_plus-25-10-22,
-                    width: 103,
-                    height: 22,
-
-                    brushType: 'fill',
-                    color: '#f01f42',
-                    radius: 5,
-                    text: curDate_String == undefined ? '信息暂不完整' : curDate_String,
-                    textFont: "10px verdana",
-                    textColor: "#fff",
-                    textPosition: "inside",
-                    textAlign: "center",
-                    textBaseline: "middle"
-                },
-                draggable: false,
-                hoverable: false,
-                clickable: false
-            }));
-            curdateNodes.push(node['id'] + '_date');
-
-            //垂直纵贯线
-            zr.addShape(new LineShape({
-                id: node['id'] + '_date_line',
-                style: {
-                    xStart: date_left,
-                    yStart: 0,
-                    xEnd: date_left,
-                    yEnd: height,
-                    strokeColor: "#f01f42",
-                    lineWidth: 1,
-                    lineType: 'solid'    // default solid
-                    //text : 'line'
-                },
-                draggable: false,
-                hoverable: false,
-                clickable: false
-            }));
-            curdateNodes.push(node['id'] + '_date_line');
-        }; //end _render_curDate function
 
         function _focusNode(zr,nodeGroup){
             //透明所有节点，突出显示当前节点
@@ -542,5 +323,6 @@ define(["jquery","zrender/zrender","./graph","zrender/tool/color","zrender/tool/
 
             curdateNodes = [];
         }
-        return nodesRender;
+
+        return nodesRenderEagle;
     });
