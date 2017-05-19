@@ -136,7 +136,7 @@ define(["jquery","angular","zrender/zrender","./app.controllers",],function($,an
                    self.chargerInfo.delayReason=angular.copy(self.formData.delayReason);
                    self.chargerInfo.influenceMainNode=angular.copy(self.formData.influenceMainNode);
                    self.chargerInfo.finishOnTime=angular.copy(self.formData.finishOnTime);
-
+                    console.log(data);
                    $rootScope.loading_hide();
                    _panel_show();
                }),function errorCallback(res){
