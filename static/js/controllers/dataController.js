@@ -267,9 +267,6 @@ define(["angular","zrender/zrender","./app.controllers","../graph/graph","../gra
             var canvas = document.createElement("canvas");
             canvas.width=500;
             canvas.height=(cHeight/cWidth)*(canvas.width);
-            console.log(zrfake.getWidth());
-            console.log(canvas.height);
-
 
             var ctx = canvas.getContext('2d');
 

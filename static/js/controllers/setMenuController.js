@@ -22,7 +22,7 @@ define(["angular","./app.controllers"],function(angular,controllers){
         self.plans=angular.copy(self.data.plans);
         /*这里把业态和状态映射 放到全局访问*/
         $rootScope.status=angular.copy(self.data.status);
-        console.log($rootScope.status);
+
         self.typeList=angular.copy(self.data.type);
 
         /*func*/
