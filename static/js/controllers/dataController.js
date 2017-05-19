@@ -62,23 +62,19 @@ define(["angular","zrender/zrender","./app.controllers","../graph/graph","../gra
                 self.nodes= data.nodes;
                 $rootScope.$broadcast("render_nodes",{});
             }),function errorCallback(res){
-
                 $rootScope.loading_hide();
                 alert("网络错误，请稍后再试");
-
             }
-
         };
 
         $scope.$on("menu_filter",function(event,data){
             self.nodesFilter=data;
-
             _getNodes(data);
         });
 
         $scope.$on("node_filter",function(event,data){
-            self.nodesFilter=data;
             $rootScope.loading_show();
+            self.nodesFilter=data;
             _focusNode(data);
         });
 
@@ -162,7 +158,6 @@ define(["angular","zrender/zrender","./app.controllers","../graph/graph","../gra
                 _renderEagleBg(imageData,zrfake);
 
                 requestAnimationFrame(function() {
-
                     var bgData=$("#fake-img").attr("src");
                     zr.modShape("eagle_bg",{
                         style:{
@@ -243,7 +238,6 @@ define(["angular","zrender/zrender","./app.controllers","../graph/graph","../gra
                 _renderEagleBg(imageData,zrfake);
 
                 requestAnimationFrame(function() {
-
                     var bgData=$("#fake-img").attr("src");
                     zr.modShape("eagle_bg",{
                         style:{
@@ -253,21 +247,20 @@ define(["angular","zrender/zrender","./app.controllers","../graph/graph","../gra
                     });
                 });
 
-
                 eagleRender.setPosition(zr,leftOffset,topOffset);
-
             }
 
             zr.render();
             zrfake.render();
             $rootScope.loading_hide();
+
         }
 
         function _renderEagleBg(imageData,zrfake){
 
             var $image=$("#fake-img");
             $image.attr("src",imageData);
-
+            var ratio=window.devicePixelRatio
             var cWidth=zrfake.getWidth();
             var cHeight=zrfake.getHeight();
 
@@ -285,8 +278,8 @@ define(["angular","zrender/zrender","./app.controllers","../graph/graph","../gra
                 ctx.drawImage($image.get(0),
                     0,//sourceX,
                     0,//sourceY,
-                    cWidth,//sourceWidth,
-                    cHeight,//sourceHeight,
+                    cWidth*ratio,//sourceWidth,
+                    cHeight*ratio,//sourceHeight,
                     0,//destX,
                     0,//destY,
                     canvas.width,//destWidth,

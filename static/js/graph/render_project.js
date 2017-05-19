@@ -15,9 +15,7 @@ define(["jquery","zrender/zrender","./graph","./data_init","./render_nodes","zre
         var TextShape = require('zrender/shape/Text');
         var Layer=require('zrender/Layer');
 
-
         //简化变量
-
         var getDateOffset=graph.getDateOffset;
         var default_pix=graph.defaultPix;
         var start_offset=graph.startOffset;

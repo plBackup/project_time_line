@@ -68,8 +68,6 @@ define(["angular","./app.controllers"],function(angular,controllers){
             //$event.preventDefault();
             self.menuFilter.node=undefined;
             self.setModel(type,menu);
-            console.log("self menu filter=====================");
-            console.log(self.menuFilter);
             $rootScope.$broadcast("menu_filter",self.menuFilter);
         };
 

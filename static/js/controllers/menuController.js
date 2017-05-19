@@ -63,6 +63,7 @@ define(["angular","./app.controllers"],function(angular,controllers){
 
         self.triggerFilter=function($event){
             $event.preventDefault();
+
             if(self.menuFilter.node!==undefined && self.menuFilter.node!==""){
                 $rootScope.$broadcast("node_filter",self.menuFilter);
             }else{
@@ -77,8 +78,6 @@ define(["angular","./app.controllers"],function(angular,controllers){
             //$event.preventDefault();
             self.menuFilter.node=undefined;
             self.setModel(type,menu);
-            console.log("self menu filter=====================");
-            console.log(self.menuFilter);
             $rootScope.$broadcast("menu_filter",self.menuFilter);
         };
 
