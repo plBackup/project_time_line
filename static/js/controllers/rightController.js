@@ -149,6 +149,8 @@ define(["jquery","angular","zrender/zrender","./app.controllers",],function($,an
             $scope.$on("showDetail",function(e,data){
                 //get node data
                 self.nodeInfo=angular.copy(data);
+
+                console.log(self.nodeInfo);
                 _loadNodeData();
             });
 

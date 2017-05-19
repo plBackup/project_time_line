@@ -86,12 +86,6 @@ response = {
         "finishOnTime": "", // 是否按期完成 3:按期完成 2:不能按期完成 else 未知
         "influenceMainNode": "", // 是否影响里程碑节点  3:影响里程碑节点、2:不影响里程碑节点 else 未知
         "delayReason": "", // 风险及具体原因
-        "attachs": [{
-            "name": "",// 附件名称
-            "url": ""// 附件地址
-        }],
-        "resNumbers": [""],// 网批查询编号、多个
-        "resIds": [""],// 网批主键编号、多个
         "messages": [{
             "creator": "",// 留言人账号
             "creatorName": "",// 留言人姓名
@@ -104,8 +98,13 @@ response = {
                 "sharedUserCd": "",// 共享接收人 、界面呈现时需要判断 sharedUserCd==当前登陆人时 显示回复按钮 供回复操作
                 "creator": "",// 共享人
             }],
-
-        }]
+            "resNumbers": [""],// 网批查询编号、多个
+            "resIds": [""],// 网批主键编号、多个
+        }],
+        "attachs": [{
+            "name": "",// 附件名称
+            "url": ""// 附件地址
+        }],
     }
 }
 
@@ -135,5 +134,29 @@ response = {
     ]
 }
 
-// XMLHttpRequest cannot load http://192.168.121.24:7900/PowerDesk/plan7/sdk!init.action. The value of the 'Access-Control-Allow-Origin' header in the response must not be the wildcard '*' when the request's credentials mode is 'include'. Origin 'http://localhost:63342' is therefore not allowed access. The credentials mode of requests initiated by the XMLHttpRequest is controlled by the withCredentials attribute.
 
+// ============================= 提交 评论1001、共享1002、回复1003
+// ============================= /plan7/sdk!comment.action?action=(1001,1002,1003)&nodeId=必须&content=必须&userCds=1002(被共享人),1003(被回复人) 必须、1001不必提供
+response = {
+    "success": true, // 操作是否成功
+    "code": 200,
+    "message": ""// 提示
+}
+
+
+// ============================= 发起网批 nodeId、type(1已完成、2申请延期或撤销)
+// ============================= /plan7/sdk!startRes.action?nodeId=&type=
+response = {
+    "success": true, // 操作是否成功
+    "code": 200,
+    "data": "",// 已生成的网批编号
+    "message": ""// 提示
+}
+
+// ============================= 提交反馈、预警状态下当前节点责任人才能操作 nodeId、finishOnTime(2不能按期完成、3按期完成)、delayCompleteDate(延期时间)、delayReason(风险)、influenceMainNode(是否影响里程碑节点)、
+// ============================= /plan7/sdk!feedback.action?nodeId=&finishOnTime=(2|3)&delayCompleteDate=(finishOnTime==2必填)&delayReason=(finishOnTime==2必填)&influenceMainNode=(finishOnTime==2必填)
+response = {
+    "success": true, // 操作是否成功
+    "code": 200,
+    "message": ""// 提示
+}
