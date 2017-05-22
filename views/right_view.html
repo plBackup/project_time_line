@@ -80,6 +80,7 @@
                                     <label for="status-done">已完成</label>
                                 </div>
                             </div>-->
+
                             <div class="td-wrappr clearfix" ng-if="rCtrl.nodeInfo.status==2">
                                 <span>已完成</span>
                             </div>
@@ -104,9 +105,9 @@
                     <tr ng-if="rCtrl.nodeInfo.isChargeMan==true">
                         <th>操作:</th>
                         <td>
-                            <div class="td-wrapper clearfix">
+                            <div class="td-wrapper clearfix" ng-if="rCtrl.formData.templateId!=4&&rCtrl.formData.templateId!=6">
                                 <div class="input-addon input-radio-addon pull-left" ng-if="rCtrl.nodeInfo.confirmStatus==2 &&rCtrl.nodeInfo.resStatus!=2">
-                                    <input type="radio" name="warning-opt" id="warning-opt-complete" ng-value="" ng-model="rCtrl.statusOpt">
+                                    <input type="radio" name="warning-opt" id="warning-opt-complete" ng-value="done" ng-model="rCtrl.statusOpt">
                                     <label for="warning-opt-complete">已完成</label>
                                 </div>
                                 <div class="input-addon input-radio-addon pull-left" ng-if="rCtrl.nodeInfo.isWarning==1&&rCtrl.nodeInfo.confirmStatus==2 ">
@@ -114,12 +115,22 @@
                                     <label for="warning-opt-ondate">预计按期完成</label>
                                 </div>
                                 <div class="input-addon input-radio-addon pull-left" ng-if="rCtrl.nodeInfo.isWarning==1 &&rCtrl.nodeInfo.confirmStatus==2 ">
-                                    <input type="radio" name="warning-opt" id="warning-opt-delay" ng-value="complete" ng-model="rCtrl.statusOpt">
+                                    <input type="radio" name="warning-opt" id="warning-opt-delay" ng-value="delay" ng-model="rCtrl.statusOpt">
                                     <label for="warning-opt-delay">预计延期完成</label>
                                 </div>
 
-                                <div class="input-addon input-radio-addon pull-left" ng-if="rCtrl.nodeInfo.confirmStatus==2 &&rCtrl.nodeInfo.resStatus!=2">
+                               <!-- <div class="input-addon input-radio-addon pull-left" ng-if="rCtrl.nodeInfo.confirmStatus==2 &&rCtrl.nodeInfo.resStatus!=2">
                                     <input type="radio" name="warning-opt" id="warning-opt-cancel" ng-value="complete" ng-model="rCtrl.statusOpt">
+                                    <label for="warning-opt-cancel">申请延期或撤销</label>
+                                </div>-->
+                            </div>
+                            <div class="td-wrapper clearfix" ng-if="rCtrl.formData.templateId==4||rCtrl.formData.templateId==6">
+                                <div class="input-addon input-radio-addon pull-left">
+                                    <input type="radio" name="warning-opt" id="warning-opt-complete" ng-value="done" ng-model="rCtrl.statusOpt">
+                                    <label for="warning-opt-complete">已完成</label>
+                                </div>
+                                <div class="input-addon input-radio-addon pull-left" ng-if="rCtrl.nodeInfo.confirmStatus==2 &&rCtrl.nodeInfo.resStatus!=2">
+                                    <input type="radio" name="warning-opt" id="warning-opt-cancel" ng-value="needdelay" ng-model="rCtrl.statusOpt">
                                     <label for="warning-opt-cancel">申请延期或撤销</label>
                                 </div>
                             </div>
@@ -159,13 +170,13 @@
                     </tbody><!--tbody-->
 
                     <!--非责任人反馈信息-->
-                    <tbody class="rpanel-opt-table" ng-if="rCtrl.nodeInfo.isChargeMan!=true">
+                    <tbody class="rpanel-opt-table" ng-if="rCtrl.nodeInfo.isChargeMan!=true" ng-show="rCtrl.statusOpt=='delay'||rCtrl.statusOpt=='needdelay'">
                     <tr>
                         <th colspan="2">
                             <h3>责任人反馈信息</h3>
                         </th>
                     </tr><!--tr-->
-                    <tr ng-if="rCtrl.formData.finishOnTime==''">
+                    <!--<tr ng-if="rCtrl.formData.finishOnTime==''">
                         <th>是否按期完成:</th>
                         <td>
                             <div class="td-wrapper clearfix" ng-if="rCtrl.formData.finishOnTime!=''">
@@ -180,8 +191,19 @@
                             </div>
                             <span ng-if="rCtrl.formData.finishOnTime==''">-</span>
                         </td>
+                    </tr>--><!--tr-->
+
+                    <tr ng-if="rCtrl.formData.templateId!=4&&rCtrl.formData.templateId!=6">
+                        <th>延期时间:</th>
+                        <td>
+                           <!-- <div class="ys-date-picker" date-picker="" date-select="rCtrl.setStartDate({date:date})"
+                                 ng-model="rCtrl.planCompleteDate" date-directive-name="rCtrl.dateDirectiveName" ng-disabled="true">
+                            </div>-->
+                            <span>{{rCtrl.nodeInfo.delayCompleteDate ||"-"}}</span>
+                        </td>
                     </tr><!--tr-->
-                    <tr ng-if="rCtrl.formData.influenceMainNode==''">
+
+                    <tr>
                         <th>是否影响里程碑节点:</th>
                         <td>
                             <div class="td-wrapper clearfix" ng-if="rCtrl.formData.influenceMainNode!=''">
@@ -211,13 +233,13 @@
                     </tbody>
 
                     <!--责任人操作-->
-                    <tbody class="rpanel-opt-table" ng-if="rCtrl.nodeInfo.isChargeMan==true">
+                    <tbody class="rpanel-opt-table" ng-if="rCtrl.nodeInfo.isChargeMan==true" ng-show="rCtrl.statusOpt=='delay'||rCtrl.statusOpt=='needdelay'">
                     <tr>
                         <th colspan="2">
                             <h3>责任人操作</h3>
                         </th>
                     </tr><!--tr-->
-                    <tr>
+                   <!-- <tr>
                         <th>是否按期完成:</th>
                         <td>
                             <div class="td-wrapper clearfix">
@@ -230,6 +252,14 @@
                                     <label for="out-schedule">否</label>
                                 </div>
                             </div>
+                        </td>
+                    </tr>--><!--tr-->
+                    <tr ng-if="rCtrl.formData.templateId!=4&&rCtrl.formData.templateId!=6">
+                        <th>延期时间:</th>
+                        <td>
+                             <div class="ys-date-picker" date-picker="" date-select="rCtrl.setStartDate({date:date})"
+                                  ng-model="rCtrl.planCompleteDate" date-directive-name="rCtrl.dateDirectiveName" ng-disabled="true">
+                             </div>
                         </td>
                     </tr><!--tr-->
                     <tr>
