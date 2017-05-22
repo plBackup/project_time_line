@@ -23,6 +23,14 @@ define(["jquery","angular","zrender/zrender","./app.controllers",],function($,an
             self.isShare=false;
             self.shareMembers=[];
 
+        self.planCompleteDate='';
+        self.dateDirectiveName="complete_date";
+        self.setCompleteDate=function(dateObj){
+            var date=dateObj.date;
+            self.planCompleteDate=date;
+        };
+
+
             self.close=function(){
                 _panel_hide();
             };
@@ -136,6 +144,15 @@ define(["jquery","angular","zrender/zrender","./app.controllers",],function($,an
                    self.chargerInfo.delayReason=angular.copy(self.formData.delayReason);
                    self.chargerInfo.influenceMainNode=angular.copy(self.formData.influenceMainNode);
                    self.chargerInfo.finishOnTime=angular.copy(self.formData.finishOnTime);
+
+                   if(self.formData.operationRecord==3){
+                       self.statusOpt="needdelay";
+
+                   }
+                   if(self.formData.finishOnTime==2){
+                       self.statusOpt="delay";
+
+                   }
                     console.log(data);
                    $rootScope.loading_hide();
                    _panel_show();

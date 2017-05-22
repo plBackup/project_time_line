@@ -23,6 +23,8 @@ define(["angular","zrender/zrender","./app.controllers","../graph/graph","../gra
             isWarning:false,
             level:"",
             plan:$rootScope.plan.name,
+            delayCompleteDate:"",
+
 
             centerManagerCd: "",
             centerManagerName: "",
@@ -368,10 +370,14 @@ define(["angular","zrender/zrender","./app.controllers","../graph/graph","../gra
                     self.curSelectNode.statusText=params._statusText;
                     /*todo 判断当前节点是不是责任人，决定责任人列表的显示*/
                     self.curSelectNode.isChargeMan= $rootScope.curUser==params._chargerCd;
-                    if(typeof params._delayCompleteDate!=="undefined" || params._delayCompleteDate!==""){
+                    if(typeof params._delayCompleteDate!=="undefined" && params._delayCompleteDate!==""){
                         //params._delayCompleteDate 为毫秒数
+                        console.log("params._delayCompleteDate----"+params._delayCompleteDate);
+
                         var delayCompleteDate=new Date(params._delayCompleteDate);
                         var dStr=delayCompleteDate.getFullYear()+"-"+(delayCompleteDate.getMonth()+1)+"-"+delayCompleteDate.getDate();
+
+                        self.curSelectNode.delayCompleteDate=dStr;
                         self.delayOffset=graph.getDateOffset(params._end_date,dStr);
                     }else{
                         self.delayOffset="-";
