@@ -102,7 +102,7 @@ define(["angular","./app.directives"],function(angular,directives){
                         dpicker=$element.find("input").datetimepicker({
                             format:"yyyy-mm-dd",
                             todayBtn:"linked",
-                            startView:3,
+                            startView:2,
                             minView:2,
                             autoclose: true,
                             language:"zh-CN",
