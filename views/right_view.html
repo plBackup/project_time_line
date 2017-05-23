@@ -287,17 +287,17 @@
 
                     <tr>
                         <th style="vertical-align: top;">风险及具体原因:</th>
-                        <td style="position: relative;">
-                            <div class="td-wrapper">
+                        <td >
+                            <div class="td-wrapper" style="position: relative;">
                                 <textarea>{{rCtrl.formData.delayReason}}</textarea>
                                 <div class="td-btn-group clearfix">
                                     <a class="btn btn-primary" ng-click="rCtrl.chargerCommit($event)">确定</a>
                                     <a class="btn btn-default" ng-click="rCtrl.resetCommit($event)">取消</a>
                                 </div>
-                            </div>
-                            <div class="alert-wrapper" id="charger-alert-wrapper">
-                                <div class="alert alert-success" role="alert">提交成功</div>
-                                <div class="alert alert-danger" role="alert">网络错误，请稍后再试</div>
+                                <div class="alert-wrapper" id="charger-alert-wrapper">
+                                    <div class="alert alert-success" role="alert">提交成功</div>
+                                    <div class="alert alert-danger" role="alert">网络错误，请稍后再试</div>
+                                </div>
                             </div>
                         </td>
                     </tr><!--tr-->

@@ -87,25 +87,49 @@ define(["jquery","angular","zrender/zrender","./app.controllers",],function($,an
                 var nodeId=self.nodeInfo.nodeId;
                 //责任人提交
                 //?nodeId=&finishOnTime=(2|3)&delayCompleteDate=(finishOnTime==2必填)&delayReason=(finishOnTime==2必填)&influenceMainNode=(finishOnTime==2必填)
-                 if(typeof self.statusOpt=="undefined"||self.statusOpt==''){
+                 if(typeof self.statusOpt=="undefined"||self.statusOpt==''||self.statusOpt==null){
                      alert("必须勾选已完成、预计按期完成、预计延期完成其中一个!")
                      return;
                  }
-                 if(statusOpt=="done"){
 
-                 }
                  if(self.formData.finishOnTime==2){
                     if(typeof self.planCompleteDate=='undefined'||self.planCompleteDate==''||typeof self.formData.delayReason=='undefined'||self.formData.delayReason==''||typeof self.formData.influenceMainNode=='undefined'||self.formData.influenceMainNode==''){
                         alert("请完整填入责任人操作表单数据！");
                         return;
                     }
                  }
+                 if(self.statusOpt=='done'){
+                     //发起网批
+                     var confirm=window.confirm("确认发起网批？");
+                     if(confirm){
+                         var type=1;
+                         var search="?nodeId="+nodeId+"&type="+type;
 
+                         $http.get($rootScope.plink+'/sdk!startRes.action'+search, {cache: false,'Content-Type':'application/x-www-form-urlencoded',withCredentials:true}).then(function (res) {
+                             if(res.data.code==200){
+                                 /* $("#charger-alert-wrapper").find(".alert-success").fadeIn();
+                                  $timeout(function(){
+                                  $("#charger-alert-wrapper").find(".alert-success").fadeOut();
+                                  },2500);*/
+                                 alert("发起网批成功！");
+                                 //todo:这里成功后，应该切换至网批不可操作状态。
+                             }else{
+                                 alert("发起网批不成功，请稍后再试！");
+                             }
+                         },function(err){
+                             alert("发起网批不成功，请稍后再试！");
+                         });
+
+                     }
+
+                 }
                  if(typeof self.formData.finishOnTime!=="undefined"&&self.formData.finishOnTime!=""){
                      var feedbackSearch="?nodeId="+nodeId+"&finishOnTime="+self.formData.finishOnTime+"&delayCompleteDate="+self.planCompleteDate+"&delayReason="+self.formData.delayReason+"&influenceMainNode="+self.formData.influenceMainNode;
                      $http.get($rootScope.plink+'/sdk!feedback.action'+feedbackSearch, {cache: false,'Content-Type':'application/x-www-form-urlencoded',withCredentials:true}).then(function (res) {
                          if(res.data.code==200){
                              $("#charger-alert-wrapper").find(".alert-success").fadeIn();
+                             //todo:check 提交成功后，应该进入只有已完成的状态。。
+                             _loadNodeData();
                              $timeout(function(){
                                  $("#charger-alert-wrapper").find(".alert-success").fadeOut();
                              },2500);
