@@ -67,7 +67,7 @@ define(["jquery","angular","zrender/zrender","./app.controllers",],function($,an
             }
         };
             self.setFinishOnTime=function($event){
-                console.log(self.statusOpt);
+
                /* $event.preventDefault();*/
                 if(self.statusOpt=="done"){
                     self.formData.finishOnTime=3;
@@ -80,7 +80,7 @@ define(["jquery","angular","zrender/zrender","./app.controllers",],function($,an
                     self.formData.finishOnTime=2;
                     self.formData.operationRecord=3;
                 }
-                console.log(self.formData.finishOnTime);
+
             }
             self.chargerCommit=function($event){
                 $event.preventDefault();
@@ -263,7 +263,7 @@ define(["jquery","angular","zrender/zrender","./app.controllers",],function($,an
                        self.statusOpt="delay";
 
                    }
-                    console.log(data);
+
                    $rootScope.loading_hide();
                    _panel_show();
                }),function errorCallback(res){
@@ -277,7 +277,7 @@ define(["jquery","angular","zrender/zrender","./app.controllers",],function($,an
                 //get node data
                 self.nodeInfo=angular.copy(data);
                 self.planCompleteDate=self.nodeInfo.delayCompleteDate;
-                console.log(self.nodeInfo);
+
                 _loadNodeData();
             });
 
