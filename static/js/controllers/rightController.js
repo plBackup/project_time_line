@@ -17,7 +17,7 @@ define(["jquery","angular","zrender/zrender","./app.controllers",],function($,an
             //temp 纪录之前的责任人操作数据
             self.chargerInfo={};
             //完成状态的选择
-            self.statusOpt='';
+            self.statusOpt=null;
 
             self.isReply=false;
             self.isShare=false;
@@ -39,9 +39,95 @@ define(["jquery","angular","zrender/zrender","./app.controllers",],function($,an
 
             };
 
+        self.lauchNetCom=function($event){
+            $event.preventDefault();
+            var nodeId=self.nodeInfo.nodeId;
+            //发起网批
+            if(self.statusOpt=="done"||self.statusOpt=="needdelay"){
+                if(self.statusOpt=="done"){
+                    var type=1;
+                }else if(self.statusOpt=="needdelay"){
+                    var type=2;
+                }
+                var search="?nodeId="+nodeId+"&type="+type;
+
+                $http.get($rootScope.plink+'/sdk!startRes.action'+search, {cache: false,'Content-Type':'application/x-www-form-urlencoded',withCredentials:true}).then(function (res) {
+                    if(res.data.code==200){
+                        /* $("#charger-alert-wrapper").find(".alert-success").fadeIn();
+                         $timeout(function(){
+                         $("#charger-alert-wrapper").find(".alert-success").fadeOut();
+                         },2500);*/
+                        alert("发起网批成功！");
+                    }else{
+                        alert("发起网批不成功，请稍后再试！");
+                    }
+                },function(err){
+                    alert("发起网批不成功，请稍后再试！");
+                });
+            }
+        };
+            self.setFinishOnTime=function($event){
+                console.log(self.statusOpt);
+               /* $event.preventDefault();*/
+                if(self.statusOpt=="done"){
+                    self.formData.finishOnTime=3;
+                    self.formData.operationRecord=1;
+
+                }else if(self.statusOpt=="complete"){
+                    self.formData.finishOnTime=3;
+                    self.formData.operationRecord=2;
+                }else if(self.statusOpt=="needdelay"||self.statusOpt=="delay"){
+                    self.formData.finishOnTime=2;
+                    self.formData.operationRecord=3;
+                }
+                console.log(self.formData.finishOnTime);
+            }
             self.chargerCommit=function($event){
                 $event.preventDefault();
+                var nodeId=self.nodeInfo.nodeId;
+                //责任人提交
+                //?nodeId=&finishOnTime=(2|3)&delayCompleteDate=(finishOnTime==2必填)&delayReason=(finishOnTime==2必填)&influenceMainNode=(finishOnTime==2必填)
+                 if(typeof self.statusOpt=="undefined"||self.statusOpt==''){
+                     alert("必须勾选已完成、预计按期完成、预计延期完成其中一个!")
+                     return;
+                 }
+                 if(statusOpt=="done"){
+
+                 }
+                 if(self.formData.finishOnTime==2){
+                    if(typeof self.planCompleteDate=='undefined'||self.planCompleteDate==''||typeof self.formData.delayReason=='undefined'||self.formData.delayReason==''||typeof self.formData.influenceMainNode=='undefined'||self.formData.influenceMainNode==''){
+                        alert("请完整填入责任人操作表单数据！");
+                        return;
+                    }
+                 }
+
+                 if(typeof self.formData.finishOnTime!=="undefined"&&self.formData.finishOnTime!=""){
+                     var feedbackSearch="?nodeId="+nodeId+"&finishOnTime="+self.formData.finishOnTime+"&delayCompleteDate="+self.planCompleteDate+"&delayReason="+self.formData.delayReason+"&influenceMainNode="+self.formData.influenceMainNode;
+                     $http.get($rootScope.plink+'/sdk!feedback.action'+feedbackSearch, {cache: false,'Content-Type':'application/x-www-form-urlencoded',withCredentials:true}).then(function (res) {
+                         if(res.data.code==200){
+                             $("#charger-alert-wrapper").find(".alert-success").fadeIn();
+                             $timeout(function(){
+                                 $("#charger-alert-wrapper").find(".alert-success").fadeOut();
+                             },2500);
+                         }else{
+                             $("#charger-alert-wrapper").find(".alert-danger").fadeIn();
+                             $timeout(function(){
+                                 $(".alert-wrapper").find(".alert-danger").fadeOut();
+                             },2500);
+                         }
+
+                     },function(err){
+                         $("#charger-alert-wrapper").find(".alert-danger").fadeIn();
+                         $timeout(function(){
+                             $("#charger-alert-wrapper").find(".alert-danger").fadeOut();
+                         },2500);
+                     });
+                 }
+
+
+
             };
+
             self.resetCommit=function($event){
                 $event.preventDefault();
                 $scope.$apply(function(){
@@ -73,13 +159,13 @@ define(["jquery","angular","zrender/zrender","./app.controllers",],function($,an
 
                 $http.get($rootScope.plink+'/sdk!comment.action'+search, {cache: false,'Content-Type':'application/x-www-form-urlencoded',withCredentials:true}).then(function (res) {
                     if(res.data.code==200){
-                        $(".alert-wrapper").find(".alert-success").fadeIn();
+                        $("#message-alert-wrapper").find(".alert-success").fadeIn();
                         _loadNodeData();
                         $timeout(function(){
-                            $(".alert-wrapper").find(".alert-success").fadeOut();
+                            $("#message-alert-wrapper").find(".alert-success").fadeOut();
                         },2500);
                     }else{
-                        $(".alert-wrapper").find(".alert-danger").fadeIn();
+                        $("#message-alert-wrapper").find(".alert-danger").fadeIn();
                         $timeout(function(){
                             $(".alert-wrapper").find(".alert-danger").fadeOut();
                         },2500);
@@ -166,7 +252,7 @@ define(["jquery","angular","zrender/zrender","./app.controllers",],function($,an
             $scope.$on("showDetail",function(e,data){
                 //get node data
                 self.nodeInfo=angular.copy(data);
-
+                self.planCompleteDate=self.nodeInfo.delayCompleteDate;
                 console.log(self.nodeInfo);
                 _loadNodeData();
             });

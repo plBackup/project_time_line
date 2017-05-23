@@ -517,9 +517,9 @@
     }
 
     function saveReason(nid){
-    	var goToRes=$("#goToRes").attr("class");
-    	var goToStu1=$("#goToStu1").attr("class");
-    	var goToStu2=$("#goToStu2").attr("class");
+    	var goToRes=$("#goToRes").attr("class");//已经完成
+    	var goToStu1=$("#goToStu1").attr("class");//预计按期完成
+    	var goToStu2=$("#goToStu2").attr("class");//预计延期完成
     	if('selected'!=goToRes&&'selected'!=goToStu1&&'selected'!=goToStu2){
     		alert("必须勾选已完成、预计按期完成、预计延期完成其中一个!")
     		return;

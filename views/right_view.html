@@ -107,15 +107,15 @@
                         <td>
                             <div class="td-wrapper clearfix" ng-if="rCtrl.formData.templateId!=4&&rCtrl.formData.templateId!=6">
                                 <div class="input-addon input-radio-addon pull-left" ng-if="rCtrl.nodeInfo.confirmStatus==2 &&rCtrl.nodeInfo.resStatus!=2">
-                                    <input type="radio" name="warning-opt" id="warning-opt-complete" ng-value="done" ng-model="rCtrl.statusOpt">
+                                    <input type="radio" name="warning-opt" id="warning-opt-complete" ng-value="'done'" ng-model="rCtrl.statusOpt" ng-checked="rCtrl.setFinishOnTime($event)">
                                     <label for="warning-opt-complete">已完成</label>
                                 </div>
                                 <div class="input-addon input-radio-addon pull-left" ng-if="rCtrl.nodeInfo.isWarning==1&&rCtrl.nodeInfo.confirmStatus==2 ">
-                                    <input type="radio" name="warning-opt" id="warning-opt-ondate" ng-value="complete" ng-model="rCtrl.statusOpt">
+                                    <input type="radio" name="warning-opt" id="warning-opt-ondate" ng-value="'complete'" ng-model="rCtrl.statusOpt" ng-checked="rCtrl.setFinishOnTime($event)">
                                     <label for="warning-opt-ondate">预计按期完成</label>
                                 </div>
                                 <div class="input-addon input-radio-addon pull-left" ng-if="rCtrl.nodeInfo.isWarning==1 &&rCtrl.nodeInfo.confirmStatus==2 ">
-                                    <input type="radio" name="warning-opt" id="warning-opt-delay" ng-value="delay" ng-model="rCtrl.statusOpt">
+                                    <input type="radio" name="warning-opt" id="warning-opt-delay" ng-value="'delay'" ng-model="rCtrl.statusOpt" ng-checked="rCtrl.setFinishOnTime($event)">
                                     <label for="warning-opt-delay">预计延期完成</label>
                                 </div>
 
@@ -123,15 +123,22 @@
                                     <input type="radio" name="warning-opt" id="warning-opt-cancel" ng-value="complete" ng-model="rCtrl.statusOpt">
                                     <label for="warning-opt-cancel">申请延期或撤销</label>
                                 </div>-->
+                               <!-- <div class="td-btn-group pull-left">
+                                    <a class="btn btn-primary" ng-click="rCtrl.lauchNetCom($event)">发起网批</a>
+                                </div>-->
                             </div>
                             <div class="td-wrapper clearfix" ng-if="rCtrl.formData.templateId==4||rCtrl.formData.templateId==6">
                                 <div class="input-addon input-radio-addon pull-left">
-                                    <input type="radio" name="warning-opt" id="warning-opt-complete" ng-value="done" ng-model="rCtrl.statusOpt">
+                                    <input type="radio" name="warning-opt" id="warning-opt-complete" ng-value="'done'" ng-model="rCtrl.statusOpt" ng-checked="rCtrl.setFinishOnTime($event)">
                                     <label for="warning-opt-complete">已完成</label>
                                 </div>
                                 <div class="input-addon input-radio-addon pull-left" ng-if="rCtrl.nodeInfo.confirmStatus==2 &&rCtrl.nodeInfo.resStatus!=2">
-                                    <input type="radio" name="warning-opt" id="warning-opt-cancel" ng-value="needdelay" ng-model="rCtrl.statusOpt">
+                                    <input type="radio" name="warning-opt" id="warning-opt-cancel" ng-value="'needdelay'" ng-model="rCtrl.statusOpt" ng-checked="rCtrl.setFinishOnTime($event)">
                                     <label for="warning-opt-cancel">申请延期或撤销</label>
+                                </div>
+
+                                <div class="td-btn-group pull-left">
+                                    <a class="btn btn-primary" ng-click="rCtrl.lauchNetCom($event)">发起网批</a>
                                 </div>
                             </div>
                         </td>
@@ -176,7 +183,7 @@
                             <h3>责任人反馈信息</h3>
                         </th>
                     </tr><!--tr-->
-                    <!--<tr ng-if="rCtrl.formData.finishOnTime==''">
+                   <!-- <tr ng-if="rCtrl.formData.finishOnTime==''">
                         <th>是否按期完成:</th>
                         <td>
                             <div class="td-wrapper clearfix" ng-if="rCtrl.formData.finishOnTime!=''">
@@ -191,9 +198,9 @@
                             </div>
                             <span ng-if="rCtrl.formData.finishOnTime==''">-</span>
                         </td>
-                    </tr>--><!--tr-->
-
-                    <tr ng-if="rCtrl.formData.templateId!=4&&rCtrl.formData.templateId!=6">
+                    </tr>
+-->
+                    <tr ng-if="rCtrl.formData.templateId!=4&&rCtrl.formData.templateId!=6&& rCtrl.formData.finishOnTime==2">
                         <th>延期时间:</th>
                         <td>
                            <!-- <div class="ys-date-picker" date-picker="" date-select="rCtrl.setStartDate({date:date})"
@@ -233,13 +240,13 @@
                     </tbody>
 
                     <!--责任人操作-->
-                    <tbody class="rpanel-opt-table" ng-if="rCtrl.nodeInfo.isChargeMan==true" ng-show="rCtrl.statusOpt=='delay'||rCtrl.statusOpt=='needdelay'">
+                    <tbody class="rpanel-opt-table" ng-if="rCtrl.nodeInfo.isChargeMan==true">
                     <tr>
                         <th colspan="2">
                             <h3>责任人操作</h3>
                         </th>
                     </tr><!--tr-->
-                   <!-- <tr>
+                    <!--<tr>
                         <th>是否按期完成:</th>
                         <td>
                             <div class="td-wrapper clearfix">
@@ -254,7 +261,7 @@
                             </div>
                         </td>
                     </tr>--><!--tr-->
-                    <tr ng-if="rCtrl.formData.templateId!=4&&rCtrl.formData.templateId!=6">
+                    <tr ng-if="rCtrl.formData.templateId!=4&&rCtrl.formData.templateId!=6" ng-show="rCtrl.formData.finishOnTime==2">
                         <th>延期时间:</th>
                         <td>
                              <div class="ys-date-picker" date-picker="" date-select="rCtrl.setCompleteDate({date:date})"
@@ -262,7 +269,7 @@
                              </div>
                         </td>
                     </tr><!--tr-->
-                    <tr>
+                    <tr ng-show="rCtrl.formData.finishOnTime==2">
                         <th>是否影响里程碑节点:</th>
                         <td>
                             <div class="td-wrapper clearfix">
@@ -280,13 +287,17 @@
 
                     <tr>
                         <th style="vertical-align: top;">风险及具体原因:</th>
-                        <td>
+                        <td style="position: relative;">
                             <div class="td-wrapper">
                                 <textarea>{{rCtrl.formData.delayReason}}</textarea>
                                 <div class="td-btn-group clearfix">
                                     <a class="btn btn-primary" ng-click="rCtrl.chargerCommit($event)">确定</a>
                                     <a class="btn btn-default" ng-click="rCtrl.resetCommit($event)">取消</a>
                                 </div>
+                            </div>
+                            <div class="alert-wrapper" id="charger-alert-wrapper">
+                                <div class="alert alert-success" role="alert">提交成功</div>
+                                <div class="alert alert-danger" role="alert">网络错误，请稍后再试</div>
                             </div>
                         </td>
                     </tr><!--tr-->
@@ -327,7 +338,7 @@
                         <textarea width="100%" style="" placeholder="发表留言(留言内容不具有审批效力)" id="message-textarea" ng-model="rCtrl.message">{{rCtrl.message}}</textarea>
                         <button ng-click="rCtrl.sendMessage($event)" style="right:94px;">留言</button>
                         <button ng-click="rCtrl.shareMessage($event)">分享</button>
-                        <div class="alert-wrapper">
+                        <div class="alert-wrapper" id="message-alert-wrapper">
                             <div class="alert alert-success" role="alert">提交成功</div>
                             <div class="alert alert-danger" role="alert">网络错误，请稍后再试</div>
                         </div>
