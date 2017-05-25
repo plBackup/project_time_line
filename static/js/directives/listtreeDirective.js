@@ -64,10 +64,19 @@ define(["angular","./app.directives"],function(angular,directives){
                            }
                        }else{
                            console.log($(this).data("id"));
-                           var itemId=$(this).data("id")
-                           $scope.$apply(function() {
-                               $scope.itemSelect({id : itemId});
-                           });
+                           if($(this).hasClass("active")){
+                               return;
+                           }else{
+
+                               $(".ys-tree-item").removeClass("active");
+                               $(this).addClass("active");
+
+                               var itemId=$(this).data("id");
+                               $scope.$apply(function() {
+                                   $scope.itemSelect({id : itemId});
+                               });
+                           }
+
                        }
                     });
 

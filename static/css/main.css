@@ -656,10 +656,11 @@ a#level-selected.level_all:before{background-color: #fff;}
 .modal-list-wrapper>div {height:300px;overflow: hidden;overflow-y: auto;}
 
 .ys-list-tree{list-style: none;padding-left:0;}
-.ys-list-tree>li.ys-tree-item{padding-left:16px;position: relative;font-size:12.8px;line-height: 28px;}
+.ys-list-tree>li.ys-tree-item{padding-left:16px;position: relative;font-size:12.8px;line-height: 28px;cursor:pointer;}
+.ys-list-tree>li.ys-tree-item.active{background-color:#00aaff;color:#fff;}
 .ys-list-tree>li.ys-tree-item:before{display: block;content:" ";width:6px;height:6px;border-radius: 6px;
-    background-color:#d2d2d2;position: absolute;top:8px;left:5px;}
-
+    background-color:#d2d2d2;position: absolute;top:11px;left:5px;}
+.ys-list-tree>li.ys-tree-item.active:before{background-color:#fff;}
 .ys-list-tree>li.ys-tree-item.parent:before{display: block;content:"\002b";font-size:14px;color:#9f9f9f;background-color: transparent;
     position: absolute;width:16px;height:16px;left:0;line-height: 16px;top:6px;text-align: center;}
 .ys-list-tree>li.ys-tree-item.parent.open:before{content:"\2212";}

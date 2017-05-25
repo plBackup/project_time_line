@@ -10,10 +10,20 @@ define(["jquery","angular","zrender/zrender","./app.controllers",],function($,an
             self.domain=$rootScope.domain;
             console.log("modal data======================")
             console.log(modalData);
-            self.modalData=modalData;
+            self.modalData=modalData.data;
 
             self.itemSelect=function(id){
-                 console.log(id)
+                 console.log(id);
+                var search="?orgCd="+id;
+                $http.get($rootScope.plink+'/sdk!quick.action'+search, {cache: false,'Content-Type':'application/x-www-form-urlencoded',withCredentials:true}).then(function(res){
+                    console.log(res.data);
+                    if(typeof cb!=="undefined"){
+                        cb(res.data);
+                    }else{
+                        return res.data;
+                    }
+                });
+
             };
 
             self.setShare=function(){
