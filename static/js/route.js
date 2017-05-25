@@ -130,7 +130,6 @@ define(["js/app"],
                                 return dataNodeService.getData(search);
                             },
                             modalData: function(dataModalService,$stateParams,$rootScope) {
-
                                 return dataModalService.getData();
                             },
                         }
