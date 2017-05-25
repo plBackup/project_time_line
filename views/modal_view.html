@@ -49,7 +49,7 @@
                     </div><!--modal-department-list-->
                     <div class="col-xs-4 modal-department-member">
                         <ul class="ys-member-list">
-                            <li data-id="user-id" ng-click="">成员姓名</li>
+                            <li data-id="{{member.uiid}}" data-index="{{$index}}" ng-click="" ng-repeat="member in mCtrl.departmentMemebers track by $index">{{member.name}}</li>
                         </ul>
                     </div><!--modal-department-list-->
 

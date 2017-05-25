@@ -12,15 +12,21 @@ define(["jquery","angular","zrender/zrender","./app.controllers",],function($,an
             console.log(modalData);
             self.modalData=modalData.data;
 
+            self.departmentMemebers=[];
+
             self.itemSelect=function(id){
                  console.log(id);
                 var search="?orgCd="+id;
                 $http.get($rootScope.plink+'/sdk!quick.action'+search, {cache: false,'Content-Type':'application/x-www-form-urlencoded',withCredentials:true}).then(function(res){
                     console.log(res.data);
+
                     if(typeof cb!=="undefined"){
                         cb(res.data);
                     }else{
-                        return res.data;
+                       /* $scope.$apply(function(){
+
+                        });*/
+                        self.departmentMemebers=res.data.data;
                     }
                 });
 
