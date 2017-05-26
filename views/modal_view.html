@@ -35,9 +35,9 @@
 
                     <div class="col-xs-4">
                         <div class="modal-btn-group" role="group">
-                            <button type="button" class="btn btn-default">全选</button>
-                            <button type="button" class="btn btn-default">反选</button>
-                            <button type="button" class="btn btn-default">全删</button>
+                            <button type="button" class="btn btn-default" ng-click="mCtrl.selectAll()">全选</button>
+                            <button type="button" class="btn btn-default" ng-click="mCtrl.removeUnchecked()">删除未选</button>
+                            <button type="button" class="btn btn-default" ng-click="mCtrl.removeAllSelected()">全删</button>
                         </div>
                     </div>
                 </div><!--modal opt wrapper-->
@@ -49,13 +49,13 @@
                     </div><!--modal-department-list-->
                     <div class="col-xs-4 modal-department-member">
                         <ul class="ys-member-list">
-                            <li data-id="{{member.uiid}}" data-index="{{$index}}" ng-click="" ng-repeat="member in mCtrl.departmentMemebers track by $index">{{member.name}}</li>
+                            <li data-id="{{member.uiid}}" data-index="{{$index}}" ng-click="mCtrl.toggleSelect($event,member)" ng-class="{checked:member.checked}" ng-repeat="member in mCtrl.departmentMemebers track by $index">{{member.name}}</li>
                         </ul>
                     </div><!--modal-department-list-->
 
                     <div class="col-xs-4 modal-selected-member">
                         <ul class="ys-member-list ys-select-list">
-                            <li data-id="user-id" ng-click="">成员姓名</li>
+                            <li data-id="{{uid}}" ng-click="mCtrl.selectedToggleCheck($event,uid)" ng-repeat="(uid,person) in mCtrl.selectedMembers" ng-class="{checked:person.checked}">{{person.name}}</li>
                         </ul>
                     </div><!--modal-department-list-->
                 </div>

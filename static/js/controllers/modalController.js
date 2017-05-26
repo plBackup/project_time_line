@@ -8,12 +8,12 @@ define(["jquery","angular","zrender/zrender","./app.controllers",],function($,an
             var self=this;
             self.baseLink=$rootScope.plink;
             self.domain=$rootScope.domain;
-            console.log("modal data======================")
+            console.log("modal data======================");
             console.log(modalData);
             self.modalData=modalData.data;
 
             self.departmentMemebers=[];
-
+            self.selectedMembers={};
             self.itemSelect=function(id){
                  console.log(id);
                 var search="?orgCd="+id;
@@ -27,9 +27,65 @@ define(["jquery","angular","zrender/zrender","./app.controllers",],function($,an
 
                         });*/
                         self.departmentMemebers=res.data.data;
+                        $.each(self.departmentMemebers,function(i,member){
+                            if(self.selectedMembers[member.uiid]){
+                                member.checked=true;
+                            }
+                        });
+
                     }
                 });
 
+            };
+
+            self.toggleSelect=function($event,member){
+                $event.preventDefault();
+                console.log(member);
+                console.log(member.uiid);
+                if(member.checked==true){
+                    member.checked=false;
+                    delete self.selectedMembers[member.uiid];
+                }else{
+                    member.checked=true;
+                    self.selectedMembers[member.uiid]=member;
+                    self.selectedMembers[member.uiid]['checked']=true;
+                }
+            };
+
+            self.selectedToggleCheck=function($event,uid){
+                $event.preventDefault();
+                console.log(uid);
+                console.log(self.selectedMembers[uid])
+                console.log(self.selectedMembers[uid].checked)
+                if(self.selectedMembers[uid].checked==true){
+                    self.selectedMembers[uid].checked=false;
+                }else{
+                    self.selectedMembers[uid].checked=true;
+                }
+            };
+
+            self.selectAll=function(){
+                $.each(self.selectedMembers,function(uid,person){
+                   person.checked=true;
+                });
+            };
+            self.removeUnchecked=function(){
+                $.each(self.selectedMembers,function(uid,person){
+                   if( person.checked==false){
+                       $.each(self.departmentMemebers,function(i,member){
+                          if(member.uiid==uid){
+                              member.checked=false;
+                          }
+                       });
+                       delete self.selectedMembers[uid];
+                   }
+                });
+            };
+            self.removeAllSelected=function(){
+                $.each(self.departmentMemebers,function(i,member){
+                    member.checked=false;
+                });
+                self.selectedMembers={};
             };
 
             self.setShare=function(){
