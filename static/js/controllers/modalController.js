@@ -3,20 +3,20 @@
  */
 define(["jquery","angular","zrender/zrender","./app.controllers",],function($,angular,zrender,controllers){
 
-    controllers.controller("modalCtrl",["$rootScope","$scope","$http","modalData",function($rootScope,$scope,$http,modalData){
+    controllers.controller("modalCtrl",["$rootScope","$scope","$http","modalData","$timeout",function($rootScope,$scope,$http,modalData,$timeout){
 
             var self=this;
             self.baseLink=$rootScope.plink;
             self.domain=$rootScope.domain;
-            console.log("modal data======================");
-            console.log(modalData);
-            self.modalData=modalData.data;
 
+            self.modalData=modalData.data;
+            self.curDepartment="宝龙集团";
+            self.curSearch="";
             self.departmentMemebers=[];
             self.selectedMembers={};
-            self.itemSelect=function(id){
-                 console.log(id);
+            self.itemSelect=function(id,name){
                 var search="?orgCd="+id;
+                self.curDepartment=name;
                 $http.get($rootScope.plink+'/sdk!quick.action'+search, {cache: false,'Content-Type':'application/x-www-form-urlencoded',withCredentials:true}).then(function(res){
                     console.log(res.data);
 
@@ -40,8 +40,7 @@ define(["jquery","angular","zrender/zrender","./app.controllers",],function($,an
 
             self.toggleSelect=function($event,member){
                 $event.preventDefault();
-                console.log(member);
-                console.log(member.uiid);
+
                 if(member.checked==true){
                     member.checked=false;
                     delete self.selectedMembers[member.uiid];
@@ -54,9 +53,6 @@ define(["jquery","angular","zrender/zrender","./app.controllers",],function($,an
 
             self.selectedToggleCheck=function($event,uid){
                 $event.preventDefault();
-                console.log(uid);
-                console.log(self.selectedMembers[uid])
-                console.log(self.selectedMembers[uid].checked)
                 if(self.selectedMembers[uid].checked==true){
                     self.selectedMembers[uid].checked=false;
                 }else{
@@ -88,8 +84,51 @@ define(["jquery","angular","zrender/zrender","./app.controllers",],function($,an
                 self.selectedMembers={};
             };
 
-            self.setShare=function(){
+            function _getPropertyCount(o){
+                var n, count = 0;
+                for(n in o){
+                    if(o.hasOwnProperty(n)){
+                        count++;
+                    }
+                }
+                return count;
+            }
+        self.setShare=function(){
+
+                if(_getPropertyCount(self.selectedMembers)>0){
+                    $rootScope.$broadcast("shareSelect",{
+                        selectedMembers:self.selectedMembers
+                    });
+                }
                 _modal_hide();
+            };
+
+            var defer=undefined;
+            self.quickSearch=function($event){
+                if(typeof defer=="undefined"){
+                    defer=setTimeout(function(){
+                        var search="?term="+self.curSearch+"&size=10";
+                        if(self.curSearch!==''){
+                            self.curDepartment="快速搜索";
+                            $http.get($rootScope.plink+'/sdk!quick.action'+search, {cache: false,'Content-Type':'application/x-www-form-urlencoded',withCredentials:true}).then(function(res){
+                                console.log(res.data);
+                                self.departmentMemebers=null;
+                                self.departmentMemebers=res.data.data;
+                                $.each(self.departmentMemebers,function(i,member){
+                                    if(self.selectedMembers[member.uiid]){
+                                        member.checked=true;
+                                    }
+                                });
+                            });
+
+                            defer=undefined;
+                        }else{
+                            alert("查询内容不能为空");
+                            defer=undefined;
+                        }
+                    },300);
+                }
+
             };
 
             $scope.$on("shareMessage",function(e,data){

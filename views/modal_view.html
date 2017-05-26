@@ -6,9 +6,9 @@
                 <h4 class="modal-title pull-left">请选择人员</h4>
                 <div class="modal-search-wrapper pull-left">
                     <div class="input-group">
-                        <input type="text" class="form-control" placeholder="快速搜索">
+                        <input type="text" class="form-control" placeholder="快速搜索" ng-model="mCtrl.curSearch" ng-change="mCtrl.quickSearch($event)">
                         <span class="input-group-btn">
-                            <button class="btn btn-default" type="button">
+                            <button class="btn btn-default" type="button" ng-click="mCtrl.quickSearch()">
                                 <em class="glyphicon glyphicon-search"></em>
                             </button>
                         </span>
@@ -28,8 +28,8 @@
                     </div>
                     <div class="col-xs-4">
                        <span class="ys-breadcrumb">
-                           <em>当前部门：</em>
-                           <em>总部</em>
+                           <em>当前选择：</em>
+                           <em>{{mCtrl.curDepartment}}</em>
                        </span>
                     </div><!--breadcrumb-->
 
@@ -43,7 +43,7 @@
                 </div><!--modal opt wrapper-->
                 <div class="modal-list-wrapper clearfix">
                     <div class="col-xs-4 modal-department-list">
-                        <div list-tree list-data="mCtrl.modalData" item-select="mCtrl.itemSelect(id)">
+                        <div list-tree list-data="mCtrl.modalData" item-select="mCtrl.itemSelect(id,name)">
 
                         </div>
                     </div><!--modal-department-list-->

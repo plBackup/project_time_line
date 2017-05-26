@@ -38,11 +38,11 @@ define(["angular","./app.directives"],function(angular,directives){
 
                            if(typeof e.children!=="undefined" && (e.children.length>0)){
                               var child=_createDom(e.children);
-                               var li="<li data-id='"+e.id+"' class='ys-tree-item parent'>"+ "<span>"+e.name+"</span>"+
+                               var li="<li data-id='"+e.id+"' data-name='"+e.name+"' class='ys-tree-item parent'>"+ "<span>"+e.name+"</span>"+
                                    child +
                                    "</li>";
                            }else{
-                               var li=( "<li data-id='"+e.id+"' class='ys-tree-item'>"+ "<span>"+e.name+"</span>"+ "</li>");
+                               var li=( "<li data-id='"+e.id+"' data-name='"+e.name+"' class='ys-tree-item'>"+ "<span>"+e.name+"</span>"+ "</li>");
                            }
 
                            items.push(li);
@@ -72,8 +72,9 @@ define(["angular","./app.directives"],function(angular,directives){
                                $(this).addClass("active");
 
                                var itemId=$(this).data("id");
+                               var itemName=$(this).data("name");
                                $scope.$apply(function() {
-                                   $scope.itemSelect({id : itemId});
+                                   $scope.itemSelect({id : itemId,name:itemName});
                                });
                            }
 

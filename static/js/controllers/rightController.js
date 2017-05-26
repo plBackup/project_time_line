@@ -21,7 +21,7 @@ define(["jquery","angular","zrender/zrender","./app.controllers",],function($,an
 
             self.isReply=false;
             self.isShare=false;
-            self.shareMembers=[];
+            self.shareMembers={};
 
         self.planCompleteDate='';
         self.dateDirectiveName="complete_date";
@@ -209,7 +209,13 @@ define(["jquery","angular","zrender/zrender","./app.controllers",],function($,an
 
 
             };
-
+            $scope.$on("shareSelect",function(e,data){
+                console.log(data);
+                self.isReply=false;
+                self.replyMessager=null;
+                self.isShare=true;
+                self.shareMembers=data;
+            });
             self.canReply=function(shareds){
                 $.each(shareds,function(i,e){
                     if(self.curUser==e.sharedUserCd){
@@ -225,19 +231,34 @@ define(["jquery","angular","zrender/zrender","./app.controllers",],function($,an
             };
             self.reply=function($event,messageCreator){
                 $event.preventDefault();
+                self.isShare=false;
+                self.shareMembers={};
                 self.isReply=true;
                 self.replyMessager=messageCreator;
                 $("#message-textarea").focus();
             };
-            self.resetReply=function(){
+            self.resetReply=function($event){
+                $event.preventDefault();
                 self.isReply=false;
                 self.replyMessager=null;
                 //self.replyMessager=null;
 
             };
-
-            self.popShareMember=function(shareMember){
-
+            function _getPropertyCount(o){
+                var n, count = 0;
+                for(n in o){
+                    if(o.hasOwnProperty(n)){
+                        count++;
+                    }
+                }
+                return count;
+            }
+            self.popShareMember=function($event,uid){
+                $event.preventDefault();
+                delete self.shareMembers[uid];
+                if(_getPropertyCount(self.shareMembers)==0){
+                    self.isShare=false;
+                }
             };
            /* self.deleteAttach=function($event,attach){
 
