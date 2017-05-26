@@ -170,6 +170,17 @@ define(["jquery","angular","zrender/zrender","./app.controllers",],function($,an
                     alert("消息不能为空！");
                     return;
                 }
+                if(self.isShare){
+                    var actionCd=1002;
+                    var userCds="";
+                    for(member in self.shareMembers){
+                        if(self.shareMembers.hasOwnProperty(member)){
+                            userCds+=(member+",");
+                        }
+                    }
+                    userCds=userCds.slice(0,-1);
+                }
+
                 if(self.isReply){
                     var actionCd=1003;
                     var userCds=self.replyMessager;
@@ -205,7 +216,7 @@ define(["jquery","angular","zrender/zrender","./app.controllers",],function($,an
             };
             self.shareMessage=function($event){
                 $event.preventDefault();
-                $rootScope.$broadcast("shareMessage");
+                $rootScope.$broadcast("shareMessage",self.shareMembers);
 
 
             };
@@ -215,6 +226,7 @@ define(["jquery","angular","zrender/zrender","./app.controllers",],function($,an
                 self.replyMessager=null;
                 self.isShare=true;
                 self.shareMembers=data;
+                console.log(self.shareMembers);
             });
             self.canReply=function(shareds){
                 $.each(shareds,function(i,e){

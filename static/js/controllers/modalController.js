@@ -96,9 +96,7 @@ define(["jquery","angular","zrender/zrender","./app.controllers",],function($,an
         self.setShare=function(){
 
                 if(_getPropertyCount(self.selectedMembers)>0){
-                    $rootScope.$broadcast("shareSelect",{
-                        selectedMembers:self.selectedMembers
-                    });
+                    $rootScope.$broadcast("shareSelect",self.selectedMembers);
                 }
                 _modal_hide();
             };
@@ -133,6 +131,9 @@ define(["jquery","angular","zrender/zrender","./app.controllers",],function($,an
 
             $scope.$on("shareMessage",function(e,data){
                 _modal_show();
+                self.departmentMemebers=null;
+                self.curSearch="";
+                self.shareMembers=data;
             });
 
             function _modal_show(){
