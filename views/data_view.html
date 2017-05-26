@@ -52,7 +52,7 @@
                 <li ng-if="dCtrl.curSelectNode.resIds[0]!==undefined && dCtrl.curSelectNode.resIds[0]!==''">
                     <label>网批查询号:</label>
                     <span>
-                        <a ng-repeat="resId in dCtrl.curSelectNode.resIds" href="{{dCtrl.baseLink}}/res/res-approve-info.action?id={{resId}}" target="_blank">
+                        <a ng-repeat="resId in dCtrl.curSelectNode.resIds" href="{{dCtrl.domain}}/PowerDesk/res/res-approve-info.action?id={{resId}}" target="_blank">
                             {{dCtrl.curSelectNode.resNumbers[$index]}}
                         </a>
                     </span>

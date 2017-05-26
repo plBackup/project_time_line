@@ -40,6 +40,7 @@ define(["angular","zrender/zrender","./app.controllers","../graph/graph","../gra
         self.project=null;
         self.nodesFilter=null;
         self.baseLink=$rootScope.plink;
+        self.domain=$rootScope.domain;
         function _getNodes(nodesFilter){
             //var search="?planId="+plan+"&level=all&status=all&all=1";
             /*self.menuFilter={
