@@ -170,18 +170,16 @@ define(["jquery","angular","zrender/zrender","./app.controllers",],function($,an
                     alert("消息不能为空！");
                     return;
                 }
-                if(self.isShare){
-                    var actionCd=1002;
-                    var userCds="";
-                    for(member in self.shareMembers){
-                        if(self.shareMembers.hasOwnProperty(member)){
-                            userCds+=(member+",");
+                if(self.isShare) {
+                    var actionCd = 1002;
+                    var userCds = "";
+                    for (member in self.shareMembers) {
+                        if (self.shareMembers.hasOwnProperty(member)) {
+                            userCds += (member + ",");
                         }
                     }
-                    userCds=userCds.slice(0,-1);
-                }
-
-                if(self.isReply){
+                    userCds = userCds.slice(0, -1);
+                }else if(self.isReply){
                     var actionCd=1003;
                     var userCds=self.replyMessager;
 
@@ -191,7 +189,7 @@ define(["jquery","angular","zrender/zrender","./app.controllers",],function($,an
                 }
 
                 var search="?action="+actionCd+"&nodeId="+nodeId+"&content="+content+"&userCds="+userCds;
-
+                console.log(search);
                 $http.get($rootScope.plink+'/sdk!comment.action'+search, {cache: false,'Content-Type':'application/x-www-form-urlencoded',withCredentials:true}).then(function (res) {
                     if(res.data.code==200){
                         $("#message-alert-wrapper").find(".alert-success").fadeIn();
@@ -206,11 +204,20 @@ define(["jquery","angular","zrender/zrender","./app.controllers",],function($,an
                         },2500);
                     }
 
+                    self.isReply=false;
+                    self.isShare=false;
+                    self.shareMembers={};
+                    self.replyMessager=null;
+
                 },function(err){
                     $(".alert-wrapper").find(".alert-danger").fadeIn();
                     $timeout(function(){
                         $(".alert-wrapper").find(".alert-danger").fadeOut();
                     },2500);
+                    self.isReply=false;
+                    self.isShare=false;
+                    self.shareMembers={};
+                    self.replyMessager=null;
                 });
 
             };
@@ -228,6 +235,7 @@ define(["jquery","angular","zrender/zrender","./app.controllers",],function($,an
                 self.shareMembers=data;
                 console.log(self.shareMembers);
             });
+
             self.canReply=function(shareds){
                 $.each(shareds,function(i,e){
                     if(self.curUser==e.sharedUserCd){
@@ -283,7 +291,7 @@ define(["jquery","angular","zrender/zrender","./app.controllers",],function($,an
                    //todo：根据status做判断
                    var data=res.data.data;
                    self.formData=angular.copy(data);
-
+                   console.log(self.formData);
                    self.chargerInfo.delayReason=angular.copy(self.formData.delayReason);
                    self.chargerInfo.influenceMainNode=angular.copy(self.formData.influenceMainNode);
                    self.chargerInfo.finishOnTime=angular.copy(self.formData.finishOnTime);

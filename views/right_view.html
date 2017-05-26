@@ -313,8 +313,8 @@
                         <tbody>
                         <tr ng-repeat="message in rCtrl.formData.messages">
                             <th ng-if="message.type==1">{{message.creatorName}} <i>（{{rCtrl.toDateStr(message.messageDate)}}）</i> 留言:</th>
-                            <th ng-if="message.type==2">{{message.creatorName}} <i>（{{rCtrl.toDateStr(message.messageDate)}}）</i> 共享给 <em>{{message.messageUserName}}</em>:</th>
-                            <th ng-if="message.type==3">{{message.creatorName}} <i>（{{rCtrl.toDateStr(message.messageDate)}}）</i> 回复 <em>{{message.messageUserName}}</em>:</th>
+                            <th ng-if="message.type==2">{{message.creatorName}} <i>（{{rCtrl.toDateStr(message.messageDate)}}）</i> 共享给 <em>{{rCtrl.getShares(message.shareds)}}</em>:</th>
+                            <th ng-if="message.type==3">{{message.creatorName}} <i>（{{rCtrl.toDateStr(message.messageDate)}}）</i> 回复 <em>{{message.messageUserNames}}</em>:</th>
                             <td>{{message.content}}
                                 <a ng-click="rCtrl.reply($event,message.creator)" ng-show="(message.type==2 || message.type==3)&& rCtrl.canReply(message.shareds)" class="ys-btn-reply">回复</a>
                             </td>
