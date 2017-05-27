@@ -93,6 +93,12 @@ define(["jquery","angular","zrender/zrender","./app.controllers",],function($,an
                 }
                 return count;
             }
+
+        /*self.getShares=function(shareds){
+                $.each(shareds,function(i,member){
+
+                })
+        };*/
         self.setShare=function(){
 
                 if(_getPropertyCount(self.selectedMembers)>0){
