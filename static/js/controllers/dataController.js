@@ -263,7 +263,7 @@ define(["angular","zrender/zrender","./app.controllers","../graph/graph","../gra
 
             var $image=$("#fake-img");
             $image.attr("src",imageData);
-            var ratio=window.devicePixelRatio
+            var ratio=window.devicePixelRatio;
             var cWidth=zrfake.getWidth();
             var cHeight=zrfake.getHeight();
 
