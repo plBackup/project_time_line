@@ -208,6 +208,7 @@ define(["jquery","angular","zrender/zrender","./app.controllers",],function($,an
                     self.isShare=false;
                     self.shareMembers={};
                     self.replyMessager=null;
+                    self.message="";
 
                 },function(err){
                     $(".alert-wrapper").find(".alert-danger").fadeIn();
@@ -218,6 +219,7 @@ define(["jquery","angular","zrender/zrender","./app.controllers",],function($,an
                     self.isShare=false;
                     self.shareMembers={};
                     self.replyMessager=null;
+                    self.message="";
                 });
 
             };

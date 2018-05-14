@@ -13,8 +13,12 @@ define(["angular","./app.controllers"],function(angular,controllers){
         }
         $rootScope.curUser=menuData.data.uuid;
 
-
+        self.num=undefined;
+        //
         self.data=angular.copy(menuData.data);
+        console.log("menu data=============");
+        console.log(self.data);
+        console.log("menu data=============");
         self.menuFilter={
             project:undefined,
             level:undefined,
@@ -24,6 +28,9 @@ define(["angular","./app.controllers"],function(angular,controllers){
             all:1
         };
         self.projects=angular.copy(self.data.projects);
+        console.log("========================");
+        console.log(self.projects);
+        console.log("========================");
         self.levels=angular.copy(self.data.levels);
         self.status=angular.copy(self.data.status);
         self.plans=angular.copy(self.data.plans);

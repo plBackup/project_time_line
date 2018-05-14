@@ -2,12 +2,16 @@
     <div class="collapse navbar-collapse" id="navbar">
         <ul class="nav navbar-nav">
             <li class="dropdown">
-                <label>项目</label>
+                <label>项目{{mCtrl.num|default:"-"}}</label>
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <span>{{mCtrl.menuFilter.project.name| default:"请选择"}}</span> <span class="glyphicon glyphicon-menu-down"></span></a>
                 <ul class="dropdown-menu" role="menu" id="project-filter">
-                    <li ng-repeat="project in mCtrl.projects" ng-class="{'active':mCtrl.isActive(project.projectCd,mCtrl.menuFilter.project.projectCd)}">
+
+
+                    <li ng-repeat="project in mCtrl.projects"
+                        ng-class="{'active':mCtrl.isActive(project.projectCd,mCtrl.menuFilter.project.projectCd)}">
                         <a data-id={{project.projectCd}} ng-click='mCtrl.setProject(project)'>{{project.name}}</a>
                     </li>
+
                 </ul>
             </li>
             <li class="dropdown">
